@@ -2,6 +2,12 @@
   "name": "root",
   "private": true,
   "devDependencies": {
+    "husky": "^3.0.9",
     "lerna": "^3.18.4"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
