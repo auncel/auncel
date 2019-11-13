@@ -1,5 +1,5 @@
 {
-  "name": "diff-dom-core",
+  "name": "@feoj/diff-dom-core",
   "version": "0.0.1",
   "description": "core dom based algorithm",
   "author": "yidafu <yidafu90@qq.com>",
@@ -18,9 +18,21 @@
     "url": "git+https://github.com/yidafu/fe-oj.git"
   },
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/yidafu/fe-oj/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.7",
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }
