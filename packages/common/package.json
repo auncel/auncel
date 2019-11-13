@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@feoj/common",
   "version": "0.0.1",
   "description": "shared",
   "author": "yidafu <yidafu90@qq.com>",
@@ -22,5 +22,11 @@
   },
   "bugs": {
     "url": "https://github.com/yidafu/fe-oj/issues"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.7"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.7"
   }
 }
