@@ -1,7 +1,7 @@
 import { Page, Browser } from 'puppeteer';
+import log from '../logger/puppeteer';
 import { MAX_PAGE_POOL_SIZE } from './constants';
 import sleep from '../utils/sleep';
-
 /**
  * TODO: 当 initpageManager 时，不允许调用 getPage、releasePage 
  *
@@ -10,9 +10,18 @@ import sleep from '../utils/sleep';
  */
 export class PageManager {
   private pagePool: Page[] = [];
+  /**
+   * a lock
+   * @private
+   * @type {boolean}
+   * @memberof PageManager
+   */
+  private isCreating: boolean = true;
   
   public async initPageManager(browser: Browser) {
     // const browser = await Puppeteer.getBrowser();
+    this.isCreating = true;
+    log.info(`started creating ${MAX_PAGE_POOL_SIZE} page instance at ${Date.now()}`);
     console.time(`create ${MAX_PAGE_POOL_SIZE} page instance`)
     const pagePromises: Promise<Page>[] = [];
     for (let i = 0; i < MAX_PAGE_POOL_SIZE; i++) {
@@ -20,13 +29,16 @@ export class PageManager {
     }
     const pageArr = await Promise.all(pagePromises)
     console.timeEnd(`create ${MAX_PAGE_POOL_SIZE} page instance`)
+    log.info(`creating ${MAX_PAGE_POOL_SIZE} page instance finished at ${Date.now}`);
+    this.isCreating = false;
     this.pagePool.push(...pageArr);
   }
 
   public async getPage() {
+    // TODO: retry times limit
     // wait
-    while (this.pagePool.length === 0) {
-      console.log('awaiting for get Page');
+    while (this.isCreating || this.pagePool.length === 0) {
+      log.warn('awaiting for get Page');
       await sleep(200);
     }
 
@@ -39,23 +51,3 @@ export class PageManager {
   }
 
 }
-
-// PageManager.initPageManager().then(() => {
-  
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage();
-//   PageManager.getPage().then(p => {
-//     setTimeout(() => {
-//       PageManager.releasePage(p)
-//     }, 1000);
-//   });
-
-//   PageManager.getPage();
-// });

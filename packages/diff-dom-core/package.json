@@ -1,38 +1,38 @@
 {
-  "name": "@feoj/diff-dom-core",
-  "version": "0.0.1",
-  "description": "core dom based algorithm",
-  "author": "yidafu <yidafu90@qq.com>",
-  "homepage": "https://github.com/yidafu/fe-oj#readme",
-  "license": "MIT",
-  "main": "lib/diff-dom-core.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yidafu/fe-oj.git"
-  },
-  "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/yidafu/fe-oj/issues"
-  },
-  "devDependencies": {
-    "@types/node": "^12.12.7",
-    "ts-loader": "^6.2.1",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "typescript": "^3.7.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
-  },
-  "dependencies": {
-    "lodash": "^4.17.15"
-  }
+	"name": "@feoj/diff-dom-core",
+	"version": "0.0.1",
+	"description": "core dom based algorithm",
+	"author": "yidafu <yidafu90@qq.com>",
+	"homepage": "https://github.com/yidafu/fe-oj#readme",
+	"license": "MIT",
+	"main": "lib/diff-dom-core.js",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/yidafu/fe-oj.git"
+	},
+	"bugs": {
+		"url": "https://github.com/yidafu/fe-oj/issues"
+	},
+	"devDependencies": {
+		"@types/jest": "^24.0.23",
+		"@types/node": "^12.12.7",
+		"ts-jest": "^24.1.0",
+		"ts-loader": "^6.2.1",
+		"tsconfig-paths-webpack-plugin": "^3.2.0",
+		"typescript": "^3.7.2",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10"
+	},
+	"dependencies": {
+		"jest": "^24.9.0",
+		"lodash": "^4.17.15",
+		"winston": "^3.2.1"
+	}
 }

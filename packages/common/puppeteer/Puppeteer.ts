@@ -1,5 +1,6 @@
 import * as puppeteer from 'puppeteer';
 import { Browser } from 'puppeteer';
+import log from '../logger/puppeteer';
 import { PageManager } from './PageManager';
 
 export class Puppeteer {
@@ -8,6 +9,7 @@ export class Puppeteer {
 
   public static async getBrowser(): Promise<Browser> {
     if (!this.browser) {
+      log.info(`start launch puppeteer at ${Date.now()}`);
       console.time('puppeteer launch');
       this.browser = await puppeteer.launch({
         args: ['--no-sandbox'],
@@ -17,6 +19,7 @@ export class Puppeteer {
         },
       });
       console.timeEnd('puppeteer launch');
+      log.info(`launch puppeterr at ${Date.now()}`);
     }
     return this.browser;
   }

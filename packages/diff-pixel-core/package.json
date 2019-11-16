@@ -25,5 +25,9 @@
   },
   "devDependencies": {
     "@types/node": "^12.12.7"
+  },
+  "dependencies": {
+    "jest": "^24.9.0",
+    "winston": "^3.2.1"
   }
 }

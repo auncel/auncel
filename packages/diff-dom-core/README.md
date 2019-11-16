@@ -1,11 +1,2 @@
-# `diff-dom-core`
+#  Diff-Dom-Core
 
-> TODO: description
-
-## Usage
-
-```
-const diffDomCore = require('diff-dom-core');
-
-// TODO: DEMONSTRATE API
-```
