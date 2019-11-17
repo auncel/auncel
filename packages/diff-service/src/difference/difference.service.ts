@@ -8,9 +8,6 @@ import { readJSFile } from '../utils/readJSFile';
 import { Page } from 'puppeteer';
 // import { diff } from '@feoj/diff-dom-core/dist/diff';
 
-interface window {
-
-};
 
 @Injectable()
 export class DifferenceService {

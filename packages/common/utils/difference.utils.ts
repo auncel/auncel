@@ -1,13 +1,13 @@
-import { RenderNode, NodeType } from "../types/difference.interface";
+import { IRenderNode, NodeType } from "../types/difference.interface";
 
 /**
  * 创建空的 RenderNode
  *
  * @export
  * @param {string} [tagName='div']
- * @returns {RenderNode}
+ * @returns {IRenderNode}
  */
-export function createEmptyNode(tagName = 'div'): RenderNode {
+export function createEmptyNode(tagName = 'div'): IRenderNode {
   return {
     attr: {},
     
@@ -20,14 +20,14 @@ export function createEmptyNode(tagName = 'div'): RenderNode {
   };
 }
 
-export function createTextNode(text = ''): RenderNode {
+export function createTextNode(text = ''): IRenderNode {
   return {
     text,
     nodeType: NodeType.TEXT_NODE,
   };
 }
 
-export function isElement(elem: RenderNode): boolean {
+export function isElement(elem: IRenderNode): boolean {
   return elem.nodeType === NodeType.ELEMENT_NODE;
 }
 

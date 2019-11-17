@@ -1,6 +1,6 @@
-import { DiffNode, RenderTree, DiffType } from "@feoj/common/types/difference.interface";
+import { IDiffNode, RenderTree, DiffType } from "@feoj/common/types/difference.interface";
 
-function getNodeLocation(node: DiffNode) {
+function getNodeLocation(node: IDiffNode) {
   const buff = [];
 
   while(node) {
@@ -10,7 +10,7 @@ function getNodeLocation(node: DiffNode) {
   return buff.join(' ');
 }
 
-function diffStyle(node: DiffNode): string[]{
+function diffStyle(node: IDiffNode): string[]{
   const { exemplar, instance } = node.style;
   const diffReason = [];
   for (let property in exemplar ) {
@@ -32,12 +32,12 @@ function diffStyle(node: DiffNode): string[]{
  * 只是位置信息的比较
  *
  * @export
- * @param {DiffNode} root
+ * @param {IDiffNode} root
  */
-export function genDiffRes(root: DiffNode) {
+export function genDiffRes(root: IDiffNode) {
   const framgent = document.createDocumentFragment();  
   const diffLog = [];
-  const stack: DiffNode[] = [];
+  const stack: IDiffNode[] = [];
   stack.push(root);
   while(stack.length) {
     const node = stack.pop();
