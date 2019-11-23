@@ -63,3 +63,24 @@ function getStyleProperties(): string[] {
   }
   return properties;
 }
+
+export function htmlWrap(fragment: string, stylesheet: string) {
+  // 数组更美观
+  return [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
+    '  <title>Document</title>',
+    '  <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">',
+    '  <style id="inject-style">',
+    `    ${stylesheet}`,
+    '  </style>',
+    '</head>',
+    '<body>',
+    `    ${fragment}`,
+    '</body>',
+    '</html>'].join('\n');
+}
