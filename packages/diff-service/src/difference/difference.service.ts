@@ -8,16 +8,11 @@ import { readJSFile } from '../utils/readJSFile';
 import { Page } from 'puppeteer';
 // import { diff } from '@feoj/diff-dom-core/dist/diff';
 
-interface window {
-
-};
-
 @Injectable()
 export class DifferenceService {
   private pageManager: PageManager = null;
-  
-  public async getRenderTree(html: string): Promise<RenderNode> {
 
+  public async getRenderTree(html: string): Promise<RenderNode> {
     const diffModuleStr = await readJSFile(path.resolve(__dirname, '../../lib/diff.js'));
     const wrapFunc = `
       ${diffModuleStr};
@@ -28,7 +23,7 @@ export class DifferenceService {
     try {
       page = await this.pageManager.getPage();
       await page.setContent(html);
-      const beforeDiff =  Date.now();
+      const beforeDiff = Date.now();
       const renderTree: RenderNode = await page.evaluate(wrapFunc);
       Logger.log(`diff cosst ${Date.now() - beforeDiff} ms`);
       // await page.screenshot({
@@ -43,13 +38,13 @@ export class DifferenceService {
     }
   }
 
-  
+
   public async diff(tree0: RenderNode, treee1: RenderNode): Promise<DiffNode> {
     // const difftree = diff(tree0, treee1);
     // return difftree;
     return Promise.resolve({} as DiffNode);
   }
-  
+
   public async diffHTML(html1: string, html2: string) {
     const diffModuleStr = await readJSFile(path.resolve(__dirname, '../../lib/diff.js'));
     const genRenderTreeFunc = `
@@ -61,7 +56,7 @@ export class DifferenceService {
     let page2: Page;
     try {
       // TODO: 并行
-      page1 =  await this.pageManager.getPage();
+      page1 = await this.pageManager.getPage();
       await page1.setContent(html1);
       const exemplarTree: RenderNode = await page1.evaluate(genRenderTreeFunc);
 
@@ -78,7 +73,7 @@ export class DifferenceService {
       // const logs = await page2.evaluate(genDiffResFunc);
       const diffImgName = `diff-img-${Date.now()}.png`; // TODO: 文件名区分用户
       page1.screenshot({
-        path: 'public/' + diffImgName, // TODO: public/ 抽离为配置变量
+        path: `public/${diffImgName}`, // TODO: public/ 抽离为配置变量
         fullPage: true,
       });
       return {
@@ -91,13 +86,13 @@ export class DifferenceService {
     }
   }
   async onModuleInit() {
-    Logger.log('[difference service][before onModuleInit]')
+    Logger.log('[difference service][before onModuleInit]');
     const pageManager = await Puppeteer.getPageManager();
     this.pageManager = pageManager;
-    Logger.log('[difference service][after onModuleInit]')
+    Logger.log('[difference service][after onModuleInit]');
   }
 
   OnApplicationBootstrap() {
-    Logger.log('[difference service][hook OnApplicationBootstrap]')
+    Logger.log('[difference service][hook OnApplicationBootstrap]');
   }
 }

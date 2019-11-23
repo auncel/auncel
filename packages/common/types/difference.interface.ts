@@ -34,7 +34,7 @@ export enum NodeType {
 }
 
 interface StyleProp {
-  [proto: string]: string
+  [proto: string]: string;
 }
 
 type NodeRect = number[
@@ -72,24 +72,24 @@ export type RenderTree = RenderNode;
 
 const AttributeList = <const> [
   'accept', 'accept-charset', 'accesskey', 'action', 'align', 'allow', 'alt',
-  'async', 'autocapitalize', 'autocomplete', 'autofocus', 'autoplay', 
-  'background', 'bgcolor', 'border', 'buffered', 'challenge', 'charset', 
-  'checked', 'cite', 'class', 'code', 'codebase', 'color', 'cols', 'colspan', 
-  'content', 'contenteditable', 'contextmenu', 'controls', 'coords', 
-  'crossorigin', 'csp ', 'data', 'data-*', 'datetime', 'decoding', 'default', 
-  'defer', 'dir', 'dirname', 'disabled', 'download', 'draggable', 'dropzone', 
-  'enctype', 'enterkeyhint ', 'for', 'form', 'formaction', 'formenctype', 
-  'formmethod', 'formnovalidate', 'formtarget', 'headers', 'height', 'hidden', 
-  'high', 'href', 'hreflang', 'http-equiv', 'icon', 'id', 'importance ', 
-  'integrity', 'intrinsicsize ', 'inputmode', 'ismap', 'itemprop', 'keytype', 
-  'kind', 'label', 'lang', 'language', 'loading ', 'list', 'loop', 'low', 
-  'manifest', 'max', 'maxlength', 'minlength', 'media', 'method', 'min', 
-  'multiple', 'muted', 'name', 'novalidate', 'open', 'optimum', 'pattern', 
-  'ping', 'placeholder', 'poster', 'preload', 'radiogroup', 'readonly', 
-  'referrerpolicy', 'rel', 'required', 'reversed', 'rows', 'rowspan', 
+  'async', 'autocapitalize', 'autocomplete', 'autofocus', 'autoplay',
+  'background', 'bgcolor', 'border', 'buffered', 'challenge', 'charset',
+  'checked', 'cite', 'class', 'code', 'codebase', 'color', 'cols', 'colspan',
+  'content', 'contenteditable', 'contextmenu', 'controls', 'coords',
+  'crossorigin', 'csp ', 'data', 'data-*', 'datetime', 'decoding', 'default',
+  'defer', 'dir', 'dirname', 'disabled', 'download', 'draggable', 'dropzone',
+  'enctype', 'enterkeyhint ', 'for', 'form', 'formaction', 'formenctype',
+  'formmethod', 'formnovalidate', 'formtarget', 'headers', 'height', 'hidden',
+  'high', 'href', 'hreflang', 'http-equiv', 'icon', 'id', 'importance ',
+  'integrity', 'intrinsicsize ', 'inputmode', 'ismap', 'itemprop', 'keytype',
+  'kind', 'label', 'lang', 'language', 'loading ', 'list', 'loop', 'low',
+  'manifest', 'max', 'maxlength', 'minlength', 'media', 'method', 'min',
+  'multiple', 'muted', 'name', 'novalidate', 'open', 'optimum', 'pattern',
+  'ping', 'placeholder', 'poster', 'preload', 'radiogroup', 'readonly',
+  'referrerpolicy', 'rel', 'required', 'reversed', 'rows', 'rowspan',
   'sandbox', 'scope', 'scoped', 'selected', 'shape', 'size', 'sizes', 'slot',
   'span', 'spellcheck', 'src', 'srcdoc', 'srclang', 'srcset', 'start', 'step',
-  'style', 'summary', 'tabindex', 'target', 'title', 'translate', 'type', 
+  'style', 'summary', 'tabindex', 'target', 'title', 'translate', 'type',
   'usemap', 'value', 'width', 'wrap',
 ];
 
@@ -124,17 +124,17 @@ export interface DiffNode {
   tagName?: DiffProp<string>;
   nodeType?: DiffProp<NodeType>;
 
-  id?: DiffProp<string>,
-  className?: DiffProp<string>,
+  id?: DiffProp<string>;
+  className?: DiffProp<string>;
 
-  style?: DiffProp<StyleProp>,
-  attr?: DiffProp<Attributes>,
-  rect?: DiffProp<NodeRect>,
-  dataset?: DiffProp<DOMStringMap>,
+  style?: DiffProp<StyleProp>;
+  attr?: DiffProp<Attributes>;
+  rect?: DiffProp<NodeRect>;
+  dataset?: DiffProp<DOMStringMap>;
 
-  children?: DiffNode[],
-  parent?: DiffNode, // 生成 diff 结果时，用于获取生成节点路径
+  children?: DiffNode[];
+  parent?: DiffNode; // 生成 diff 结果时，用于获取生成节点路径
 
-  text?: DiffProp<string>,
+  text?: DiffProp<string>;
 
 }

@@ -1,4 +1,4 @@
-import tokenize from "./tokenize";
+import tokenize from './tokenize';
 
 const style = `
 h1 {
@@ -27,4 +27,4 @@ blockquote {
   background: none repeat scroll 0 0 rgba(102, 128, 153, .05);
 }`;
 
-console.log(JSON.stringify(tokenize(style),null, 2))
+console.log(JSON.stringify(tokenize(style), null, 2));

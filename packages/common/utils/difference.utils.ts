@@ -1,4 +1,4 @@
-import { RenderNode, NodeType } from "../types/difference.interface";
+import { RenderNode, NodeType } from '../types/difference.interface';
 
 /**
  * 创建空的 RenderNode
@@ -10,10 +10,10 @@ import { RenderNode, NodeType } from "../types/difference.interface";
 export function createEmptyNode(tagName = 'div'): RenderNode {
   return {
     attr: {},
-    
-    rect: [ 0,  0,  0,  0 ],
 
-    tagName: tagName,
+    rect: [0, 0, 0, 0],
+
+    tagName,
     nodeType: NodeType.ELEMENT_NODE,
 
     style: {},
@@ -54,5 +54,5 @@ export function createHtmlTpl(stylesheet: string, fragment: string): string {
 ${fragment}
 </body>
 
-</html>`
+</html>`;
 }

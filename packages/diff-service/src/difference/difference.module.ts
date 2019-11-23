@@ -4,7 +4,7 @@ import { DifferenceService } from './difference.service';
 import { HtmlService } from 'src/html/html.service';
 
 @Module({
-  controllers: [ DifferenceController],
+  controllers: [DifferenceController],
   providers: [DifferenceService, HtmlService],
 })
 export class DifferenceModule {}
