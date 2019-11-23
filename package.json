@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "pre-commit": "lint-staged",
+    "pre-commit": "npm run lint",
     "lint": "lint-staged"
   },
   "lint-staged": {
