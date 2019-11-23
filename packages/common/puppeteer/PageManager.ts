@@ -34,7 +34,7 @@ export class PageManager {
     this.pagePool.push(...pageArr);
   }
 
-  public async getPage() {
+  public async getPage(): Promise<Page> {
     // TODO: retry times limit
     // wait
     while (this.isCreating || this.pagePool.length === 0) {
