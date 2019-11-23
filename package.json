@@ -2,15 +2,15 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "pre-commit": "npm run lint",
     "lint": "lint-staged"
   },
   "lint-staged": {
-    "*.ts": "eslint --fix",
-    "*.scss": "stylelint --fix"
+    "*.{ts,tsx}": "eslint --fix",
+    "*.{css,scss}": "stylelint --fix"
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

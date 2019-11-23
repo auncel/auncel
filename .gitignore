@@ -106,7 +106,8 @@ public/
 
 node_modules
 bower_componets
-
+# use yarn, ignore package-lock.json
+package-lock.json
 *.sublime*
 
 psd
