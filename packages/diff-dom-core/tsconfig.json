@@ -11,7 +11,7 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@common/*": [ "../../common/*" ],
+      "@feoj/common/*": [ "../../common/*" ],
       "@utils/*": [ "./utils/*" ],
       "@css/*": [ "../../css/*"]
     }

@@ -2,16 +2,16 @@
  * TODO: 首先实现严格的 Diff
  */
 import { isEqual } from 'lodash';
-import { RenderNode, DiffNode, DiffType, NodeType } from "@feoj/common/types/difference.interface";
+import { IRenderNode, IDiffNode, DiffType, NodeType } from "@feoj/common/types/difference.interface";
 
 /**
  *
  *
  * @export
- * @param {RenderNode} exemplar 样例输入
- * @param {RenderNode} instance 实际输入
+ * @param {IRenderNode} exemplar 样例输入
+ * @param {IRenderNode} instance 实际输入
  */
-export function diff(exemplar: RenderNode, instance: RenderNode) {
+export function diff(exemplar: IRenderNode, instance: IRenderNode) {
   const diffRoot = createDiffNode();
   diffDFT(exemplar, instance, diffRoot);
   return diffRoot;
@@ -20,27 +20,27 @@ export function diff(exemplar: RenderNode, instance: RenderNode) {
 /**
  * 比较标签是否相同
  *
- * @param {RenderNode} node1
- * @param {RenderNode} node2
+ * @param {IRenderNode} node1
+ * @param {IRenderNode} node2
  * @returns {boolean}
  */
-function isTagEqual(node1: RenderNode, node2: RenderNode): boolean {
+function isTagEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return node1.nodeName === node2.nodeName;
 }
 
-function isAttrEqual(node1: RenderNode, node2: RenderNode): boolean {
+function isAttrEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return isEqual(node1.attr, node2.attr);
 }
 
-function isStyleEqual(node1: RenderNode, node2: RenderNode): boolean {
+function isStyleEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return isEqual(node1.style, node2.style);
 }
 
-function isRectEqual(node1: RenderNode, node2: RenderNode): boolean {
+function isRectEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return isEqual(node1.rect, node2.rect);
 }
 
-function getNodeLocal(node: RenderNode): string {
+function getNodeLocal(node: IRenderNode): string {
   const buff = [node.tagName.toLowerCase()];
   if (node.id) buff.push(`#${node.id}`);
   if (node.className) buff.push(node.className.split(' ').join('.'));
@@ -49,10 +49,10 @@ function getNodeLocal(node: RenderNode): string {
 /**
  * Depth-first traversal
  *
- * @param {RenderNode} left
- * @param {RenderNode} right
+ * @param {IRenderNode} left
+ * @param {IRenderNode} right
  */
-function diffDFT(left: RenderNode, right: RenderNode, diffNode: DiffNode) {
+function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
   // TODO: 封装这一步的类型检查
   if (left.nodeType === NodeType.ELEMENT_NODE && right.nodeType === NodeType.ELEMENT_NODE) {
     diffNode.location = getNodeLocal(right);
@@ -131,7 +131,7 @@ function diffDFT(left: RenderNode, right: RenderNode, diffNode: DiffNode) {
   }
 }
 
-function createDiffNode(): DiffNode {
+function createDiffNode(): IDiffNode {
   return {
     type: DiffType.None,
     location: '',

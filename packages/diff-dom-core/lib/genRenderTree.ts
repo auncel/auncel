@@ -1,10 +1,10 @@
-import { RenderNode, NodeType } from "@feoj/common/types/difference.interface";
+import { IRenderNode, NodeType } from "@feoj/common/types/difference.interface";
 import { createEmptyNode, createTextNode } from '@feoj/common/utils/difference.utils';
 // import cloneDeep from 'lodash/fp/cloneDeep';
 import { getAttrs, getStyle, getRect } from "./utils";
 
 
-export function genRenderTree(body: Element): RenderNode {
+export function genRenderTree(body: Element): IRenderNode {
   const root = createEmptyNode();
   console.log('DFT start');
   DFT(body, root);
@@ -18,15 +18,15 @@ const noChildElement = [
 
 const ignoreElement = [
   'SCRIPT', 'STYLE',
-]
+];
 
 /**
  * Depth-first traversal
  *
  * @param {Element} domNode
- * @param {RenderNode} renderNode
+ * @param {IRenderNode} renderNode
  */
-function DFT(domNode: Element, renderNode: RenderNode) {
+function DFT(domNode: Element, renderNode: IRenderNode) {
   // debugger;
   if (domNode.nodeType === NodeType.ELEMENT_NODE) {
     renderNode.id = domNode.id;

@@ -1,4 +1,4 @@
-import { Attributes, AttributeType } from "@feoj/common/types/difference.interface";
+import { TAttributes, TTagAttribute } from "@feoj/common/types/difference.interface";
 import { tokenize, TokenType } from '@feoj/common/css/tokenize';
 
 const stylePrototypeWhiteList = [
@@ -27,12 +27,12 @@ const datasetReg =  /^data-.+/;
  * @param node Element node
  */
 export function getAttrs(node: Element) {
-  const attrObj: Attributes = {};
+  const attrObj: TAttributes = {};
   const attrs = node.attributes;
 
   for (let i = 0; i < attrs.length; i++ ) {
     const attr: Attr = attrs[i];
-    const nodeName = attr.nodeName as AttributeType;
+    const nodeName = attr.nodeName as TTagAttribute;
     if (ignoreAttr.includes(nodeName) || datasetReg.test(nodeName)) {
       attrObj[nodeName] = attr.nodeValue;
     }

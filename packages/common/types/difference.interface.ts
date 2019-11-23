@@ -1,3 +1,5 @@
+import { TTag } from './element';
+
 export interface DiffParam {
   stylesheet?: string;
   fragment: string;
@@ -9,7 +11,7 @@ export const LOOSE_MODE = 1;
 
 export type DiffMode = typeof STRICT_MODE | typeof LOOSE_MODE;
 
-export interface DiffOption {
+export interface IDiffOption {
   mode: DiffMode;
 }
 
@@ -33,8 +35,8 @@ export enum NodeType {
   NOTATION_NODE, // 一个 XML <!NOTATION ...> 节点。 在 DOM4 规范里被移除.
 }
 
-interface StyleProp {
-  [proto: string]: string;
+interface IStyleProp {
+  [proto: string]: string
 }
 
 type NodeRect = number[
@@ -44,16 +46,16 @@ type NodeRect = number[
   // number, // height
 ];
 
-export interface RenderNode {
+export interface IRenderNode {
   /**
    * TODO: 完善 attribute
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#Attribute_list
    */
-  attr?: Attributes;
+  attr?: TAttributes;
 
   id?: string;
   className?: string;
-  tagName?: string;
+  tagName?: TTag;
   nodeName?: string;
   nodeType: NodeType.ELEMENT_NODE | NodeType.TEXT_NODE;
 
@@ -61,13 +63,13 @@ export interface RenderNode {
 
   dataset?: DOMStringMap;
 
-  style?: StyleProp;
+  style?: IStyleProp;
 
-  children?: RenderNode[];
+  children?: IRenderNode[];
   text?: string; // for TEXT_NODE
 }
 
-export type RenderTree = RenderNode;
+export type RenderTree = IRenderNode;
 
 
 const AttributeList = <const> [
@@ -95,9 +97,9 @@ const AttributeList = <const> [
 
 export type ValuesOf<T extends any[]>= T[number];
 
-export type AttributeType = typeof AttributeList[number];
+export type TTagAttribute = typeof AttributeList[number];
 
-export type Attributes = Partial<Record<AttributeType, string>>;
+export type TAttributes = Partial<Record<TTagAttribute, string>>;
 
 export enum DiffType {
   None = 0,
@@ -112,29 +114,29 @@ export enum DiffType {
   Text = 1 << 8,
 }
 
-interface DiffProp<T> {
+interface IDiffProp<T> {
   exemplar: T;
   instance: T;
 }
 
-export interface DiffNode {
+export interface IDiffNode {
   type: number;
   location: string;
 
-  tagName?: DiffProp<string>;
-  nodeType?: DiffProp<NodeType>;
+  tagName?: IDiffProp<string>;
+  nodeType?: IDiffProp<NodeType>;
 
-  id?: DiffProp<string>;
-  className?: DiffProp<string>;
+  id?: IDiffProp<string>,
+  className?: IDiffProp<string>,
 
-  style?: DiffProp<StyleProp>;
-  attr?: DiffProp<Attributes>;
-  rect?: DiffProp<NodeRect>;
-  dataset?: DiffProp<DOMStringMap>;
+  style?: IDiffProp<IStyleProp>,
+  attr?: IDiffProp<TAttributes>,
+  rect?: IDiffProp<NodeRect>,
+  dataset?: IDiffProp<DOMStringMap>,
 
-  children?: DiffNode[];
-  parent?: DiffNode; // 生成 diff 结果时，用于获取生成节点路径
+  children?: IDiffNode[],
+  parent?: IDiffNode, // 生成 diff 结果时，用于获取生成节点路径
 
-  text?: DiffProp<string>;
+  text?: IDiffProp<string>,
 
 }
