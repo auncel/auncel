@@ -1,4 +1,4 @@
-import { IRenderNode, NodeType } from "../types/difference.interface";
+import { IRenderNode, NodeType } from '../types/difference.interface';
 
 /**
  * 创建空的 RenderNode

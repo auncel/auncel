@@ -19,7 +19,7 @@ export enum NodeType {
   ELEMENT_NODE = 1, // 一个 元素 节点，例如 <p> 和 <div>。
   /** @deprecated  */
   ATTRIBUTE_NODE, // 元素的耦合属性 。在 DOM4 规范里Node 接口将不再实现这个元素属性。
-  TEXT_NODE, //	Element 或者 Attr 中实际的  文字
+  TEXT_NODE, // Element 或者 Attr 中实际的  文字
   /** @deprecated  */
   CDATA_SECTION_NODE, // 一个 CDATASection，例如 <!CDATA[[ … ]]>。
   /** @deprecated  */
@@ -27,16 +27,16 @@ export enum NodeType {
   PROCESSING_INSTRUCTION_NODE, // 一个用于XML文档的 ProcessingInstruction ，例如 <?xml-stylesheet ... ?> 声明。
   /** @deprecated  */
   ENTITY_NODE, // 一个 XML <!ENTITY ...>  节点。 在 DOM4 规范中被移除。
-  COMMENT_NODE, //	一个 Comment 节点。
-  DOCUMENT_NODE, //	一个 Document 节点。
-  DOCUMENT_TYPE_NODE, //	描述文档类型的 DocumentType 节点。例如 <!DOCTYPE html>  就是用于 HTML5 的。
-  DOCUMENT_FRAGMENT_NODE, //	一个 DocumentFragment 节点
+  COMMENT_NODE, // 一个 Comment 节点。
+  DOCUMENT_NODE, // 一个 Document 节点。
+  DOCUMENT_TYPE_NODE, // 描述文档类型的 DocumentType 节点。例如 <!DOCTYPE html>  就是用于 HTML5 的。
+  DOCUMENT_FRAGMENT_NODE, // 一个 DocumentFragment 节点
   /** @deprecated  */
   NOTATION_NODE, // 一个 XML <!NOTATION ...> 节点。 在 DOM4 规范里被移除.
 }
 
 interface IStyleProp {
-  [proto: string]: string
+  [proto: string]: string;
 }
 
 type NodeRect = number[
@@ -72,7 +72,7 @@ export interface IRenderNode {
 export type RenderTree = IRenderNode;
 
 
-const AttributeList = <const> [
+const AttributeList = [
   'accept', 'accept-charset', 'accesskey', 'action', 'align', 'allow', 'alt',
   'async', 'autocapitalize', 'autocomplete', 'autofocus', 'autoplay',
   'background', 'bgcolor', 'border', 'buffered', 'challenge', 'charset',
@@ -93,7 +93,7 @@ const AttributeList = <const> [
   'span', 'spellcheck', 'src', 'srcdoc', 'srclang', 'srcset', 'start', 'step',
   'style', 'summary', 'tabindex', 'target', 'title', 'translate', 'type',
   'usemap', 'value', 'width', 'wrap',
-];
+] as const;
 
 export type ValuesOf<T extends any[]>= T[number];
 
@@ -126,17 +126,17 @@ export interface IDiffNode {
   tagName?: IDiffProp<string>;
   nodeType?: IDiffProp<NodeType>;
 
-  id?: IDiffProp<string>,
-  className?: IDiffProp<string>,
+  id?: IDiffProp<string>;
+  className?: IDiffProp<string>;
 
-  style?: IDiffProp<IStyleProp>,
-  attr?: IDiffProp<TAttributes>,
-  rect?: IDiffProp<NodeRect>,
-  dataset?: IDiffProp<DOMStringMap>,
+  style?: IDiffProp<IStyleProp>;
+  attr?: IDiffProp<TAttributes>;
+  rect?: IDiffProp<NodeRect>;
+  dataset?: IDiffProp<DOMStringMap>;
 
-  children?: IDiffNode[],
-  parent?: IDiffNode, // 生成 diff 结果时，用于获取生成节点路径
+  children?: IDiffNode[];
+  parent?: IDiffNode; // 生成 diff 结果时，用于获取生成节点路径
 
-  text?: IDiffProp<string>,
+  text?: IDiffProp<string>;
 
 }

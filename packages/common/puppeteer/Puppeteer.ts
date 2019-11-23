@@ -1,5 +1,4 @@
-import * as puppeteer from 'puppeteer';
-import { Browser } from 'puppeteer';
+import { Browser, launch } from 'puppeteer';
 import log from '../logger/puppeteer';
 import { PageManager } from './PageManager';
 
@@ -11,7 +10,7 @@ export class Puppeteer {
     if (!this.browser) {
       log.info(`start launch puppeteer at ${Date.now()}`);
       console.time('puppeteer launch');
-      this.browser = await puppeteer.launch({
+      this.browser = await launch({
         args: ['--no-sandbox'],
         defaultViewport: {
           width: 1519, // base on my computer: acer Aspire VX15

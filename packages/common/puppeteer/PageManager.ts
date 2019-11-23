@@ -16,19 +16,19 @@ export class PageManager {
    * @type {boolean}
    * @memberof PageManager
    */
-  private isCreating: boolean = true;
-  
+  private isCreating = true;
+
   public async initPageManager(browser: Browser) {
     // const browser = await Puppeteer.getBrowser();
     this.isCreating = true;
     log.info(`started creating ${MAX_PAGE_POOL_SIZE} page instance at ${Date.now()}`);
-    console.time(`create ${MAX_PAGE_POOL_SIZE} page instance`)
+    console.time(`create ${MAX_PAGE_POOL_SIZE} page instance`);
     const pagePromises: Promise<Page>[] = [];
     for (let i = 0; i < MAX_PAGE_POOL_SIZE; i++) {
       pagePromises.push(browser.newPage());
     }
-    const pageArr = await Promise.all(pagePromises)
-    console.timeEnd(`create ${MAX_PAGE_POOL_SIZE} page instance`)
+    const pageArr = await Promise.all(pagePromises);
+    console.timeEnd(`create ${MAX_PAGE_POOL_SIZE} page instance`);
     log.info(`creating ${MAX_PAGE_POOL_SIZE} page instance finished at ${Date.now}`);
     this.isCreating = false;
     this.pagePool.push(...pageArr);

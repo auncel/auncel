@@ -1,4 +1,4 @@
-import { TCSSProperty  } from '@feoj/common/types/css';
+import { TCSSProperty } from '@feoj/common/types/css';
 import { TTag } from '@feoj/common/types/element';
 
 export interface IGenerateRenderTreeOptions {
@@ -25,5 +25,5 @@ export const generateRenderTreeOption: IGenerateRenderTreeOptions = {
   ],
   tagWhiteList: [
 
-  ]
+  ],
 };

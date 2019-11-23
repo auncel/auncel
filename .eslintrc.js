@@ -10,10 +10,53 @@ module.exports = {
     node: true,
   },
   extends: [
-    // 'eslint:recommended',
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'airbnb',
   ],
   rules: {
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/img-has-alt": 0,
+    "import/no-unresolved": 1,
+    "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "react/jsx-filename-extension": 1,
+    "no-bitwise": 1,
+    "no-param-reassign": 1, // 要启用
+    "import/first": 1, // @@
+    "no-useless-constructor": 1, // @@
+    "class-methods-use-this": 1,
+    "@typescript-eslint/no-unused-vars": 1,
+    "no-empty-function": 1, // @@
+    "no-unused-vars": 1, // @@
+    "no-useless-catch": 1, // @@
+    "@typescript-eslint/ban-ts-ignore": 1,
+    "no-use-before-define": 1,
+    "@typescript-eslint/no-use-before-define": 1,
+    "no-restricted-syntax": 1,
+    "no-fallthrough": 1,
+    "no-plusplus": 1,
+    "@typescript-eslint/interface-name-prefix": 1, // @@
+    "no-irregular-whitespace": 1,
+    "max-len": 1,
+    "no-empty": 1,
+    "@typescript-eslint/no-empty-function": 1,
+    "no-return-await": 1,
+    "no-useless-escape": 1,
+    "no-multi-assign": 1,
+    "no-shadow": 1,
+    "no-undef": 1,
+    "no-duplicate-case": 1,
+    "no-cond-assign": 1,
+    "no-await-in-loop": 1,
+    "@typescript-eslint/no-var-requires": 1,
+  },
+  "settings": {
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
   }
 };

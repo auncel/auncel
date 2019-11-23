@@ -2,7 +2,7 @@
  * TODO: 首先实现严格的 Diff
  */
 import { isEqual } from 'lodash';
-import { IRenderNode, IDiffNode, DiffType, NodeType } from "@feoj/common/types/difference.interface";
+import { IRenderNode, IDiffNode, DiffType, NodeType } from '@feoj/common/types/difference.interface';
 
 /**
  *
@@ -57,7 +57,6 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
   if (left.nodeType === NodeType.ELEMENT_NODE && right.nodeType === NodeType.ELEMENT_NODE) {
     diffNode.location = getNodeLocal(right);
     if (isTagEqual(left, right)) {
-
       if (!isAttrEqual(left, right)) {
         diffNode.type |= DiffType.Attr;
         diffNode.attr = {
@@ -71,7 +70,7 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
         diffNode.id = {
           exemplar: left.id,
           instance: right.id,
-        }
+        };
       }
 
       if (left.className !== right.className) {
@@ -79,7 +78,7 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
         diffNode.className = {
           exemplar: left.className,
           instance: right.className,
-        }
+        };
       }
 
       if (!isStyleEqual(left, right)) {
@@ -87,7 +86,7 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
         diffNode.style = {
           exemplar: left.style,
           instance: right.style,
-        }
+        };
       }
 
       if (!isRectEqual(left, right)) {
@@ -95,7 +94,7 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
         diffNode.rect = {
           exemplar: left.rect,
           instance: right.rect,
-        }
+        };
       }
 
       // TODO: 更多地判断：一个有孩子，一个没孩纸；孩子个数不一致
@@ -135,5 +134,5 @@ function createDiffNode(): IDiffNode {
   return {
     type: DiffType.None,
     location: '',
-  }
+  };
 }

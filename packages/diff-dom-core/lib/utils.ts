@@ -1,4 +1,4 @@
-import { TAttributes, TTagAttribute } from "@feoj/common/types/difference.interface";
+import { TAttributes, TTagAttribute } from '@feoj/common/types/difference.interface';
 import { tokenize, TokenType } from '@feoj/common/css/tokenize';
 
 const stylePrototypeWhiteList = [
@@ -12,7 +12,7 @@ export function getStyle(node: Element) {
   const styleObj = {};
   const style = getComputedStyle(node);
   const properties = getStyleProperties();
-  properties.forEach(key => {
+  properties.forEach((key) => {
     styleObj[key] = style.getPropertyValue(key);
   });
 
@@ -20,17 +20,17 @@ export function getStyle(node: Element) {
 }
 
 const ignoreAttr = ['class', 'id', 'style'];
-const datasetReg =  /^data-.+/;
+const datasetReg = /^data-.+/;
 
 /**
- * 
+ *
  * @param node Element node
  */
 export function getAttrs(node: Element) {
   const attrObj: TAttributes = {};
   const attrs = node.attributes;
 
-  for (let i = 0; i < attrs.length; i++ ) {
+  for (let i = 0; i < attrs.length; i++) {
     const attr: Attr = attrs[i];
     const nodeName = attr.nodeName as TTagAttribute;
     if (ignoreAttr.includes(nodeName) || datasetReg.test(nodeName)) {
@@ -49,7 +49,7 @@ export function getAttrs(node: Element) {
  * @returns [X, Y, Width, Left]
  */
 export function getRect(node: Element): [number, number, number, number] {
-  var rect = node.getBoundingClientRect();
+  const rect = node.getBoundingClientRect();
   // @ts-ignore
   return [rect.left, rect.top, rect.width, rect.height].map(Math.floor);
 }

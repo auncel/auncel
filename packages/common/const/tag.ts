@@ -1,6 +1,5 @@
 // 没有 SVG
-
-export const tags = <const> [
+export const tags = [
   'html', // The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.
   'base', // The HTML <base> element specifies the base URL to use for all relative URLs in a document.
   'head', // The HTML <head> element contains machine-readable information (metadata) about the document, like its title, scripts, and style sheets.
@@ -155,4 +154,4 @@ export const tags = <const> [
   'strike', // The HTML <strike> element (or HTML Strikethrough Element) places a strikethrough (horizontal line) over text.
   'tt', // The obsolete HTML Teletype Text element (<tt>) creates inline text which is presented using the user agent's default monospace font face.
   'xmp', // The HTML Example Element (<xmp>) renders text between the start and end tags without interpreting the HTML in between and using a monospaced font. The HTML2 specification recommended that it should be rendered wide enough to allow 80 characters per line.
-];
+] as const;

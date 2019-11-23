@@ -1,4 +1,4 @@
-const  winston = require('winston');
+const winston = require('winston');
 
 const puppeteerLogger = winston.createLogger({
   level: 'info',

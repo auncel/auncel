@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "lint": "lint-staged"
+    "lint": "eslint --ext .ts,.tsx --fix packages/"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
@@ -10,7 +10,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
