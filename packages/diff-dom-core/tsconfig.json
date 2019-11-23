@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -11,10 +11,15 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@feoj/common/*": [ "../../common/*" ],
       "@utils/*": [ "./utils/*" ],
       "@css/*": [ "../../css/*"]
     }
   },
+  "include": [
+    "fixtures/**/*",
+    "lib/**/*",
+    "@feoj/**/*",
+    "node_modules/@feoj/**/*",
+  ],
   "exclude": ["node_modules", "dist"]
 }

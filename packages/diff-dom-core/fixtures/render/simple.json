@@ -1,0 +1,74 @@
+[{
+    "title": "只有宽高",
+    "fragment": "<div></div>",
+    "stylesheet": "div { width: 100px; height: 100px; background-color: #fff;}",
+    "anwser": {
+      "attr": {},
+      "rect": [0, 0, 1519, 100],
+      "tagName": "BODY",
+      "nodeType": 1,
+      "style": {
+        "width": "1519px",
+        "height": "100px",
+        "background-color": "rgba(0, 0, 0, 0)"
+      },
+      "id": "",
+      "className": "",
+      "children": [{
+        "attr": {},
+        "rect": [0, 0, 100, 100],
+        "tagName": "DIV",
+        "nodeType": 1,
+        "style": {
+          "width": "100px",
+          "height": "100px",
+          "background-color": "rgb(255, 255, 255)"
+        },
+        "id": "",
+        "className": "",
+        "children": []
+      }]
+    }
+  },
+  {
+    "title": "带上 padding/margin",
+    "fragment": "<div></div>",
+    "stylesheet": "div { width: 100px; height: 100px; background-color: #fff; padding: 20px; margin: 30px;}",
+    "anwser": {
+      "attr": {},
+      "rect": [0, 30, 1519, 140],
+      "tagName": "BODY",
+      "nodeType": 1,
+      "style": {
+        "width": "1519px",
+        "height": "140px",
+        "margin": "0px",
+        "padding": "0px",
+        "background-color": "rgba(0, 0, 0, 0)"
+      },
+      "id": "",
+      "className": "",
+      "children": [{
+        "attr": {},
+        "rect": [
+          30,
+          30,
+          140,
+          140
+        ],
+        "tagName": "DIV",
+        "nodeType": 1,
+        "style": {
+          "width": "100px",
+          "height": "100px",
+          "padding": "20px",
+          "margin": "30px",
+          "background-color": "rgb(255, 255, 255)"
+        },
+        "id": "",
+        "className": "",
+        "children": []
+      }]
+    }
+  }
+]
