@@ -1,4 +1,4 @@
-import { IDiffNode, RenderTree, DiffType } from '@feoj/common/types/difference.interface';
+import { IDiffNode, RenderTree, DiffType } from '@feoj/common/types/domCore';
 
 function getNodeLocation(node: IDiffNode) {
   const buff = [];

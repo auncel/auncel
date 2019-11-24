@@ -1,6 +1,7 @@
-import { TTag } from './element';
+import { TTag, TAttributes } from './element';
+import { TStyleProps } from './css';
 
-export interface DiffParam {
+export interface IDiffParam {
   stylesheet?: string;
   fragment: string;
 }
@@ -9,10 +10,10 @@ export const STRICT_MODE = 0;
 
 export const LOOSE_MODE = 1;
 
-export type DiffMode = typeof STRICT_MODE | typeof LOOSE_MODE;
+export type TDiffMode = typeof STRICT_MODE | typeof LOOSE_MODE;
 
 export interface IDiffOption {
-  mode: DiffMode;
+  mode: TDiffMode;
 }
 
 export enum NodeType {
@@ -35,15 +36,12 @@ export enum NodeType {
   NOTATION_NODE, // 一个 XML <!NOTATION ...> 节点。 在 DOM4 规范里被移除.
 }
 
-interface IStyleProp {
-  [proto: string]: string;
-}
 
-type NodeRect = number[
-  // number, // left
-  // number, // top
-  // number, // width
-  // number, // height
+export type TNodeRect = [
+  number?, // left
+  number?, // top
+  number?, // width
+  number?, // height
 ];
 
 export interface IRenderNode {
@@ -59,50 +57,23 @@ export interface IRenderNode {
   nodeName?: string;
   nodeType: NodeType.ELEMENT_NODE | NodeType.TEXT_NODE;
 
-  rect?: NodeRect;
+  rect?: TNodeRect;
 
   dataset?: DOMStringMap;
 
-  style?: IStyleProp;
+  style?: TStyleProps;
 
   children?: IRenderNode[];
   text?: string; // for TEXT_NODE
 }
 
-export type RenderTree = IRenderNode;
-
-
-const AttributeList = [
-  'accept', 'accept-charset', 'accesskey', 'action', 'align', 'allow', 'alt',
-  'async', 'autocapitalize', 'autocomplete', 'autofocus', 'autoplay',
-  'background', 'bgcolor', 'border', 'buffered', 'challenge', 'charset',
-  'checked', 'cite', 'class', 'code', 'codebase', 'color', 'cols', 'colspan',
-  'content', 'contenteditable', 'contextmenu', 'controls', 'coords',
-  'crossorigin', 'csp ', 'data', 'data-*', 'datetime', 'decoding', 'default',
-  'defer', 'dir', 'dirname', 'disabled', 'download', 'draggable', 'dropzone',
-  'enctype', 'enterkeyhint ', 'for', 'form', 'formaction', 'formenctype',
-  'formmethod', 'formnovalidate', 'formtarget', 'headers', 'height', 'hidden',
-  'high', 'href', 'hreflang', 'http-equiv', 'icon', 'id', 'importance ',
-  'integrity', 'intrinsicsize ', 'inputmode', 'ismap', 'itemprop', 'keytype',
-  'kind', 'label', 'lang', 'language', 'loading ', 'list', 'loop', 'low',
-  'manifest', 'max', 'maxlength', 'minlength', 'media', 'method', 'min',
-  'multiple', 'muted', 'name', 'novalidate', 'open', 'optimum', 'pattern',
-  'ping', 'placeholder', 'poster', 'preload', 'radiogroup', 'readonly',
-  'referrerpolicy', 'rel', 'required', 'reversed', 'rows', 'rowspan',
-  'sandbox', 'scope', 'scoped', 'selected', 'shape', 'size', 'sizes', 'slot',
-  'span', 'spellcheck', 'src', 'srcdoc', 'srclang', 'srcset', 'start', 'step',
-  'style', 'summary', 'tabindex', 'target', 'title', 'translate', 'type',
-  'usemap', 'value', 'width', 'wrap',
-] as const;
+export type TRenderTree = IRenderNode;
 
 export type ValuesOf<T extends any[]>= T[number];
 
-export type TTagAttribute = typeof AttributeList[number];
-
-export type TAttributes = Partial<Record<TTagAttribute, string>>;
-
 export enum DiffType {
   None = 0,
+  // eslint-disable-next-line no-shadow
   NodeType = 1 << 0,
   Tag = 1 << 1, // element 和 text， element tag 不同
   Id = 1 << 2,
@@ -115,13 +86,13 @@ export enum DiffType {
 }
 
 interface IDiffProp<T> {
-  exemplar: T;
+  exemplar: T; // 参考答案
   instance: T;
 }
 
 export interface IDiffNode {
-  type: number;
-  location: string;
+  type: number; // 差异类型，是 DiffType 的累加值
+  location: string; // 为了方便日志输出
 
   tagName?: IDiffProp<string>;
   nodeType?: IDiffProp<NodeType>;
@@ -129,14 +100,13 @@ export interface IDiffNode {
   id?: IDiffProp<string>;
   className?: IDiffProp<string>;
 
-  style?: IDiffProp<IStyleProp>;
+  style?: IDiffProp<TStyleProps>;
   attr?: IDiffProp<TAttributes>;
-  rect?: IDiffProp<NodeRect>;
+  rect?: IDiffProp<TNodeRect>;
   dataset?: IDiffProp<DOMStringMap>;
 
   children?: IDiffNode[];
   parent?: IDiffNode; // 生成 diff 结果时，用于获取生成节点路径
 
   text?: IDiffProp<string>;
-
 }

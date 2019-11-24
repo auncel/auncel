@@ -1,6 +1,6 @@
 import { Puppeteer, PageManager, } from '@feoj/common/puppeteer';
 import { readJSFile } from '@feoj/common/utils/readJSFile';
-import { IRenderNode } from '@feoj/common/types/difference.interface';
+import { IRenderNode } from '@feoj/common/types/domCore';
 import { htmlWrap } from './utils';
 
 const webpack = require('webpack');

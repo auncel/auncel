@@ -2,7 +2,7 @@
  * TODO: 首先实现严格的 Diff
  */
 import { isEqual } from 'lodash';
-import { IRenderNode, IDiffNode, DiffType, NodeType } from '@feoj/common/types/difference.interface';
+import { IRenderNode, IDiffNode, DiffType, NodeType } from '@feoj/common/types/domCore';
 
 /**
  *
