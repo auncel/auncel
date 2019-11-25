@@ -13,6 +13,7 @@
 + complex word
   + [ ] ul li menu
   + [x] login form (github)
+  + [x] search bar
   + layout
     + [ ] holy grail layout
     + [ ] double wing layout
