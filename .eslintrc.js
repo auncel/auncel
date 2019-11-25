@@ -17,11 +17,11 @@ module.exports = {
   rules: {
     "jsx-a11y/href-no-hash": 0,
     "jsx-a11y/img-has-alt": 0,
-    "import/no-unresolved": 1,
+    "import/no-unresolved": 0, // 和 ts 冲突
     "import/extensions": 0,
     "import/prefer-default-export": 0,
     "react/jsx-filename-extension": 1,
-    "no-bitwise": 1,
+    "no-bitwise": 0,
     "no-param-reassign": 1, // 要启用
     "import/first": 1, // @@
     "no-useless-constructor": 1, // @@
@@ -35,8 +35,8 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": 1,
     "no-restricted-syntax": 1,
     "no-fallthrough": 1,
-    "no-plusplus": 1,
-    "@typescript-eslint/interface-name-prefix": 1, // @@
+    "no-plusplus": 0,
+    "@typescript-eslint/interface-name-prefix": [2, { "prefixWithI": "always" } ], // @@
     "no-irregular-whitespace": 1,
     "max-len": 1,
     "no-empty": 1,
