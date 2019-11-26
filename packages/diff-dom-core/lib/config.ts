@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { TCSSProperty } from '@feoj/common/types/css';
-import { TTag } from '@feoj/common/types/element';
+import { TTag, TTagAttribute } from '@feoj/common/types/element';
 
 export interface IGenerateRenderTreeOptions {
   ignoreElement?: TTag[];
@@ -44,3 +44,29 @@ export function mergeWithDefaultConfig(
   });
   return config;
 }
+
+/**
+ * 1. isStrictlyEqual ture: 严格相等，false:允许 AT 冗余， 默认：true
+ * 2. list：检查指定 attr，如果 list 存在，则 isStrictlyEqual 失效
+ *
+ * @export
+ * @interface IStrictlyEqualAttrOption
+ */
+export interface IStrictlyEqualAttrOption {
+  /**
+
+   * @type {{isStrictlyEqual: boolean, list: TTagAttribute[]}} attrs
+   */
+  isStrictlyEqual?: boolean;
+  list?: TTagAttribute[];
+}
+
+export interface IStrictlyEqualOption {
+  attrs: IStrictlyEqualAttrOption;
+}
+
+export const strictlyEqualOption: IStrictlyEqualOption = {
+  attrs: {
+    isStrictlyEqual: true,
+  },
+};

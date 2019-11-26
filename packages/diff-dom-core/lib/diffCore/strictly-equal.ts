@@ -1,22 +1,24 @@
-/*
- * TODO: 首先实现严格的 Diff
- */
+/* --------------------------------------------------------------------------*
+* Description: 实现 Dom 树的严格比较                                         *
+*                                                                           *
+* File Created: Monday, 25th November 2019 10:43 pm                         *
+* Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
+*                                                                           *
+* Last Modified: Tuesday, 26th November 2019 9:44 pm                        *
+* Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
+*                                                                           *
+* Copyright 2019 - 2019 MIT License                                         *
+*-------------------------------------------------------------------------- */
+
 import { isEqual } from 'lodash';
 import { IRenderNode, IDiffNode, DiffType, NodeType } from '@feoj/common/types/domCore';
+import { IStrictlyEqualAttrOption } from 'lib/config';
 
-/**
- *
- *
- * @export
- * @param {IRenderNode} exemplar 样例输入
- * @param {IRenderNode} instance 实际输入
- */
-export function diff(exemplar: IRenderNode, instance: IRenderNode) {
-  const diffRoot = createDiffNode();
-  diffDFT(exemplar, instance, diffRoot);
-  return diffRoot;
+/* eslint-disable no-param-reassign */
+
+function isElementType(element: IRenderNode): boolean {
+  return element.nodeType === NodeType.ELEMENT_NODE;
 }
-
 /**
  * 比较标签是否相同
  *
@@ -28,7 +30,13 @@ function isTagEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return node1.nodeName === node2.nodeName;
 }
 
-function isAttrEqual(node1: IRenderNode, node2: IRenderNode): boolean {
+function identifyAttrDifference(
+  node1: IRenderNode, node2: IRenderNode, attrConfig: IStrictlyEqualAttrOption,
+): boolean {
+  if (Array.isArray(attrConfig.list)) {
+    
+  }
+
   return isEqual(node1.attr, node2.attr);
 }
 
@@ -46,18 +54,21 @@ function getNodeLocal(node: IRenderNode): string {
   if (node.className) buff.push(node.className.split(' ').join('.'));
   return buff.join('');
 }
+
 /**
  * Depth-first traversal
  *
  * @param {IRenderNode} left
  * @param {IRenderNode} right
  */
-function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
+function strictEqualDeepFirstTraversal(
+  left: IRenderNode, right: IRenderNode, diffNode: IDiffNode,
+): void {
   // TODO: 封装这一步的类型检查
-  if (left.nodeType === NodeType.ELEMENT_NODE && right.nodeType === NodeType.ELEMENT_NODE) {
+  if (isElementType(left) && isElementType(right)) {
     diffNode.location = getNodeLocal(right);
     if (isTagEqual(left, right)) {
-      if (!isAttrEqual(left, right)) {
+      if (!identifyAttrDifference(left, right)) {
         diffNode.type |= DiffType.Attr;
         diffNode.attr = {
           exemplar: left.attr,
@@ -103,7 +114,7 @@ function diffDFT(left: IRenderNode, right: IRenderNode, diffNode: IDiffNode) {
         for (let i = 0; i < left.children.length; i++) {
           const emptyNode = createDiffNode();
           diffNode.children.push(emptyNode);
-          diffDFT(left.children[i], right.children[i], emptyNode);
+          strictEqualDeepFirstTraversal(left.children[i], right.children[i], emptyNode);
         }
       }
     } else {
@@ -135,4 +146,17 @@ function createDiffNode(): IDiffNode {
     type: DiffType.None,
     location: '',
   };
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {IRenderNode} exemplar 样例输入
+ * @param {IRenderNode} instance 实际输入
+ */
+export function strictEqualDiff(exemplar: IRenderNode, instance: IRenderNode): IDiffNode {
+  const diffRoot = createDiffNode();
+  strictEqualDeepFirstTraversal(exemplar, instance, diffRoot);
+  return diffRoot;
 }
