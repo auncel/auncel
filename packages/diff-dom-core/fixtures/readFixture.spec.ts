@@ -15,6 +15,8 @@ describe('readFixtures', () => {
   test('simple', async () => {
     const fixture = await readFixtures(__dirname + '/elements/div/simple');
     expect(fixture.question.fragment).toBe(fixture.answers[0].fragment);
-    expect(fixture.question.stylesheet).not.toBe(fixture.answers[0].stylesheet);
+    expect(fixture.question.stylesheet).toBe(fixture.answers[0].stylesheet);
+    expect(fixture.question.fragment).toBe(fixture.answers[1].fragment);
+    expect(fixture.question.stylesheet).not.toBe(fixture.answers[1].stylesheet);
   });
 });

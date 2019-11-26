@@ -54,6 +54,7 @@ export async function readFixtures(dirpath): Promise<IFixture> {
   }
   const fixtureObject: IFixture = { question: null, answers: [] };
   const filenames = fs.readdirSync(dirpath);
+  filenames.sort(); // 字母排序
   // eslint-disable-next-line no-restricted-syntax
   for (const filename of filenames) {
     // eslint-disable-next-line no-await-in-loop
