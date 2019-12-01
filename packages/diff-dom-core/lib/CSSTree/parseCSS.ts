@@ -10,7 +10,7 @@
  * Copyright 2019 - 2019 MIT License                                         *
  *-------------------------------------------------------------------------- */
 
-import { parse, walk, CssNode, SelectorList } from 'lib/CSSTree/css-tree';
+import { parse, walk, CssNode, SelectorList } from 'css-tree';
 
 /**
  * TODO: :nth-child(4n) :not(...)
@@ -32,7 +32,7 @@ export function parseCSS(text): Map<string, Set<string>> {
       if (prelude.type === 'SelectorList') {
         // eslint-disable-next-line no-inner-declarations
         function getSelectorStr(prelude: SelectorList): string[] {
-          const result: string[] = []
+          const result: string[] = [];
           // NOTE: css tree 自己实现了一套数组方法，map 没用
           // TODO: 伪类
           prelude.children.forEach((selector) => {
