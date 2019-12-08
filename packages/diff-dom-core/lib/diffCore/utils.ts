@@ -11,20 +11,22 @@
  *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';
+import { IDistinctionDetail, DistinctionType, TDistinctionType } from '@feoj/common/types/domCore';
 
-export type Comparator = (object: object, comparison: object, keys: string[]) => ICompareResult;
-
-export interface ICompareResultItem {
-  key: string;
-  expect?: number | string | object;
-  actual?: number | string | object;
+export function createDistinction<T>(
+  key: string, type: TDistinctionType, expect?: T, actual?: T,
+): IDistinctionDetail<T> {
+  return {
+    key,
+    type,
+    expect,
+    actual,
+  };
 }
 
-export interface ICompareResult {
-  misson: ICompareResultItem[];
-  inequality: ICompareResultItem[];
-  extra: ICompareResultItem[];
-}
+export type Comparator = <T>(
+  object: object, comparison: object, keys: string[],
+) => IDistinctionDetail<T>[];
 
 /**
  * 比较两个对象的指定的 keys 的属性是否相同
@@ -32,12 +34,10 @@ export interface ICompareResult {
  * @param comparison 比较物
  * @param keys 比较的 key
  */
-export function objectCompare(object: object, comparison: object, keys: string[]): ICompareResult {
-  const res: ICompareResult = {
-    misson: [],
-    inequality: [],
-    extra: [],
-  };
+export function distinctionCompare<T>(
+  object: object, comparison: object, keys: string[],
+): IDistinctionDetail<T>[] {
+  const res: IDistinctionDetail<T>[] = [];
 
   // eslint-disable-next-line no-restricted-syntax
   for (const key of keys) {
@@ -45,32 +45,46 @@ export function objectCompare(object: object, comparison: object, keys: string[]
     const isComparisonKeyExist = typeof comparison[key] !== 'undefined';
     if (isObjectKeyExist && isComparisonKeyExist) {
       if (!isEqual(object[key], comparison[key])) { // 浅比较
-        res.inequality.push({
-          key,
-          expect: object[key],
-          actual: comparison[key],
-        });
+        res.push(
+          createDistinction<T>(
+            key,
+            DistinctionType.INEQUAL,
+            object[key],
+            comparison[key],
+          ),
+        );
       } // else 相等
     } else if (isObjectKeyExist && !isComparisonKeyExist) {
-      res.misson.push({
-        key,
-        expect: object[key],
-      });
+      res.push(
+        createDistinction<T>(
+          key,
+          DistinctionType.MISSING,
+          object[key],
+        ),
+      );
     } else if (!isObjectKeyExist && isComparisonKeyExist) {
-      res.misson.push({
-        key,
-        actual: comparison[key],
-      });
+      res.push(
+        createDistinction<T>(
+          key,
+          DistinctionType.MISSING,
+          null,
+          comparison[key],
+        ),
+      );
     } // !isObjectKeyExist && !isComparisonKeyExist
   }
 
   // eslint-disable-next-line no-restricted-syntax
   for (const key of Object.keys(comparison)) {
     if (!keys.includes(key)) {
-      res.extra.push({
-        key,
-        actual: comparison[key],
-      });
+      res.push(
+        createDistinction<T>(
+          key,
+          DistinctionType.MISSING,
+          null,
+          comparison[key],
+        ),
+      );
     }
   }
 
