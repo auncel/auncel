@@ -62,11 +62,15 @@ export interface IStrictlyEqualAttrOption {
 }
 
 export interface IStrictlyEqualOption {
-  attrs: IStrictlyEqualAttrOption;
+  attrs?: IStrictlyEqualAttrOption;
+  isTagStrictlyEqaul?: boolean;
+  isIdStrictlyEqual?: boolean;
+  isClassStrictlyEqual?: boolean;
 }
 
 export const strictlyEqualOption: IStrictlyEqualOption = {
   attrs: {
     isStrictlyEqual: true,
   },
+  isTagStrictlyEqaul: true,
 };

@@ -9,18 +9,21 @@
  *                                                                           *
  * Copyright 2019 - 2019 MIT License                                         *
  *-------------------------------------------------------------------------- */
-
-import { parse, walk, CssNode, SelectorList } from 'css-tree';
+// FIXME: Why canot import css-tree directly
+// eslint-disable-next-line import/no-duplicates
+import { CssNode, SelectorList } from './types';
+// eslint-disable-next-line import/no-duplicates
+// import * as CSSTree from 'css-tree';
+const CSSTree = require('../../node_modules/css-tree/dist/csstree.js');
 
 /**
- * TODO: :nth-child(4n) :not(...)
  * @param text CSS 字符串
  */
 export function parseCSS(text): Map<string, Set<string>> {
-  const ast = parse(text);
+  const ast = CSSTree.parse(text);
   const selectorMap = new Map<string, Set<string>>();
   // eslint-disable-next-line prefer-arrow-callback
-  walk(ast, function astVisitor(node: CssNode): void {
+  CSSTree.walk(ast, function astVisitor(node: CssNode): void {
     if (node.type === 'Rule') {
       const { prelude, block } = node;
       const properties = new Set<string>();
@@ -115,4 +118,3 @@ export function parseCSS(text): Map<string, Set<string>> {
   return selectorMap;
 }
 
-parse('.cls { color: #ff; }');

@@ -21,7 +21,7 @@ function getLastOrderNumber(uuid: string): number {
   return Number(uuid.substring(uuid.lastIndexOf('_') + 1));
 }
 
-export function eppendUuid(doc: Document): void {
+export function appendUuid(doc: Document): void {
   const treeWalker = doc.createTreeWalker(
     doc.body,
     NodeFilter.SHOW_ELEMENT,

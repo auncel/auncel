@@ -1,2 +1,2 @@
-export { genRenderTree } from './genRenderTree';
-export { genDiffRes } from './genDiffRes';
+export { generateTree as generateRenderTree } from './RenderTree/index';
+// export { genDiffRes } from './generateDiffResult';

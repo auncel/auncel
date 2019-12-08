@@ -10,40 +10,45 @@
  * Copyright 2019 - 2019 MIT License                                         *
  *-------------------------------------------------------------------------- */
 
+import { ElementNotExistError } from '@feoj/common/exceptions/index';
 import { parseCSS } from '../CSSTree/parseCSS';
+import { USER_STYLE_ID } from '../const';
 
-const UUID_ATTR = '__uuid__';
+export const UUID_ATTR = '__uuid__';
 
 let idx = 0;
 function uuid(): string {
   return String(idx++);
 }
 
-const elementCache: Map<string, Map<string, string>> = new Map();
+const elementStyleCache: Map<string, Map<string, string>> = new Map();
 export function computeElementStyle(document: Document): Map<string, Map<string, string>> {
-  const $userStyle = document.head.lastElementChild;
+  const $userStyle = document.getElementById(USER_STYLE_ID);
+  if ($userStyle === null) {
+    throw new ElementNotExistError(`should have style#${USER_STYLE_ID}`);
+  }
   const stylesheet = $userStyle.innerHTML;
   const selectorMap: Map<string, Set<string>> = parseCSS(stylesheet);
   // eslint-disable-next-line no-restricted-syntax
   for (const [selector, properties] of selectorMap) {
     const $elementList = document.querySelectorAll(selector);
-    $elementList.forEach((element) => {
-      let elementUuid = element.getAttribute(UUID_ATTR);
+    $elementList.forEach(($element) => {
+      const elementUuid = $element.getAttribute(UUID_ATTR);
       let propertyMap: Map<string, string> = null;
-      if (elementCache.has(elementUuid)) {
-        propertyMap = elementCache.get(elementUuid);
+      if (elementStyleCache.has(elementUuid)) {
+        propertyMap = elementStyleCache.get(elementUuid);
       } else {
-        elementUuid = uuid();
-        element.setAttribute(UUID_ATTR, elementUuid);
+        // elementUuid = uuid();
+        // $element.setAttribute(UUID_ATTR, elementUuid);
         propertyMap = new Map<string, string>();
-        elementCache.set(elementUuid, propertyMap);
+        elementStyleCache.set(elementUuid, propertyMap);
       }
-      const elementStyle = window.getComputedStyle(element);
+      const elementStyle = window.getComputedStyle($element);
       properties.forEach((property) => {
         const propertyValue = elementStyle[property];
         propertyMap.set(property, propertyValue);
       });
     });
   }
-  return elementCache;
+  return elementStyleCache;
 }
