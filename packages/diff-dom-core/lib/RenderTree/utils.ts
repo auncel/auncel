@@ -64,5 +64,6 @@ export function getAttrs(node: Element): TAttributes {
  */
 export function getRect(node: Element): TNodeRect {
   const rect = node.getBoundingClientRect();
-  return [rect.left, rect.top, rect.width, rect.height]; // .map(Math.floor);
+  const { left, top, width, height } = rect;
+  return { left, top, width, height }; // .map(Math.floor);
 }

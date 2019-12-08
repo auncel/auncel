@@ -2,86 +2,82 @@
     "title": "只有宽高",
     "fragment": "<div></div>",
     "stylesheet": "div { width: 100px; height: 100px; background-color: #fff;}",
-    "anwser":   {
+    "anwser": {
       "attr": {},
-      "rect": [
-        0,
-        0,
-        1519,
-        100
-      ],
+      "rect": {
+        "left": 0,
+        "top": 0,
+        "width": 1519,
+        "height": 100
+      },
       "tagName": "BODY",
       "nodeType": 1,
       "style": {},
       "id": "",
       "className": "",
       "uuid": "uuid_0",
-      "children": [
-        {
-          "attr": {},
-          "rect": [
-            0,
-            0,
-            100,
-            100
-          ],
-          "tagName": "DIV",
-          "nodeType": 1,
-          "style": {
-            "width": "100px",
-            "height": "100px",
-            "background-color": "rgb(255, 255, 255)"
-          },
-          "id": "",
-          "className": "",
-          "uuid": "uuid_0_0",
-          "children": []
-        }
-      ]
+      "children": [{
+        "attr": {},
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "width": 100,
+          "height": 100
+        },
+        "tagName": "DIV",
+        "nodeType": 1,
+        "style": {
+          "width": "100px",
+          "height": "100px",
+          "background-color": "rgb(255, 255, 255)"
+        },
+        "id": "",
+        "className": "",
+        "uuid": "uuid_0_0",
+        "children": []
+      }]
     }
   },
   {
     "title": "带上 padding/margin",
     "fragment": "<div></div>",
     "stylesheet": "div { width: 100px; height: 100px; background-color: #fff; padding: 20px; margin: 30px;}",
-    "anwser":  {
+    "anwser": {
       "attr": {},
-      "rect": [
-        0,
-        30,
-        1519,
-        140
-      ],
+      "rect": {
+        "left": 0,
+        "top": 30,
+        "width": 1519,
+        "height": 140
+      },
       "tagName": "BODY",
       "nodeType": 1,
       "style": {},
       "id": "",
       "className": "",
       "uuid": "uuid_0",
-      "children": [
-        {
-          "attr": {},
-          "rect": [
-            30,
-            30,
-            140,
-            140
-          ],
-          "tagName": "DIV",
-          "nodeType": 1,
-          "style": {
-            "width": "100px",
-            "height": "100px",
-            "background-color": "rgb(255, 255, 255)",
-            "padding": "20px",
-            "margin": "30px"
-          },
-          "id": "",
-          "className": "",
-          "uuid": "uuid_0_0",
-          "children": []
-        }
-      ]
+      "children": [{
+        "attr": {},
+        "rect": {
+          "left": 30,
+          "top": 30,
+          "width": 140,
+          "height": 140
+        },
+        "tagName": "DIV",
+        "nodeType": 1,
+        "style": {
+          "width": "100px",
+          "height": "100px",
+          "background-color": "rgb(255, 255, 255)",
+          "padding": "20px",
+          "margin": "30px"
+        },
+        "id": "",
+        "className": "",
+        "uuid": "uuid_0_0",
+        "children": []
+      }]
     }
   }
 ]

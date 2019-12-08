@@ -65,7 +65,8 @@ describe('simple world', () => {
 
 describe('complex world', () => {
   testFactory('', loginFormSimple);
-})
+});
+
 // function getRenderTree(fixture: IFixtureData) {
 //   const { fragment, stylesheet, } = fixture;
 //   const html = htmlWrap(fragment, stylesheet);
