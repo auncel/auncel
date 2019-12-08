@@ -11,41 +11,63 @@
 *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';
-import { IRenderNode, IDiffNode, DiffType, NodeType } from '@feoj/common/types/domCore';
-import { IStrictlyEqualAttrOption } from 'lib/config';
+import {
+  IRenderNode, IDiffNode, IDistinctionDetail, DistinctionType, DiffType,
+  NodeType, TAttrPropertyType, TCSSPropertyValueType, TNodeRect,
+} from '@feoj/common/types/domCore';
+import { IStrictlyEqualAttrOption, IStrictlyEqualOption, IStrictlyEqualStyleOption } from 'lib/config';
+import { distinctionCompare, createDistinction } from './utils';
+import { strictlyEqualOption } from '../config';
+import { TStyleProps } from '@feoj/common/types/css';
 
 /* eslint-disable no-param-reassign */
 
 function isElementType(element: IRenderNode): boolean {
   return element.nodeType === NodeType.ELEMENT_NODE;
 }
-/**
- * 比较标签是否相同
- *
- * @param {IRenderNode} node1
- * @param {IRenderNode} node2
- * @returns {boolean}
- */
-function isTagEqual(node1: IRenderNode, node2: IRenderNode): boolean {
-  return node1.nodeName === node2.nodeName;
-}
 
-function identifyAttrDifference(
-  node1: IRenderNode, node2: IRenderNode, attrConfig: IStrictlyEqualAttrOption,
-): boolean {
+function identifyAttrDistinction(
+  leftNode: IRenderNode, rightNode: IRenderNode, attrConfig: IStrictlyEqualAttrOption,
+): IDistinctionDetail<TAttrPropertyType>[] {
   if (Array.isArray(attrConfig.list)) {
-    
+    return distinctionCompare<TAttrPropertyType>(leftNode.attr, rightNode.attr, attrConfig.list);
   }
 
-  return isEqual(node1.attr, node2.attr);
+  const distinctions: IDistinctionDetail<TAttrPropertyType>[] = distinctionCompare<TAttrPropertyType>(
+    leftNode.attr, rightNode.attr, Object.keys(leftNode.attr),
+  );
+
+  if (attrConfig.isStrictlyEqual) {
+    return distinctions;
+  }
+
+  return distinctions.filter(distinction => distinction.type === DistinctionType.EXTRA);
+}
+
+/** TODO: styleConfig */
+function identifyStyleDistinction(
+  leftNodeStyle: TStyleProps, rightNodeStyle: TStyleProps, styleConfig: IStrictlyEqualStyleOption,
+): IDistinctionDetail<TCSSPropertyValueType>[] {
+  const keys = Object.keys(leftNodeStyle);
+  const distinctions = distinctionCompare<TCSSPropertyValueType>(
+    leftNodeStyle, rightNodeStyle, keys,
+  );
+  return distinctions;
+}
+
+function identifyRectDistinction(
+  leftRect: TNodeRect, rightRect: TNodeRect, rectTolerance: number,
+): IDistinctionDetail<number>[] {
+  const distinctions = distinctionCompare<number>(
+    leftRect, rightRect, ['left', 'top', 'width', 'height'],
+    (leftValue, rightValue) => Math.abs(leftValue - rightValue) <= rectTolerance,
+  );
+
+  return distinctions;
 }
 
 function isStyleEqual(node1: IRenderNode, node2: IRenderNode): boolean {
   return isEqual(node1.style, node2.style);
-}
-
-function isRectEqual(node1: IRenderNode, node2: IRenderNode): boolean {
-  return isEqual(node1.rect, node2.rect);
 }
 
 function getNodeLocal(node: IRenderNode): string {
@@ -55,6 +77,13 @@ function getNodeLocal(node: IRenderNode): string {
   return buff.join('');
 }
 
+function createDiffNode(): IDiffNode {
+  return {
+    type: DiffType.None,
+    location: '',
+  };
+}
+
 /**
  * Depth-first traversal
  *
@@ -62,90 +91,92 @@ function getNodeLocal(node: IRenderNode): string {
  * @param {IRenderNode} right
  */
 function strictEqualDeepFirstTraversal(
-  left: IRenderNode, right: IRenderNode, diffNode: IDiffNode,
+  left: IRenderNode, right: IRenderNode, diffNode: IDiffNode, config: IStrictlyEqualOption,
 ): void {
-  // TODO: 封装这一步的类型检查
   if (isElementType(left) && isElementType(right)) {
     diffNode.location = getNodeLocal(right);
-    if (isTagEqual(left, right)) {
-      if (!identifyAttrDifference(left, right)) {
-        diffNode.type |= DiffType.Attr;
-        diffNode.attr = {
-          exemplar: left.attr,
-          instance: right.attr,
-        };
-      }
 
-      if (left.id !== right.id) {
+    if (config.isTagStrictlyEqaul) {
+      if (left.nodeName !== right.nodeName) {
+        diffNode.type |= DiffType.Tag;
+        diffNode.tagName = createDistinction<string>(
+          'tagName',
+          DistinctionType.INEQUAL,
+          left.nodeName,
+          right.nodeName,
+        );
+      }
+    }
+
+    if (config.isIdStrictlyEqual) {
+      if (left.id && right.id && left.id !== right.id) {
         diffNode.type |= DiffType.Id;
-        diffNode.id = {
-          exemplar: left.id,
-          instance: right.id,
-        };
+        diffNode.id = createDistinction<string>(
+          'id',
+          DistinctionType.INEQUAL,
+          right.id,
+          left.id,
+        );
       }
+    }
 
+    if (config.isClassStrictlyEqual) {
       if (left.className !== right.className) {
         diffNode.type |= DiffType.ClassName;
-        diffNode.className = {
-          exemplar: left.className,
-          instance: right.className,
-        };
+        diffNode.className = createDistinction<string>(
+          'className',
+          DistinctionType.INEQUAL,
+          left.className,
+          right.className,
+        );
       }
+    }
 
-      if (!isStyleEqual(left, right)) {
-        diffNode.type |= DiffType.Style;
-        diffNode.style = {
-          exemplar: left.style,
-          instance: right.style,
-        };
-      }
+    const attrDisctinctions = identifyAttrDistinction(left, right, config.attrs);
+    if (attrDisctinctions.length !== 0) {
+      diffNode.type |= DiffType.Attr;
+      diffNode.attr = attrDisctinctions;
+    }
 
-      if (!isRectEqual(left, right)) {
-        diffNode.type |= DiffType.Rect;
-        diffNode.rect = {
-          exemplar: left.rect,
-          instance: right.rect,
-        };
-      }
+    const styleDistinctions = identifyStyleDistinction(left.style, right.style, config.style);
+    if (!isStyleEqual(left, right)) {
+      diffNode.type |= DiffType.Style;
+      diffNode.style = styleDistinctions;
+    }
 
-      // TODO: 更多地判断：一个有孩子，一个没孩纸；孩子个数不一致
-      if (left.children && left.children.length && right.children && right.children.length) {
-        diffNode.children = [];
-        for (let i = 0; i < left.children.length; i++) {
-          const emptyNode = createDiffNode();
-          diffNode.children.push(emptyNode);
-          strictEqualDeepFirstTraversal(left.children[i], right.children[i], emptyNode);
-        }
+    const rectDistinction = identifyRectDistinction(left.rect, right.rect, config.rectTolerance);
+    if (rectDistinction.length) {
+      diffNode.rect = rectDistinction;
+    }
+
+    // TODO: 更多地判断：一个有孩子，一个没孩纸；孩子个数不一致
+    if (left.children && left.children.length && right.children && right.children.length) {
+      diffNode.children = [];
+      for (let i = 0; i < left.children.length; i++) {
+        const emptyNode = createDiffNode();
+        diffNode.children.push(emptyNode);
+        strictEqualDeepFirstTraversal(left.children[i], right.children[i], emptyNode, config);
       }
-    } else {
-      diffNode.type |= DiffType.Tag;
-      diffNode.tagName = {
-        exemplar: left.tagName,
-        instance: right.tagName,
-      };
     }
   } else if (left.nodeType === NodeType.TEXT_NODE && right.nodeType === NodeType.TEXT_NODE) {
     if (left.text !== right.text) {
       diffNode.type |= DiffType.Text;
-      diffNode.text = {
-        exemplar: left.text,
-        instance: right.text,
-      };
+      diffNode.text = createDistinction(
+        'text',
+        DistinctionType.INEQUAL,
+        left.text,
+        right.text,
+      );
     }
   } else {
     diffNode.type |= DiffType.NodeType;
-    diffNode.nodeType = {
-      exemplar: left.nodeType,
-      instance: right.nodeType,
-    };
+    diffNode.nodeType = createDistinction(
+      'nodeType',
+      DistinctionType.INEQUAL,
+      left.nodeType,
+      right.nodeType,
+    );
   }
-}
-
-function createDiffNode(): IDiffNode {
-  return {
-    type: DiffType.None,
-    location: '',
-  };
 }
 
 /**
@@ -157,6 +188,6 @@ function createDiffNode(): IDiffNode {
  */
 export function strictEqualDiff(exemplar: IRenderNode, instance: IRenderNode): IDiffNode {
   const diffRoot = createDiffNode();
-  strictEqualDeepFirstTraversal(exemplar, instance, diffRoot);
+  strictEqualDeepFirstTraversal(exemplar, instance, diffRoot, strictlyEqualOption);
   return diffRoot;
 }
