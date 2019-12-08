@@ -31,6 +31,6 @@ describe('utils: objectCompare', () => {
 
   test('object2 has extra property `d`', () => {
     const res = distinctionCompare<any>({ a: 1, b: 'string', c: {} }, { a: 1, b: 'string', c: {}, d: 'extra' }, ['a', 'b', 'c']);
-    expect(res).toEqual([{ key: 'd', type: DistinctionType.EXTRA, actual: 'extra' }]);
+    expect(res).toEqual([{ key: 'd', type: DistinctionType.EXTRA, actual: 'extra', expect: null }]);
   });
 });

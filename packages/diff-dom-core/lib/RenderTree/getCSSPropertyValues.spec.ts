@@ -15,6 +15,8 @@
  *-------------------------------------------------------------------------- */
 
 import { computeElementStyle } from './getCSSPropertyValues';
+import { USER_STYLE_ID } from '../const';
+import { appendUuid } from './appendUuid';
 
 const fragment = `
 <div class="listItem_listItem">
@@ -51,23 +53,23 @@ div p {
 
 // const html = htmlWrap(fragment, styesheet)
 
-beforeEach(() => {
+beforeAll(() => {
   document.body.innerHTML = fragment;
   const $style = document.createElement('style');
-  $style.id = 'userStyle'
+  $style.id = USER_STYLE_ID;
   $style.innerHTML = styesheet;
   document.head.appendChild($style);
+  appendUuid(document);
 });
 
 describe('simple jsdom env', () => {
   test('DOM is ready', () => {
-    expect(document.body).not.toBeNull();
-    expect(document.head.lastChild).not.toBeNull();
+    expect(document.body.innerHTML).not.toBeNull();
   });
 
   test('simple', () => {
     const propetyMap = computeElementStyle(document);
     expect(propetyMap.size).toBe(4);
-    expect(propetyMap.get('0').size).toBe(5);
+    expect(propetyMap.get('uuid_0_0').size).toBe(5);
   });
 })

@@ -13,7 +13,7 @@
 import { Puppeteer, PageManager } from '@feoj/common/puppeteer/index';
 import { readJSFile } from '@feoj/common/utils/readJSFile';
 import { IRenderNode } from '@feoj/common/types/domCore';
-import { htmlWrap } from '../utils';
+import { createHTMLTpl } from '../utils';
 import { readFixtures, IFixture, IFixtureData } from '../../fixtures/readFixture';
 
 const webpack = require('webpack');
@@ -49,7 +49,7 @@ beforeAll(() => {
 function testFactory(prefix, data) {
   const { title, fragment, stylesheet, anwser } = data;
   test(`${prefix} ${title}`, async () => {
-    const html = htmlWrap(fragment, stylesheet);
+    const html = createHTMLTpl(fragment, stylesheet);
     const page = await pageManager.getPage();
     await page.setContent(html);
     const renderTree: IRenderNode = (await page.evaluate(M_diffScript) as IRenderNode);
