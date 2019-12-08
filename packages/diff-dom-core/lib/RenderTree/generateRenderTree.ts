@@ -16,6 +16,7 @@ import { IGenerateRenderTreeOptions, mergeWithDefaultConfig } from '../config';
 function depthFirstTraversal(
   domNode: Element,
   renderNode: IRenderNode,
+  coordinate: {x: number; y: number},
   config: IGenerateRenderTreeOptions,
 ): void {
   if (domNode.nodeType === NodeType.ELEMENT_NODE) {
@@ -27,11 +28,23 @@ function depthFirstTraversal(
     renderNode.uuid = getUuid(domNode);
     renderNode.attr = getAttrs(domNode);
     renderNode.style = getStyle(domNode);
-    renderNode.rect = getRect(domNode);
+    renderNode.rect = getRect(domNode, coordinate);
 
     if (!config.noChildElement.includes(tagName)) {
       const children = domNode.childNodes;
       renderNode.children = [];
+
+      let x = coordinate.x;
+      if (typeof renderNode.rect.top !== 'undefined') {
+        x = renderNode.rect.top;
+      }
+      let y = coordinate.y;
+      if (typeof renderNode.rect.left !== 'undefined') {
+        y = renderNode.rect.left;
+      }
+
+      const nextCoordinate = { x, y };
+
       for (let i = 0; i < children.length; i++) {
         const childNode = children[i] as Element;
         if (childNode.nodeType === NodeType.TEXT_NODE) {
@@ -43,7 +56,7 @@ function depthFirstTraversal(
         } else {
           const renderChild = createEmptyNode(tagName);
           renderNode.children.push(renderChild);
-          depthFirstTraversal(childNode, renderChild, config);
+          depthFirstTraversal(childNode, renderChild, nextCoordinate, config);
         }
       }
     }
@@ -58,6 +71,6 @@ export function generateRenderTree(
 ): IRenderNode {
   const root = createEmptyNode();
   mergeWithDefaultConfig(config);
-  depthFirstTraversal(body, root, config);
+  depthFirstTraversal(body, root, { x: 0, y: 0 }, config);
   return root;
 }

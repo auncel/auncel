@@ -62,8 +62,13 @@ export function getAttrs(node: Element): TAttributes {
  * @param {Element} node
  * @returns [X, Y, Width, Left]
  */
-export function getRect(node: Element): TNodeRect {
+export function getRect(node: Element, coordinate: {x: number; y: number}): TNodeRect {
   const rect = node.getBoundingClientRect();
   const { left, top, width, height } = rect;
-  return { left, top, width, height }; // .map(Math.floor);
+  return {
+    left: left - coordinate.x,
+    top: top - coordinate.y,
+    width,
+    height,
+  };
 }
