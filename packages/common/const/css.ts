@@ -92,7 +92,7 @@ export const CSSProperties = [
   'bottom',
   'box-decoration-break',
   'box-shadow',
-  'box-sizing',
+  'box-sizing', // TODO:
   'break-after',
   'break-before',
   'break-inside',
@@ -119,7 +119,7 @@ export const CSSProperties = [
   'counter-set',
   'cursor',
   'direction',
-  'display',
+  'display', // TODO:
   'empty-cells',
   'filter',
   'flex',

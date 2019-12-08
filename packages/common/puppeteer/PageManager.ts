@@ -18,8 +18,7 @@ export class PageManager {
    */
   private isCreating = true;
 
-  public async initPageManager(browser: Browser) {
-    // const browser = await Puppeteer.getBrowser();
+  public async initPageManager(browser: Browser): Promise<void> {
     this.isCreating = true;
     log.info(`started creating ${MAX_PAGE_POOL_SIZE} page instance at ${Date.now()}`);
     console.time(`create ${MAX_PAGE_POOL_SIZE} page instance`);
@@ -29,7 +28,7 @@ export class PageManager {
     }
     const pageArr = await Promise.all(pagePromises);
     console.timeEnd(`create ${MAX_PAGE_POOL_SIZE} page instance`);
-    log.info(`creating ${MAX_PAGE_POOL_SIZE} page instance finished at ${Date.now}`);
+    log.info(`creating ${MAX_PAGE_POOL_SIZE} page instance finished at ${Date.now()}`);
     this.isCreating = false;
     this.pagePool.push(...pageArr);
   }
