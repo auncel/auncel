@@ -19,6 +19,11 @@ export class Puppeteer {
       });
       console.timeEnd('puppeteer launch');
       log.info(`launch puppeterr at ${Date.now()}`);
+      // 注册异常退出回调
+      process.on('uncaughtException', async (err) => {
+        log.error(err.message);
+        await Puppeteer.close();
+      });
     }
     return this.browser;
   }
@@ -30,5 +35,10 @@ export class Puppeteer {
       await this.pageManager.initPageManager(browser);
     }
     return this.pageManager;
+  }
+
+  public static async close(): Promise<void> {
+    this.pageManager.closeAll();
+    this.browser.close();
   }
 }

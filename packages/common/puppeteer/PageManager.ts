@@ -48,4 +48,11 @@ export class PageManager {
     // TODO: 检测 page 是否已经放入
     this.pagePool.push(page);
   }
+
+  public async closeAll() {
+    this.pagePool.forEach((page) => {
+      page.close();
+    });
+    this.pagePool.length = 0;
+  }
 }
