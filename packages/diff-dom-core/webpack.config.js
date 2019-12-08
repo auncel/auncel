@@ -2,22 +2,21 @@ const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: "./lib/index.ts",
+  entry: './lib/index.ts',
   output: {
     library: 'window.Diff',
-    libraryTarget: 'var',
     libraryTarget: 'assign',
     path: __dirname,
-    filename: "dist/diff.js"
+    filename: 'dist/diff.js',
   },
   mode: 'development',
   module: {
     rules: [{
       test: /\.ts?$/,
       use: {
-        loader: 'ts-loader'
-      }
-    }]
+        loader: 'ts-loader',
+      },
+    }],
   },
 
   resolve: {
@@ -25,9 +24,9 @@ module.exports = {
     //   '@common': path.resolve(__dirname, '../../common/'),
     //   'src': path.resolve(__dirname, 'src'),
     // },
-    extensions: [".ts", ".json"],
+    extensions: ['.ts', '.json'],
     plugins: [new TsconfigPathsPlugin({
-      // configFile: __dirname + '/tsconfig.json',
-    })]
+      // configFile: `${__dirname}/tsconfig.json`,
+    })],
   },
 };
