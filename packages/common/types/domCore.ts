@@ -37,12 +37,12 @@ export enum NodeType {
 }
 
 
-export type TNodeRect = [
-  number?, // left
-  number?, // top
-  number?, // width
-  number?, // height
-];
+export type TNodeRect = {
+  left?: number;
+  top?: number;
+  width?: number;
+  height?: number;
+}
 
 export interface IRenderNode {
   /**
@@ -52,6 +52,7 @@ export interface IRenderNode {
   attr?: TAttributes;
 
   id?: string;
+  uuid?: string; // 如果元素被设置了样式，就会有这个属性
   className?: string;
   tagName?: TTag;
   nodeName?: string;
@@ -85,28 +86,48 @@ export enum DiffType {
   Text = 1 << 8,
 }
 
-interface IDiffProp<T> {
-  exemplar: T; // 参考答案
-  instance: T;
+export enum DistinctionType {
+  MISSING = 'MISSING',
+  EXTRA = 'EXTRA',
+  INEQUAL = 'INEQUAL',
 }
 
+export type TDistinctionType = keyof typeof DistinctionType;
+
+export interface IDistinctionDetail<T> {
+  key: string;
+  type: TDistinctionType;
+  expect?: T;
+  actual?: T;
+}
+
+/** Attribute 的值只有 boolean(checked) 和 string(type) */
+export type TAttrPropertyType = boolean | string;
+
+/** CSS 属性值的类型 */
+export type TCSSPropertyValueType = string | number;
 export interface IDiffNode {
   type: number; // 差异类型，是 DiffType 的累加值
   location: string; // 为了方便日志输出
 
-  tagName?: IDiffProp<string>;
-  nodeType?: IDiffProp<NodeType>;
+  tagName?: IDistinctionDetail<string>;
+  nodeType?: IDistinctionDetail<NodeType>;
 
-  id?: IDiffProp<string>;
-  className?: IDiffProp<string>;
+  id?: IDistinctionDetail<string>;
+  className?: IDistinctionDetail<string>;
 
-  style?: IDiffProp<TStyleProps>;
-  attr?: IDiffProp<TAttributes>;
-  rect?: IDiffProp<TNodeRect>;
-  dataset?: IDiffProp<DOMStringMap>;
+  style?: IDistinctionDetail<TCSSPropertyValueType>[];
+  attr?: IDistinctionDetail<TAttrPropertyType>[];
+  rect?: IDistinctionDetail<number>[];
+  dataset?: IDistinctionDetail<DOMStringMap>;
 
   children?: IDiffNode[];
   parent?: IDiffNode; // 生成 diff 结果时，用于获取生成节点路径
 
-  text?: IDiffProp<string>;
+  text?: IDistinctionDetail<string>;
+}
+
+export interface IDiffLog {
+  location: string;
+  difference: string[];
 }
