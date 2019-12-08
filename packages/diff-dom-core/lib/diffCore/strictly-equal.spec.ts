@@ -11,7 +11,7 @@
  *-------------------------------------------------------------------------- */
 import { strictEqualDiff } from './strictly-equal';
 
-const { div } = require('../../fixtures/render/diff.json');
+const { div, loginForm } = require('../../fixtures/render/diff.json');
 const loginFormSimple = require('../../fixtures/render/login-form.json');
 
 describe('<div></div>', () => {
@@ -24,5 +24,13 @@ describe('<div></div>', () => {
     const distinctions = strictEqualDiff(div.origin, div.padding);
     expect(distinctions.rect.length).toBe(2);
     expect(distinctions.children[0].style.length).toBe(2);
+  });
+});
+
+describe('github', () => {
+  test('login form', () => {
+    const distinctions = strictEqualDiff(loginForm.origin, loginForm.wrong);
+    console.log(JSON.stringify(distinctions, null, 2));
+    expect(distinctions).not.toBeNull();
   });
 });

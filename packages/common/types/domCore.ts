@@ -42,6 +42,8 @@ export type TNodeRect = {
   top?: number;
   width?: number;
   height?: number;
+  x?: number;
+  y?: number;
 }
 
 export interface IRenderNode {

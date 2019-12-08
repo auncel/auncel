@@ -73,7 +73,7 @@ function isStyleEqual(node1: IRenderNode, node2: IRenderNode): boolean {
 function getNodeLocal(node: IRenderNode): string {
   const buff = [node.tagName.toLowerCase()];
   if (node.id) buff.push(`#${node.id}`);
-  if (node.className) buff.push(node.className.split(' ').join('.'));
+  if (node.className) buff.push('.', node.className.split(' ').join('.'));
   return buff.join('');
 }
 

@@ -1,5 +1,5 @@
 
-import { diff } from './diff';
+import { diff } from './diffCore/strictly-equal';
 import { writeFileSync } from 'fs';
 import { genRenderTree } from './index';
 import { Puppeteer } from '@feoj/common/puppeteer/Puppeteer';
