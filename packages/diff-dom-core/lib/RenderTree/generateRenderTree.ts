@@ -1,7 +1,7 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-param-reassign */
 import { IRenderNode, NodeType } from '@feoj/common/types/domCore';
-import { createEmptyNode, createTextNode } from '@feoj/common/utils/difference.utils';
+import { createEmptyNode, createTextNode } from '../utils';
 import { TTagAttribute, TTag } from '@feoj/common/types/element';
 // import cloneDeep from 'lodash/fp/cloneDeep';
 import { getAttrs, getStyle, getRect, getUuid } from './utils';
