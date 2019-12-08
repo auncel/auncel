@@ -33,9 +33,10 @@ export type Comparator = <T>(
  * @param object 被比较物
  * @param comparison 比较物
  * @param keys 比较的 key
+ * @param isEualFn 是否相等的比较函数
  */
 export function distinctionCompare<T>(
-  object: object, comparison: object, keys: string[],
+  object: object, comparison: object, keys: string[], isEqualFn = isEqual,
 ): IDistinctionDetail<T>[] {
   const res: IDistinctionDetail<T>[] = [];
 
@@ -44,7 +45,7 @@ export function distinctionCompare<T>(
     const isObjectKeyExist = typeof object[key] !== 'undefined';
     const isComparisonKeyExist = typeof comparison[key] !== 'undefined';
     if (isObjectKeyExist && isComparisonKeyExist) {
-      if (!isEqual(object[key], comparison[key])) { // 浅比较
+      if (!isEqualFn(object[key], comparison[key])) { // 浅比较
         res.push(
           createDistinction<T>(
             key,
@@ -80,7 +81,7 @@ export function distinctionCompare<T>(
       res.push(
         createDistinction<T>(
           key,
-          DistinctionType.MISSING,
+          DistinctionType.EXTRA,
           null,
           comparison[key],
         ),
