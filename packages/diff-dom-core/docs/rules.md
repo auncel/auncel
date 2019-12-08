@@ -6,3 +6,15 @@
 + AT/QT attr 的不一致
   + AT 允许多余的 attr
   + 只检查宽关键的 attr？如：alt，placeholder，checked，type，target，name...
++ min/max-width 先不考虑
++ flex 暂且相等好了
++ grid 暂不考虑
++ list-style 样式也要特殊处理
++ 暂不考虑伪元素了伪类
+
+需要配置指定值
+
++ box-size
++ display
+
+**rect 应该比较相对位置**
