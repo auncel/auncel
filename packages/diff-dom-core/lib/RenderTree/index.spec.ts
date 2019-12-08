@@ -67,6 +67,11 @@ describe('complex world', () => {
   testFactory('', loginFormSimple);
 });
 
+afterAll(async () => {
+  await Puppeteer.close();
+  // pageManager.closeAll();
+});
+
 // function getRenderTree(fixture: IFixtureData) {
 //   const { fragment, stylesheet, } = fixture;
 //   const html = htmlWrap(fragment, stylesheet);

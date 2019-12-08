@@ -5,6 +5,8 @@
   "anwser": {
     "attr": {},
     "rect": {
+      "x": 0,
+      "y": 106,
       "left": 0,
       "top": 106,
       "width": 1519,
@@ -21,7 +23,9 @@
     "children": [{
       "attr": {},
       "rect": {
-        "left": 0,
+        "x": 0,
+        "y": 106,
+        "left": -106,
         "top": 106,
         "width": 1519,
         "height": 240
@@ -37,8 +41,10 @@
       "children": [{
         "attr": {},
         "rect": {
-          "left": 568.5,
-          "top": 106,
+          "x": 568.5,
+          "y": 106,
+          "left": 462.5,
+          "top": 212,
           "width": 382,
           "height": 240
         },
@@ -61,8 +67,10 @@
               "for": "login_field"
             },
             "rect": {
-              "left": 589.5,
-              "top": 127,
+              "x": 589.5,
+              "y": 127,
+              "left": 377.5,
+              "top": -335.5,
               "width": 340,
               "height": 16
             },
@@ -88,8 +96,10 @@
               "name": "login_field"
             },
             "rect": {
-              "left": 589.5,
-              "top": 150,
+              "x": 589.5,
+              "y": 150,
+              "left": 377.5,
+              "top": -312.5,
               "width": 358,
               "height": 34
             },
@@ -119,8 +129,10 @@
               "for": "password"
             },
             "rect": {
-              "left": 589.5,
-              "top": 199,
+              "x": 589.5,
+              "y": 199,
+              "left": 377.5,
+              "top": -263.5,
               "width": 340,
               "height": 16
             },
@@ -144,8 +156,10 @@
                   "href": "/password_reset"
                 },
                 "rect": {
-                  "left": 837.15625,
-                  "top": 199,
+                  "x": 837.15625,
+                  "y": 199,
+                  "left": 1100.65625,
+                  "top": -178.5,
                   "width": 92.34375,
                   "height": 13
                 },
@@ -173,8 +187,10 @@
               "name": "password"
             },
             "rect": {
-              "left": 589.5,
-              "top": 222,
+              "x": 589.5,
+              "y": 222,
+              "left": 377.5,
+              "top": -240.5,
               "width": 358,
               "height": 34
             },
@@ -206,8 +222,10 @@
               "value": "Sign in"
             },
             "rect": {
-              "left": 589.5,
-              "top": 276,
+              "x": 589.5,
+              "y": 276,
+              "left": 377.5,
+              "top": -186.5,
               "width": 340,
               "height": 34
             },

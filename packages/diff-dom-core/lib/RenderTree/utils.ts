@@ -66,6 +66,8 @@ export function getRect(node: Element, coordinate: {x: number; y: number}): TNod
   const rect = node.getBoundingClientRect();
   const { left, top, width, height } = rect;
   return {
+    x: left,
+    y: top,
     left: left - coordinate.x,
     top: top - coordinate.y,
     width,

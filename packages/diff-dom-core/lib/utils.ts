@@ -13,7 +13,7 @@ export function createEmptyNode(tagName: TTag = 'div'): IRenderNode {
   return {
     attr: {},
 
-    rect: { top: 0, left: 0, width: 0, height: 0 },
+    rect: { top: 0, left: 0, width: 0, height: 0, y: 0, x: 0 },
 
     tagName,
     nodeType: NodeType.ELEMENT_NODE,
