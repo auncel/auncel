@@ -19,6 +19,7 @@ import { readFixtures, IFixture, IFixtureData } from '../../fixtures/readFixture
 const webpack = require('webpack');
 const webpackConfig = require('../../webpack.config.js');
 const divSimple = require('../../fixtures/render/simple.json');
+const loginFormSimple = require('../../fixtures/render/login-form.json');
 
 let M_diffScript = '';
 let pageManager: PageManager = null;
@@ -52,15 +53,19 @@ function testFactory(prefix, data) {
     const page = await pageManager.getPage();
     await page.setContent(html);
     const renderTree: IRenderNode = (await page.evaluate(M_diffScript) as IRenderNode);
+    // console.log(JSON.stringify(renderTree, null, 2));
     expect(renderTree).toEqual(anwser);
     pageManager.releasePage(page);
   });
 }
 
-describe('相等测试 DIV', () => {
+describe('simple world', () => {
   divSimple.forEach(example => testFactory('相等测试',example));
 });
 
+describe('complex world', () => {
+  testFactory('', loginFormSimple);
+})
 // function getRenderTree(fixture: IFixtureData) {
 //   const { fragment, stylesheet, } = fixture;
 //   const html = htmlWrap(fragment, stylesheet);
