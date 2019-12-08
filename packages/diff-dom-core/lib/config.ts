@@ -53,12 +53,18 @@ export function mergeWithDefaultConfig(
  * @interface IStrictlyEqualAttrOption
  */
 export interface IStrictlyEqualAttrOption {
-  /**
-
-   * @type {{isStrictlyEqual: boolean, list: TTagAttribute[]}} attrs
-   */
   isStrictlyEqual?: boolean;
   list?: TTagAttribute[];
+}
+
+export interface IStrictlyEqualStyleOption {
+  // false表示不严格，true表示和 QT 一致
+  display?: boolean;
+  boxSizing?: boolean;
+  color?: boolean;
+  backgroundColor?: boolean;
+  // true z-index 的数值一致即可，false 表示前后顺序相同即可
+  zIndex?: boolean;
 }
 
 export interface IStrictlyEqualOption {
@@ -66,6 +72,8 @@ export interface IStrictlyEqualOption {
   isTagStrictlyEqaul?: boolean;
   isIdStrictlyEqual?: boolean;
   isClassStrictlyEqual?: boolean;
+  style: IStrictlyEqualStyleOption;
+  rectTolerance: number;
 }
 
 export const strictlyEqualOption: IStrictlyEqualOption = {
@@ -73,4 +81,14 @@ export const strictlyEqualOption: IStrictlyEqualOption = {
     isStrictlyEqual: true,
   },
   isTagStrictlyEqaul: true,
+  isIdStrictlyEqual: true,
+  isClassStrictlyEqual: true,
+  style: {
+    display: true,
+    boxSizing: true,
+    color: true,
+    backgroundColor: true,
+    zIndex: true,
+  },
+  rectTolerance: 0,
 };
