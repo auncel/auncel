@@ -38,7 +38,7 @@ module.exports = {
     "no-plusplus": 0,
     "@typescript-eslint/interface-name-prefix": [2, { "prefixWithI": "always" } ], // @@
     "no-irregular-whitespace": 1,
-    "max-len": 1,
+    "max-len": [1, { "code": 80 }],
     "no-empty": 1,
     "@typescript-eslint/no-empty-function": 1,
     "no-return-await": 1,
