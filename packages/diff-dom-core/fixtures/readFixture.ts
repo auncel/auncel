@@ -1,11 +1,13 @@
 import * as fs from 'fs';
 import { join, relative } from 'path';
+import * as YAML from 'js-yaml';
 
 const SPLITTER = '<!-- splitter -->';
 
 export interface IFixtureData {
   name: string;
   description: string;
+  similarity: number;
   type: string;
   fragment: string;
   stylesheet: string;
@@ -25,7 +27,7 @@ export function readFixture(filepath): IFixtureData {
   const htmlContent: string = fs.readFileSync(filepath, { encoding: 'utf8' });
 
   const commentEndIdx = htmlContent.indexOf('-->');
-  const description = htmlContent.substring(4, commentEndIdx).trim();
+  const yamlText = htmlContent.substring(4, commentEndIdx).trim();
   const splitterIdx = htmlContent.indexOf(SPLITTER);
   const stylesheet = htmlContent.substring(commentEndIdx + 3, splitterIdx).trim().slice(7, -8).trim();
   const fragment = htmlContent.substring(splitterIdx + SPLITTER.length).trim();
@@ -33,12 +35,15 @@ export function readFixture(filepath): IFixtureData {
   const relativePaths = relative(__dirname, filepath).split('/');
   const filename = relativePaths.pop();
 
+  const { description, similarity }: { description: string; similarity: number} = YAML.load(yamlText);
   const [typeName, type] = filename.split('.');
   relativePaths.push(typeName);
   const name = `${type}: ${relativePaths.join(' -> ')}`;
+
   return {
     name,
     description,
+    similarity,
     type,
     fragment,
     stylesheet,
