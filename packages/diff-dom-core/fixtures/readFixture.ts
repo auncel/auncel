@@ -12,6 +12,7 @@ export interface IFixtureData {
 }
 
 export interface IFixture {
+  title: string;
   question: IFixtureData;
   answers: IFixtureData[];
 }
@@ -49,12 +50,12 @@ export function readFixtures(dirpath): IFixture {
   if (!fs.statSync(dirpath).isDirectory) {
     throw Error(`${dirpath} must be Directory`);
   }
-  const fixtureObject: IFixture = { question: null, answers: [] };
+  const fixtureObject: IFixture = { title: '', question: null, answers: [] };
+  fixtureObject.title = relative(__dirname, dirpath).split('/').join(' -> ');
   const filenames = fs.readdirSync(dirpath);
   filenames.sort(); // 字母排序
   // eslint-disable-next-line no-restricted-syntax
   for (const filename of filenames) {
-    // eslint-disable-next-line no-await-in-loop
     const fixtureData = readFixture(join(dirpath, filename));
     if (fixtureData.type === 'question') {
       fixtureObject.question = fixtureData;
@@ -63,4 +64,28 @@ export function readFixtures(dirpath): IFixture {
     }
   }
   return fixtureObject;
+}
+
+export function readAllFixtures(): Map<string, IFixture> {
+  const fixtrueMap = new Map<string, IFixture>();
+
+  function dirRecursion(dirpath: string): void {
+    if (fs.statSync(dirpath).isDirectory) {
+      const dirfiles = fs.readdirSync(dirpath, { withFileTypes: true });
+      // eslint-disable-next-line no-restricted-syntax
+      for (const dirfile of dirfiles) {
+        if (dirfile.isFile() && dirfile.name.endsWith('.html')) {
+          const fixtrue = readFixtures(dirpath);
+          fixtrueMap.set(fixtrue.title, fixtrue);
+          break;
+        } else if (dirfile.isDirectory()) {
+          dirRecursion(join(dirpath, dirfile.name));
+        }
+      }
+    }
+  }
+
+  dirRecursion(__dirname);
+
+  return fixtrueMap;
 }
