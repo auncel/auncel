@@ -9,7 +9,7 @@ import { UUID_ATTR } from './getCSSPropertyValues';
  * Last Modified: Monday, 2nd December 2019 10:16 pm                         *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 /**
  * 获得 uuid 最后一个数字

@@ -7,7 +7,7 @@
  * Last Modified: Tuesday, 26th November 2019 10:28 pm                       *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';

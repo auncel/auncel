@@ -7,7 +7,7 @@
  * Last Modified: Sunday, 8th December 2019 9:35 pm                          *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 /* eslint-disable no-param-reassign */
 import {

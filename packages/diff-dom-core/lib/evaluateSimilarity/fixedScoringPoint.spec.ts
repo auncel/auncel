@@ -7,7 +7,7 @@
  * Last Modified: Sunday, 8th December 2019 7:20 pm                          *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 import { generateDiffResult } from './fixedScoringPoint';
 import { IDiffNode } from '@feoj/common/types/domCore';

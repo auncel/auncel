@@ -7,7 +7,7 @@
  * Last Modified: Friday, 29th November 2019 9:32 pm                         *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 // FIXME: Why canot import css-tree directly
 // eslint-disable-next-line import/no-duplicates

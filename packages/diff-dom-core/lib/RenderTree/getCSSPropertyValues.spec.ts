@@ -11,7 +11,7 @@
  * Last Modified: Sunday, 1st December 2019 8:30 pm                          *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
 import { computeElementStyle } from './getCSSPropertyValues';

@@ -7,7 +7,7 @@
  * Last Modified: Sunday, 8th December 2019 5:07 pm                          *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 import { strictEqualDiff } from './strictly-equal';
 

@@ -7,7 +7,7 @@
  * Last Modified: Saturday, 30th November 2019 2:09 pm                       *
  * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
  *                                                                           *
- * Copyright 2019 - 2019 MIT License                                         *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 import { parseCSS } from './parseCSS';
 
