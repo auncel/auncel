@@ -104,7 +104,7 @@ afterAll(async () => {
 //       textFixtureFactory(fixture);
 //     });
 //   // test('async', async () => {
-//   //   const fixture = await readFixtures(__dirname + '/../../fixtures/elements/div/simple/')
+//   //   const fixture = readFixtures(__dirname + '/../../fixtures/elements/div/simple/')
 //   //   textFixtureFactory(fixture);
 //   // });
 // });

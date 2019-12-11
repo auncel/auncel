@@ -38,16 +38,13 @@ function getRenderTree(fixture: IFixtureData): IRenderNode {
   return tree;
 }
 
-let question: IFixtureData = null;
-let answers: IFixtureData[] = null;
+const fixtrues = readFixtures(__dirname + '/../../fixtures/elements/button/bootstrap/')
+
+let question: IFixtureData = fixtrues.question;
+let answers: IFixtureData[] = fixtrues.answers;
+
 beforeAll(() => {
   jest.setTimeout(10_000);
-  return readFixtures(__dirname + '/../../fixtures/elements/button/bootstrap/')
-    .then(fixtrues => {
-    question = fixtrues.question;
-    answers = fixtrues.answers;
-    return null;
-  });
 }, 10_000);
 
 describe('bootstrap', () => {
