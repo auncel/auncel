@@ -106,7 +106,8 @@ public/
 
 node_modules
 bower_componets
-
+# use yarn, ignore package-lock.json
+package-lock.json
 *.sublime*
 
 psd
@@ -114,3 +115,5 @@ thumb
 sketch
 
 # End of https://www.gitignore.io/api/node,react,java-web
+
+tmp.html

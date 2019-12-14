@@ -12,6 +12,6 @@ import { HtmlService } from './html/html.service';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(TimeMiddleware).forRoutes('difference')
+    consumer.apply(TimeMiddleware).forRoutes('difference');
   }
 }

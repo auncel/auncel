@@ -1,8 +1,8 @@
 export default class Reader {
   private text: string;
-  private idx: number = 0;
-  private line: number = 0;
-  private col: number = 0;
+  private idx = 0;
+  private line = 0;
+  private col = 0;
 
   constructor(text) {
     this.text = text || '';
@@ -27,7 +27,7 @@ export default class Reader {
     return this.text.charAt(this.idx + offset);
   }
 
-  eof(offset: number = 0): boolean {
+  eof(offset = 0): boolean {
     return this.seek(offset) === '';
   }
 }

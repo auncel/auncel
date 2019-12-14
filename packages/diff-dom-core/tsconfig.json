@@ -1,20 +1,29 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "es2015",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2017",
+    "allowSyntheticDefaultImports": true,
+    "target": "es2015",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@common/*": [ "../../common/*" ],
-      "@utils/*": [ "./utils/*" ],
-      "@css/*": [ "../../css/*"]
-    }
+      "@feoj/common/*": ["../common/*"],
+    },
+    "lib": [
+      "es2019",
+      "dom"
+    ]
   },
+  "include": [
+    "fixtures/**/*",
+    "lib/**/*",
+    "@feoj/**/*",
+    "node_modules/@feoj/**/*",
+  ],
   "exclude": ["node_modules", "dist"]
 }

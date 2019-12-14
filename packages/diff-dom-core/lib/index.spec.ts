@@ -1,100 +1,80 @@
+/* --------------------------------------------------------------------------*
+ * Description:                                                              *
+ *                                                                           *
+ * File Created: Wednesday, 11th December 2019 10:08 pm                      *
+ * Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
+ *                                                                           *
+ * Last Modified: Wednesday, 11th December 2019 10:08 pm                     *
+ * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
+ *                                                                           *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
+ *-------------------------------------------------------------------------- */
 
-import { diff } from './diff';
-import { writeFileSync } from 'fs';
+import { Puppeteer, PageManager } from '@feoj/common/puppeteer/index';
+import { readJSFile } from '@feoj/common/utils/readJSFile';
+import { readAllFixtures, IFixtureData } from '../fixtures/readFixture';
+import { createHTMLTpl } from './utils';
+import { IRenderNode } from '@feoj/common/types/domCore';
+import { strictEqualDiff } from './diffCore/strictly-equal';
+import { generateDiffResult } from './evaluateSimilarity/fixedScoringPoint';
 
-const tree0 = {
-  "attr": {},
-  "rect": [
-    8,
-    32,
-    784,
-    56
-  ],
-  "tagName": "BODY",
-  "nodeType": 1,
-  "style": {
-    "font-size": "16px",
-    "font-style": "normal",
-    "border-color": "rgb(0, 0, 0)",
-    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"
-  },
-  "id": "",
-  "className": "",
-  "children": [
-    {
-      "attr": {},
-      "rect": [
-        8,
-        32,
-        784,
-        56
-      ],
-      "tagName": "H1",
-      "nodeType": 1,
-      "style": {
-        "font-size": "48px",
-        "font-style": "normal",
-        "border-color": "rgb(0, 0, 0)",
-        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"
-      },
-      "id": "",
-      "className": "",
-      "children": [
-        {
-          "text": "欢迎使用 Markdown",
-          "nodeType": 3
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config.js');
+
+const fixtureMap = readAllFixtures();
+
+let pageManager: PageManager = null;
+let M_diffScript = '';
+beforeAll(() => {
+  return Promise.all([
+    // 编译 ts
+    new Promise((resolve, reject) => {
+      webpack(webpackConfig, (error, stats) => {
+        if (!error) {
+          resolve();
+        } else {
+          reject(error);
         }
-      ]
-    }
-  ]
+      });
+    }).then(() => {
+      return readJSFile(__dirname + '/../dist/diff.js');
+    }).then((diffModuleStr) => {
+      M_diffScript = `${diffModuleStr}; window.Diff.generateRenderTree();`;
+    }),
+    // 获取 puppeteer 实例
+    Puppeteer.getPageManager().then((manager) => {
+      pageManager = manager;
+    }),
+  ]).catch(err => {throw err});
+}, 60 * 1000); // 1 分钟超时
+
+async function getRenderTree(fixtureData: IFixtureData): Promise<IRenderNode> {
+  const { fragment, stylesheet } = fixtureData;
+  const html = createHTMLTpl(fragment, stylesheet);
+  const page = await pageManager.getPage();
+  await page.setContent(html);
+  const renderTree: IRenderNode = (await page.evaluate(M_diffScript) as IRenderNode);
+  return renderTree;
 }
-const tree1 = {
-  "attr": {},
-  "rect": [
-    8,
-    32,
-    784,
-    240
-  ],
-  "tagName": "BODY",
-  "nodeType": 1,
-  "style": {
-    "font-size": "16px",
-    "font-style": "normal",
-    "border-color": "rgb(0, 200, 0)",
-    "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"
-  },
-  "id": "",
-  "className": "",
-  "children": [
-    {
-      "attr": {},
-      "rect": [
-        8,
-        32,
-        784,
-        240
-      ],
-      "tagName": "H1",
-      "nodeType": 1,
-      "style": {
-        "font-size": "48px",
-        "font-style": "normal",
-        "border-color": "rgb(0, 0, 0)",
-        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"
-      },
-      "id": "",
-      "className": "",
-      "children": [
-        {
-          "text": "欢迎使用 Markdown",
-          "nodeType": 3
+for (const [title, fixtrue] of fixtureMap.entries()) {
+  describe(title, () => {
+    const { question, answers } = fixtrue;
+    for (const answer of answers) {
+      let questionRenderTree = null;
+      test(answer.description, async () => {
+        if (!questionRenderTree) {
+          questionRenderTree = await getRenderTree(question)
         }
-      ]
+        const answerRenerTree = await getRenderTree(answer);
+        const diffTree = strictEqualDiff(questionRenderTree, answerRenerTree);
+        const { score } = generateDiffResult(diffTree);
+        console.log('similarity: ', score);
+        expect(score > answer.similarity)
+      });
     }
-  ]
+  });
 }
 
-const res = diff(tree0, tree1);
-
-writeFileSync('res.json',JSON.stringify(res,null, 2) )
+afterAll(async () => {
+  await Puppeteer.close();
+});

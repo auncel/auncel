@@ -1,65 +1,86 @@
-import { Attributes, AttributeType } from "@feoj/common/types/difference.interface";
-import { tokenize, TokenType } from '@feoj/common/css/tokenize';
-
-const stylePrototypeWhiteList = [
-  'font-size',
-  'font-style',
-  'border-color',
-  'background',
-];
-
-export function getStyle(node: Element) {
-  const styleObj = {};
-  const style = getComputedStyle(node);
-  const properties = getStyleProperties();
-  properties.forEach(key => {
-    styleObj[key] = style.getPropertyValue(key);
-  });
-
-  return styleObj;
-}
-
-const ignoreAttr = ['class', 'id', 'style'];
-const datasetReg =  /^data-.+/;
+import { IRenderNode, NodeType } from '@feoj/common/types/domCore';
+import { TTag } from '@feoj/common/types/element';
+import { USER_STYLE_ID } from './const';
 
 /**
- * 
- * @param node Element node
- */
-export function getAttrs(node: Element) {
-  const attrObj: Attributes = {};
-  const attrs = node.attributes;
-
-  for (let i = 0; i < attrs.length; i++ ) {
-    const attr: Attr = attrs[i];
-    const nodeName = attr.nodeName as AttributeType;
-    if (ignoreAttr.includes(nodeName) || datasetReg.test(nodeName)) {
-      attrObj[nodeName] = attr.nodeValue;
-    }
-  }
-
-  return attrObj;
-}
-
-/**
- *
+ * 创建空的 RenderNode
  *
  * @export
- * @param {Element} node
- * @returns [X, Y, Width, Left]
+ * @param {string} [tagName='div']
+ * @returns {IRenderNode}
  */
-export function getRect(node: Element): [number, number, number, number] {
-  var rect = node.getBoundingClientRect();
-  // @ts-ignore
-  return [rect.left, rect.top, rect.width, rect.height].map(Math.floor);
+export function createEmptyNode(tagName: TTag = 'div'): IRenderNode {
+  return {
+    attr: {},
+
+    rect: { top: 0, left: 0, width: 0, height: 0, y: 0, x: 0 },
+
+    tagName,
+    nodeType: NodeType.ELEMENT_NODE,
+
+    style: {},
+  };
 }
 
-let properties: string[];
-function getStyleProperties(): string[] {
-  if (!properties) {
-    const stylesheet = document.querySelector('#inject-style').innerHTML;
-    const tokens = tokenize(stylesheet);
-    properties = tokens.filter(t => t.type === TokenType.Property).map(t => t.value);
-  }
-  return properties;
+export function createTextNode(text = ''): IRenderNode {
+  return {
+    text,
+    nodeType: NodeType.TEXT_NODE,
+  };
+}
+
+export function isElement(elem: IRenderNode): boolean {
+  return elem.nodeType === NodeType.ELEMENT_NODE;
+}
+
+// export function createHtmlTpl(stylesheet: string, fragment: string): string {
+//   return `<!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//   <title>Document</title>
+//   <style>
+//     .diff___rect {
+//       border: 1px solid red;
+//       position: absolute;
+//     }
+//   </style>
+//   <style id="inject-style">
+//     ${stylesheet}
+//   </style>
+// </head>
+
+// <body>
+// ${fragment}
+// </body>
+
+// </html>`;
+// }
+
+/**
+ * 返回完整的 HTML 字符串
+ * @param fragment HTML 片段
+ * @param stylesheet css 片段
+ */
+export function createHTMLTpl(fragment: string, stylesheet: string): string {
+  // 数组更美观
+  return [
+    '<!DOCTYPE html>',
+    '<html lang="en">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '  <meta http-equiv="X-UA-Compatible" content="ie=edge">',
+    '  <title>Document</title>',
+    '  <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">',
+    `  <style id="${USER_STYLE_ID}">`,
+    `    ${stylesheet}`,
+    '  </style>',
+    '</head>',
+    '<body>',
+    `    ${fragment}`,
+    '</body>',
+    '</html>'].join('\n');
 }

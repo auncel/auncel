@@ -1,0 +1,15 @@
+**/build
+**/bower_components
+**/vendor
+**/node_modules
+**/dist
+**/local_css
+**/local_js
+**/local
+**/dev
+
+*spec.ts
+*.test.ts
+*.test.tsx
+serviceWorker.ts
+tmp.html

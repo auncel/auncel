@@ -1,0 +1,380 @@
+{
+  "type": 0,
+  "location": "body",
+  "rect": [
+    {
+      "key": "top",
+      "type": "INEQUAL",
+      "expect": 106,
+      "actual": 120
+    },
+    {
+      "key": "x",
+      "type": "EXTRA",
+      "expect": null,
+      "actual": 0
+    },
+    {
+      "key": "y",
+      "type": "EXTRA",
+      "expect": null,
+      "actual": 120
+    }
+  ],
+  "children": [
+    {
+      "type": 64,
+      "location": "main",
+      "style": [
+        {
+          "key": "margin-top",
+          "type": "INEQUAL",
+          "expect": "106px",
+          "actual": "120px"
+        }
+      ],
+      "rect": [
+        {
+          "key": "left",
+          "type": "INEQUAL",
+          "expect": -106,
+          "actual": -120
+        },
+        {
+          "key": "top",
+          "type": "INEQUAL",
+          "expect": 106,
+          "actual": 120
+        },
+        {
+          "key": "x",
+          "type": "EXTRA",
+          "expect": null,
+          "actual": 0
+        },
+        {
+          "key": "y",
+          "type": "EXTRA",
+          "expect": null,
+          "actual": 120
+        }
+      ],
+      "children": [
+        {
+          "type": 64,
+          "location": "divlogin-form",
+          "style": [
+            {
+              "key": "margin",
+              "type": "INEQUAL",
+              "expect": "0px 568.5px",
+              "actual": "0px 566.5px"
+            },
+            {
+              "key": "border",
+              "type": "INEQUAL",
+              "expect": "1px solid rgb(216, 222, 226)",
+              "actual": "3px solid rgb(216, 222, 226)"
+            }
+          ],
+          "rect": [
+            {
+              "key": "left",
+              "type": "INEQUAL",
+              "expect": 462.5,
+              "actual": 446.5
+            },
+            {
+              "key": "top",
+              "type": "INEQUAL",
+              "expect": 212,
+              "actual": 240
+            },
+            {
+              "key": "width",
+              "type": "INEQUAL",
+              "expect": 382,
+              "actual": 386
+            },
+            {
+              "key": "x",
+              "type": "EXTRA",
+              "expect": null,
+              "actual": 566.5
+            },
+            {
+              "key": "y",
+              "type": "EXTRA",
+              "expect": null,
+              "actual": 120
+            }
+          ],
+          "children": [
+            {
+              "type": 64,
+              "location": "labellogin-form-lable",
+              "style": [
+                {
+                  "key": "font-weight",
+                  "type": "INEQUAL",
+                  "expect": "600",
+                  "actual": "400"
+                }
+              ],
+              "rect": [
+                {
+                  "key": "left",
+                  "type": "INEQUAL",
+                  "expect": 377.5,
+                  "actual": 349.5
+                },
+                {
+                  "key": "top",
+                  "type": "INEQUAL",
+                  "expect": -335.5,
+                  "actual": -303.5
+                },
+                {
+                  "key": "x",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 589.5
+                },
+                {
+                  "key": "y",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 143
+                }
+              ],
+              "children": [
+                {
+                  "type": 0,
+                  "location": ""
+                }
+              ]
+            },
+            {
+              "type": 64,
+              "location": "inputform-control.input-block",
+              "style": [
+                {
+                  "key": "margin-top",
+                  "type": "INEQUAL",
+                  "expect": "5px",
+                  "actual": "15px"
+                },
+                {
+                  "key": "margin-bottom",
+                  "type": "INEQUAL",
+                  "expect": "15px",
+                  "actual": "5px"
+                }
+              ],
+              "rect": [
+                {
+                  "key": "left",
+                  "type": "INEQUAL",
+                  "expect": 377.5,
+                  "actual": 349.5
+                },
+                {
+                  "key": "top",
+                  "type": "INEQUAL",
+                  "expect": -312.5,
+                  "actual": -272.5
+                },
+                {
+                  "key": "x",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 589.5
+                },
+                {
+                  "key": "y",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 174
+                }
+              ]
+            },
+            {
+              "type": 64,
+              "location": "labellogin-form-lable",
+              "style": [
+                {
+                  "key": "font-weight",
+                  "type": "INEQUAL",
+                  "expect": "600",
+                  "actual": "400"
+                }
+              ],
+              "rect": [
+                {
+                  "key": "left",
+                  "type": "INEQUAL",
+                  "expect": 377.5,
+                  "actual": 349.5
+                },
+                {
+                  "key": "top",
+                  "type": "INEQUAL",
+                  "expect": -263.5,
+                  "actual": -233.5
+                },
+                {
+                  "key": "x",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 589.5
+                },
+                {
+                  "key": "y",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 213
+                }
+              ],
+              "children": [
+                {
+                  "type": 0,
+                  "location": ""
+                },
+                {
+                  "type": 0,
+                  "location": "alabel-link",
+                  "rect": [
+                    {
+                      "key": "left",
+                      "type": "INEQUAL",
+                      "expect": 1100.65625,
+                      "actual": 1077.546875
+                    },
+                    {
+                      "key": "top",
+                      "type": "INEQUAL",
+                      "expect": -178.5,
+                      "actual": -136.5
+                    },
+                    {
+                      "key": "width",
+                      "type": "INEQUAL",
+                      "expect": 92.34375,
+                      "actual": 85.453125
+                    },
+                    {
+                      "key": "x",
+                      "type": "EXTRA",
+                      "expect": null,
+                      "actual": 844.046875
+                    },
+                    {
+                      "key": "y",
+                      "type": "EXTRA",
+                      "expect": null,
+                      "actual": 213
+                    }
+                  ],
+                  "children": [
+                    {
+                      "type": 0,
+                      "location": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": 64,
+              "location": "input#passwordform-control.form-control.input-block",
+              "style": [
+                {
+                  "key": "margin-top",
+                  "type": "INEQUAL",
+                  "expect": "5px",
+                  "actual": "15px"
+                },
+                {
+                  "key": "margin-bottom",
+                  "type": "INEQUAL",
+                  "expect": "15px",
+                  "actual": "5px"
+                }
+              ],
+              "rect": [
+                {
+                  "key": "left",
+                  "type": "INEQUAL",
+                  "expect": 377.5,
+                  "actual": 349.5
+                },
+                {
+                  "key": "top",
+                  "type": "INEQUAL",
+                  "expect": -240.5,
+                  "actual": -202.5
+                },
+                {
+                  "key": "x",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 589.5
+                },
+                {
+                  "key": "y",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 244
+                }
+              ]
+            },
+            {
+              "type": 64,
+              "location": "inputbtn",
+              "style": [
+                {
+                  "key": "margin-bottom",
+                  "type": "INEQUAL",
+                  "expect": "15px",
+                  "actual": "5px"
+                },
+                {
+                  "key": "background-color",
+                  "type": "INEQUAL",
+                  "expect": "rgb(40, 167, 69)",
+                  "actual": "rgb(52, 208, 88)"
+                }
+              ],
+              "rect": [
+                {
+                  "key": "left",
+                  "type": "INEQUAL",
+                  "expect": 377.5,
+                  "actual": 349.5
+                },
+                {
+                  "key": "top",
+                  "type": "INEQUAL",
+                  "expect": -186.5,
+                  "actual": -148.5
+                },
+                {
+                  "key": "x",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 589.5
+                },
+                {
+                  "key": "y",
+                  "type": "EXTRA",
+                  "expect": null,
+                  "actual": 298
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

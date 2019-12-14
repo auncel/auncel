@@ -5,22 +5,20 @@ import { HtmlService } from 'src/html/html.service';
 
 @Controller('difference')
 export class DifferenceController {
+  public constructor(private readonly diffService: DifferenceService, private readonly htmlService: HtmlService) {}
 
-  public constructor(private readonly diffService: DifferenceService, private readonly htmlService: HtmlService) {};
-  
-  @MessagePattern({cmd: 'create-render-tree'})
+  @MessagePattern({ cmd: 'create-render-tree' })
   public async createRenderTree(fragment: string, stylesheet: string) {
-    
     const renderTree = await this.diffService.getRenderTree('');
     return renderTree;
   }
 
-  @MessagePattern({cmd: 'diff'})
+  @MessagePattern({ cmd: 'diff' })
   public async diff() {
 
   }
 
-  @MessagePattern({cmd: 'diff-html'})
+  @MessagePattern({ cmd: 'diff-html' })
   public async diffHTML(parma) {
     const { exemplar, instance } = parma;
     // TODO: 验证 html
@@ -28,7 +26,7 @@ export class DifferenceController {
     return await this.diffService.diffHTML(exemplar, instance);
   }
 
-  @MessagePattern({cmd: 'init-answer-tree'})
+  @MessagePattern({ cmd: 'init-answer-tree' })
   public async init() {
 
   }

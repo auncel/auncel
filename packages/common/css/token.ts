@@ -13,7 +13,7 @@ enum KeyChar {
   ASTERISK = '*',
 }
 
-export enum TokenType  {
+export enum TokenType {
   RightCrulyBracese = 'rightCrulyBracese',
   LeftCrulyBracese = 'leftCrulyBracese',
   AtRule = 'atRule',
@@ -50,10 +50,10 @@ export default class Token {
 
   isBeforeBlock() {
     let offset = 0;
-    while(!this.reader.eof(offset)) {
-      let char = this.reader.seek(offset);
+    while (!this.reader.eof(offset)) {
+      const char = this.reader.seek(offset);
 
-      if (char === KeyChar.SEMICOLON 
+      if (char === KeyChar.SEMICOLON
         || char === KeyChar.RIGHTCURLYBRACES) return false;
 
       if (char === KeyChar.LEFTCURLYBRACES) return true;
@@ -66,7 +66,7 @@ export default class Token {
   isComment() {
     const first = this.reader.peek();
     const second = this.reader.seek(1);
-    return first === KeyChar.SLASH && second === KeyChar.ASTERISK 
+    return first === KeyChar.SLASH && second === KeyChar.ASTERISK;
   }
 
   isSpace(): boolean {
@@ -91,11 +91,11 @@ export default class Token {
     return char !== KeyChar.COLON && !this.isSpace();
   }
 
-  
+
   notCommentEnd() {
     const last = this.reader.seek(2);
     const penultimate = this.reader.seek(1);
-    return penultimate !== KeyChar.ASTERISK || last !== KeyChar.SLASH; 
+    return penultimate !== KeyChar.ASTERISK || last !== KeyChar.SLASH;
   }
 
   skipSpace() {
@@ -106,7 +106,7 @@ export default class Token {
 
   readWhile(predicate: (char: string) => boolean) {
     const buff = [];
-    while(!this.reader.eof() && predicate.call(this, this.reader.peek())) {
+    while (!this.reader.eof() && predicate.call(this, this.reader.peek())) {
       buff.push(this.reader.next());
     }
     return buff.join('');
@@ -154,18 +154,18 @@ export default class Token {
   readBlock() {
     while (this.notBlockEnd()) {
       this.skipSpace();
-      const char =  this.reader.peek();
+      const char = this.reader.peek();
 
       switch (char) {
-        case KeyChar.SEMICOLON: ;
+        case KeyChar.SEMICOLON:
         case KeyChar.LEFTCURLYBRACES: {
           this.reader.next();
           break;
-        };
+        }
         case KeyChar.COLON: {
           this.skipSpace();
           this.readPropertyValue();
-        };
+        }
         case KeyChar.SEMICOLON: {
           break;
         }
@@ -190,14 +190,13 @@ export default class Token {
       return this.readRLeftCurlyBraces();
     } else if (char === KeyChar.RIGHTCURLYBRACES) {
       return this.readRightCurlyBraces();
-    } else if(this.isBeforeBlock()) {
+    } else if (this.isBeforeBlock()) {
       return this.readSelector();
     } else if (char === KeyChar.COLON) {
       return this.readPropertyValue();
-    } else if(this.isComment()) {
+    } else if (this.isComment()) {
       return this.readComment();
-    } else {
-      return this.readProperty();
     }
+    return this.readProperty();
   }
 }

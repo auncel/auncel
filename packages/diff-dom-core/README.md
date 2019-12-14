@@ -1,11 +1,3 @@
-# `diff-dom-core`
+#  Diff-Dom-Core
 
-> TODO: description
-
-## Usage
-
-```
-const diffDomCore = require('diff-dom-core');
-
-// TODO: DEMONSTRATE API
-```
+假设输入 HTML 已经没有语法错误了，已经过滤了：script/style 标签、事件属性回调，不支持的 CSS 属性。
