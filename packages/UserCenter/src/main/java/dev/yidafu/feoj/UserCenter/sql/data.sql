@@ -28,7 +28,7 @@ INSERT into users (
   avatar,
   status,
   role,
-  login_count
+  loginCount
 ) VALUES (
   1,
   '出题人（测试）',
@@ -52,7 +52,7 @@ INSERT into users  (
   avatar,
   status,
   role,
-  login_count
+  loginCount
 ) VALUES (
   2,
   '小白鼠',
@@ -76,9 +76,9 @@ INSERT into users (
   avatar,
   status,
   role,
-  login_count
+  loginCount
 ) VALUES (
-  2,
+  3,
   '金丝雀',
   '金丝',
   '12345678903',
