@@ -1,0 +1,42 @@
+/* --------------------------------------------------------------------------*
+ * Description:                                                              *
+ *                                                                           *
+ * File Created: Sunday, 15th December 2019 10:23 pm                         *
+ * Author: yidafu(dov-yih) (me@yidafu.dev)                                   *
+ *                                                                           *
+ * Last Modified: Sunday, 15th December 2019 10:24 pm                        *
+ * Modified By: yidafu(dov-yih) (me@yidafu.dev>)                             *
+ *                                                                           *
+ * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
+ *-------------------------------------------------------------------------- */
+// https://stackoverflow.com/questions/29036231/how-can-i-have-a-position-fixed-behaviour-for-a-flexbox-sized-element
+//  https://stackoverflow.com/questions/41409834/how-to-use-position-fixed-in-flex-layout/41410062#41410062
+.loginBg {
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../../assets/images/login-background.jpg);
+  background-position: center 0;
+  background-size: 100% 100%;
+}
+
+.loginBox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // width: 100vw;
+  // height: 100vh;
+
+  div {
+    align-items: center;
+    justify-content: center;
+    width: 900px;
+    height: 500px;
+    background-color: #fff;
+    box-shadow: 16px 16px 20px 10px rgba($color: #000, $alpha: .1);
+  }
+}
