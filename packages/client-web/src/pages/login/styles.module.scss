@@ -83,6 +83,12 @@
       background-color: #389e0d;
       color: #fff;
     }
+    .inputError {
+      position: relative;
+      top: -20px;
+      color: red;
+      display: block;
+    }
   }
 
   .loginFooter {

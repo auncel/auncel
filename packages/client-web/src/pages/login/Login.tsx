@@ -9,14 +9,19 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import useForm from 'react-hook-form';
 import styles from './styles.module.scss';
 import { loginReq } from '../../network';
 import loginSidePng from '../../assets/images/login-side.png';
 
 const Login: React.FC = () => {
-  loginReq();
+  const { register, handleSubmit, errors } = useForm();
+
+  const onSubmit = (data: object): void => {
+    console.log(data);
+  };
 
   return (
     <div className={styles.loginBg}>
@@ -26,10 +31,32 @@ const Login: React.FC = () => {
             <img src={loginSidePng} />
           </div>
           <div className={styles.loginRight}>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)} method="POST">
               <h2>登录</h2>
-              <input />
-              <input />
+              <input
+                name="usernameOrEmail"
+                ref={register({
+                  required: { value: true, message: '用户名或邮箱必填' },
+                  pattern: { value: /\w+/, message: '格式不正确' },
+                })}
+              />
+              {errors.usernameOrEmail
+                && <span className={styles.inputError}>
+                  {errors.usernameOrEmail.message}
+                </span>
+              }
+              <input
+                name="password"
+                ref={register({
+                  required: { value: true, message: '密码必填' },
+                  pattern: { value: /\w+/, message: '格式不正确' },
+                })}
+              />
+              {errors.password
+                && <span className={styles.inputError}>
+                  {errors.password.message}
+                </span>
+              }
               <input type="submit" value="提交" />
               <div className={styles.loginFooter}>
                 <span>注册</span>
