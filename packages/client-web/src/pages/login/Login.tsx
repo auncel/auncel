@@ -13,14 +13,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.module.scss';
 import { loginReq } from '../../network';
+import loginSidePng from '../../assets/images/login-side.png';
 
 const Login: React.FC = () => {
   loginReq();
 
   return (
     <div className={styles.loginBg}>
-      <div className={styles.loginBox}>
-        <div>login</div>
+      <div className={styles.loginContainer}>
+        <div className={styles.loginBox}>
+          <div className={styles.loginLeft}>
+            <img src={loginSidePng} />
+          </div>
+          <div className={styles.loginRight}>
+            <form>
+              <h2>登录</h2>
+              <input />
+              <input />
+              <input type="submit" value="提交" />
+              <div className={styles.loginFooter}>
+                <span>注册</span>
+                <span>登录</span>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
