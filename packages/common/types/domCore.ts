@@ -89,16 +89,15 @@ export enum DiffType {
 }
 
 export enum DistinctionType {
-  MISSING = 'MISSING',
-  EXTRA = 'EXTRA',
-  INEQUAL = 'INEQUAL',
+  MISSING,
+  EXTRA,
+  INEQUAL,
+  EQUALITY,
 }
-
-export type TDistinctionType = keyof typeof DistinctionType;
 
 export interface IDistinctionDetail<T> {
   key: string;
-  type: TDistinctionType;
+  type: DistinctionType;
   expect?: T;
   actual?: T;
 }
