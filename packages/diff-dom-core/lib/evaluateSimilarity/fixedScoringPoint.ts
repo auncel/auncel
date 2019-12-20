@@ -18,6 +18,7 @@ import {
   TNodeRect,
   IDistinctionDetail,
   TCSSPropertyValueType,
+  TAttrPropertyType,
 } from '@feoj/common/types/domCore';
 
 function getNodeLocation(node: IDiffNode): string {
@@ -42,33 +43,77 @@ const CSSPropertyValueInequalScore = -5;
 const CSSPropertyValueMissingScore = -10;
 const CSSPropertyValueExtragScore = 0;
 
-function evaluateStyleSimlarity(styleDistinction: IDistinctionDetail<TCSSPropertyValueType>[], logs: string[]): number {
-  let styleScore = 0;
+function evaluateStyleSimlarity(
+  styleDistinction: IDistinctionDetail<TCSSPropertyValueType>[], logs: string[],
+): number {
+  if (!styleDistinction && !styleDistinction.length) return STYLE_SCORE;
 
-  if (!styleDistinction && !styleDistinction.length) return styleScore;
-
+  let equalityCount = 0;
+  let inequalCount = 0;
+  let missingCount = 0;
+  let extraCount = 0;
   // eslint-disable-next-line no-restricted-syntax
   for (const distinction of styleDistinction) {
+    // eslint-disable-next-line default-case
     switch (distinction.type) {
+      case DistinctionType.EQUALITY:
+        equalityCount++;
+        break;
       case DistinctionType.INEQUAL:
-        styleScore += CSSPropertyValueInequalScore;
         logs.push(
           `property incorrent. [${distinction.key}] expect: ${distinction.expect}, actual: ${distinction.actual}`,
         );
+        inequalCount++;
         break;
       case DistinctionType.MISSING:
-        styleScore += CSSPropertyValueMissingScore;
         logs.push(`missing property: ${distinction.key}`);
+        missingCount++;
         break;
       case DistinctionType.EXTRA:
-        styleScore += CSSPropertyValueExtragScore;
         logs.push(`extra property: ${distinction.key}`);
+        extraCount++;
         break;
-      default:
-        // noop
     }
   }
-  return Math.max(styleScore, -STYLE_SCORE);
+
+  const propertyScore = STYLE_SCORE / (equalityCount + inequalCount + (missingCount * 2));
+  const score = propertyScore * (missingCount + inequalCount + extraCount);
+  return score;
+}
+
+function evaluateAttrSimlarity(
+  attrDistinction: IDistinctionDetail<TAttrPropertyType>[], logs: string[],
+): number {
+  if (!attrDistinction && !attrDistinction.length) return ATTR_SCORE;
+
+  let equalityCount = 0;
+  let inequalCount = 0;
+  let missingCount = 0;
+  // let extraCount = 0;
+  // eslint-disable-next-line no-restricted-syntax
+  for (const distinction of attrDistinction) {
+    // eslint-disable-next-line default-case
+    switch (distinction.type) {
+      case DistinctionType.EQUALITY:
+        equalityCount++;
+        break;
+      case DistinctionType.INEQUAL:
+        inequalCount++;
+        logs.push(`attribute incorent. [${distinction.key}] expect: ${distinction.expect}, actual: ${distinction.actual}`);
+        break;
+      case DistinctionType.MISSING:
+        missingCount++;
+        logs.push(`missing attribute: ${distinction.key}`);
+        break;
+      // case DistinctionType.EXTRA:
+      //   extraCount++;
+      //   break;
+    }
+  }
+
+  const attrCount = equalityCount + inequalCount + missingCount;
+  const attrScore = ATTR_SCORE - ((ATTR_SCORE / attrCount) * (inequalCount + missingCount));
+  return attrScore;
 }
 
 function evaluateRectSimlarity(
@@ -82,7 +127,7 @@ function evaluateRectSimlarity(
   for (const distinction of rectDistinctions) {
     const distance = Math.abs(distinction.actual - distinction.expect);
     // shouldn't greater then (RECT_SCORE / 4)
-    rectScore -= distance * Math.log2(distance + 1);
+    rectScore += distance * Math.log2(distance + 1);
 
     switch (distinction.key) {
       case 'height':
@@ -100,7 +145,7 @@ function evaluateRectSimlarity(
       default:
     }
   }
-  return Math.max(rectScore, -RECT_SCORE);
+  return Math.min(rectScore, RECT_SCORE);
 }
 
 export interface IFixedScoringPointResult {
@@ -138,18 +183,23 @@ export function generateDiffResult(root: IDiffNode): IFixedScoringPointResult {
       if (node.type & DiffType.ClassName) {
         nodeScore -= CLASS_SCORE;
         nodeDiffLogs.push(
-          `incorent class. expect ${node.id.expect}, actual ${node.id.actual}`,
+          `incorent class. expect ${node.className.expect}, actual ${node.className.actual}`,
         );
       }
 
       if (node.type & DiffType.Rect) {
-        const rectScore = evaluateRectSimlarity(node.rect, nodeDiffLogs);
-        nodeScore -= rectScore;
+        const rectLosedScore = evaluateRectSimlarity(node.rect, nodeDiffLogs);
+        nodeScore -= rectLosedScore;
       }
 
       if (node.type & DiffType.Style) {
-        const styleScore = evaluateStyleSimlarity(node.style, nodeDiffLogs);
-        nodeScore += styleScore;
+        const styleLosedScore = evaluateStyleSimlarity(node.style, nodeDiffLogs);
+        nodeScore -= styleLosedScore;
+      }
+
+      if (node.type & DiffType.Attr) {
+        const attrLosedScore = evaluateAttrSimlarity(node.attr, nodeDiffLogs);
+        nodeScore -= attrLosedScore;
       }
 
       const logMsg: IDiffLog = {
@@ -157,7 +207,9 @@ export function generateDiffResult(root: IDiffNode): IFixedScoringPointResult {
         difference: nodeDiffLogs,
       };
 
-      diffLog.push(logMsg);
+      if (logMsg.difference.length > 0) {
+        diffLog.push(logMsg);
+      }
       totalScore += nodeScore;
       // push children to stack
       if (node.children) {
@@ -168,8 +220,7 @@ export function generateDiffResult(root: IDiffNode): IFixedScoringPointResult {
       }
     }
   }
-  const score = totalScore / (nodeCount * 100);
-
+  const score = Number(((totalScore / (nodeCount * 100)) * 100).toFixed(2));
   return {
     score,
     logs: diffLog,

@@ -16,13 +16,15 @@ import { readAllFixtures, IFixtureData } from '../fixtures/readFixture';
 import { createHTMLTpl } from './utils';
 import { IRenderNode } from '@feoj/common/types/domCore';
 import { strictEqualDiff } from './diffCore/strictly-equal';
-import { generateDiffResult } from './evaluateSimilarity/fixedScoringPoint';
+import { generateDiffResult, IFixedScoringPointResult } from './evaluateSimilarity/fixedScoringPoint';
+import { writeFileSync } from 'fs';
+import '@feoj/common/polyfill/toJSON';
 
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
 
 const fixtureMap = readAllFixtures();
-
+const similarityMap = new Map<string, IFixedScoringPointResult>();
 let pageManager: PageManager = null;
 let M_diffScript = '';
 beforeAll(() => {
@@ -67,14 +69,17 @@ for (const [title, fixtrue] of fixtureMap.entries()) {
         }
         const answerRenerTree = await getRenderTree(answer);
         const diffTree = strictEqualDiff(questionRenderTree, answerRenerTree);
-        const { score } = generateDiffResult(diffTree);
-        console.log('similarity: ', score);
-        expect(score > answer.similarity)
+        const evaluateResult: any = generateDiffResult(diffTree);
+        evaluateResult.expect = answer.similarity
+        similarityMap.set(`${title}: ${question.name} ==> ${answer.name}`, evaluateResult);
+        expect(evaluateResult.score * 100 > answer.similarity).toBe(true);
       });
     }
   });
 }
 
 afterAll(async () => {
+  const dateStr = new Date().toLocaleString().replace(/[,:\s\/]/g,'-');
+  writeFileSync(`${__dirname}/../logs/${dateStr}.json`, JSON.stringify(similarityMap,null,2));
   await Puppeteer.close();
 });

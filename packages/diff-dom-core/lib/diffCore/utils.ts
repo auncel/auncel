@@ -11,10 +11,10 @@
  *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';
-import { IDistinctionDetail, DistinctionType, TDistinctionType } from '@feoj/common/types/domCore';
+import { IDistinctionDetail, DistinctionType } from '@feoj/common/types/domCore';
 
 export function createDistinction<T>(
-  key: string, type: TDistinctionType, expect?: T, actual?: T,
+  key: string, type: DistinctionType, expect?: T, actual?: T,
 ): IDistinctionDetail<T> {
   return {
     key,
@@ -45,7 +45,16 @@ export function distinctionCompare<T>(
     const isObjectKeyExist = typeof object[key] !== 'undefined';
     const isComparisonKeyExist = typeof comparison[key] !== 'undefined';
     if (isObjectKeyExist && isComparisonKeyExist) {
-      if (!isEqualFn(object[key], comparison[key])) { // 浅比较
+      if (isEqualFn(object[key], comparison[key])) { // 浅比较
+        res.push(
+          createDistinction<T>(
+            key,
+            DistinctionType.EQUALITY,
+            object[key],
+            null,
+          ),
+        );
+      } else {
         res.push(
           createDistinction<T>(
             key,
@@ -54,7 +63,7 @@ export function distinctionCompare<T>(
             comparison[key],
           ),
         );
-      } // else 相等
+      }// else 相等
     } else if (isObjectKeyExist && !isComparisonKeyExist) {
       res.push(
         createDistinction<T>(

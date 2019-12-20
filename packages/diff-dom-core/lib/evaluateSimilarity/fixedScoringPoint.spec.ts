@@ -17,7 +17,6 @@ const diffTree: IDiffNode = require('../../fixtures/render/diff-tree.json');
 describe('github', () => {
   test('login form', () => {
     const result = generateDiffResult(diffTree);
-    console.log(result.score);
     expect(result.logs.length).not.toBe(0);
     expect(result.score).not.toBe(0);
   });

@@ -53,7 +53,7 @@ function testFactory(prefix, data) {
     const page = await pageManager.getPage();
     await page.setContent(html);
     const renderTree: IRenderNode = (await page.evaluate(M_diffScript) as IRenderNode);
-    console.log(JSON.stringify(renderTree, null, 2));
+    // console.log(JSON.stringify(renderTree, null, 2));
     expect(renderTree).toEqual(anwser);
     pageManager.releasePage(page);
   });
