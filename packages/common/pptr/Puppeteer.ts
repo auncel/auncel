@@ -1,6 +1,7 @@
 import { Browser, launch } from 'puppeteer';
 import log from '../logger/puppeteer';
 import { PageManager } from './PageManager';
+import { MAX_PAGE_POOL_SIZE } from './constants';
 
 export class Puppeteer {
   private static browser: Browser = null;
@@ -21,24 +22,28 @@ export class Puppeteer {
       log.info(`launch puppeterr at ${Date.now()}`);
       // 注册异常退出回调
       process.on('uncaughtException', async (err) => {
-        log.error(err.message);
+        log.error('uncaughtException', err.message);
         await Puppeteer.close();
       });
     }
     return this.browser;
   }
 
-  public static async getPageManager(): Promise<PageManager> {
+  public static async getPageManager({ poolSize = MAX_PAGE_POOL_SIZE } = {}): Promise<PageManager> {
     if (!this.pageManager) {
-      this.pageManager = new PageManager();
+      this.pageManager = new PageManager(poolSize);
       const browser = await Puppeteer.getBrowser();
-      await this.pageManager.initPageManager(browser);
+      await this.pageManager.initPagePool(browser);
     }
     return this.pageManager;
   }
 
   public static async close(): Promise<void> {
-    this.pageManager.closeAll();
-    this.browser.close();
+    if (this.browser) {
+      this.pageManager.closeAll();
+      this.pageManager = null;
+      this.browser.close();
+      this.browser = null;
+    }
   }
 }

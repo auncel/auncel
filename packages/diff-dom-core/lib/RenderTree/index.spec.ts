@@ -10,7 +10,7 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
-import { Puppeteer, PageManager } from '@feoj/common/puppeteer/index';
+import { Puppeteer, PageManager } from '@feoj/common/pptr/index';
 import { readJSFile } from '@feoj/common/utils/readJSFile';
 import { IRenderNode } from '@feoj/common/types/domCore';
 import { createHTMLTpl } from '../utils';

@@ -18,17 +18,28 @@ export class PageManager {
    */
   private isCreating = true;
 
-  public async initPageManager(browser: Browser): Promise<void> {
+  private poolSize = 0;
+
+  constructor(poolSize = MAX_PAGE_POOL_SIZE) {
+    this.poolSize = poolSize;
+  }
+
+  public getAvailablePoolSize(): number {
+    return this.pagePool.length;
+  }
+
+  public async initPagePool(browser: Browser): Promise<void> {
     this.isCreating = true;
-    log.info(`started creating ${MAX_PAGE_POOL_SIZE} page instance at ${Date.now()}`);
-    console.time(`create ${MAX_PAGE_POOL_SIZE} page instance`);
+    log.info(`started creating ${this.poolSize} page instance at ${Date.now()}`);
+    console.time(`creating ${this.poolSize} page instance`);
     const pagePromises: Promise<Page>[] = [];
-    for (let i = 0; i < MAX_PAGE_POOL_SIZE; i++) {
+    for (let i = 0; i < this.poolSize; i++) {
       pagePromises.push(browser.newPage());
     }
+
     const pageArr = await Promise.all(pagePromises);
-    console.timeEnd(`create ${MAX_PAGE_POOL_SIZE} page instance`);
-    log.info(`creating ${MAX_PAGE_POOL_SIZE} page instance finished at ${Date.now()}`);
+    console.timeEnd(`creating ${this.poolSize} page instance`);
+    log.info(`creating ${this.poolSize} page instance finished at ${Date.now()}`);
     this.isCreating = false;
     this.pagePool.push(...pageArr);
   }
@@ -36,7 +47,7 @@ export class PageManager {
   public async getPage(): Promise<Page> {
     // TODO: retry times limit
     // wait
-    while (this.isCreating || this.pagePool.length === 0) {
+    while (this.isCreating || this.getAvailablePoolSize() === 0) {
       log.warn('awaiting for get Page');
       await sleep(200);
     }
@@ -44,12 +55,12 @@ export class PageManager {
     return this.pagePool.shift();
   }
 
-  public async releasePage(page: Page) {
+  public async releasePage(page: Page): Promise<void> {
     // TODO: 检测 page 是否已经放入
     this.pagePool.push(page);
   }
 
-  public async closeAll() {
+  public async closeAll(): Promise<void> {
     this.pagePool.forEach((page) => {
       page.close();
     });
