@@ -6,7 +6,7 @@ const pkgs = [
   'diff-dom-core',
   'diff-pixel-core',
   'diff-service',
-  'client-web',
+  'oj-spa',
 ];
 
 /**
