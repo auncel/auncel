@@ -1,12 +1,12 @@
 import * as path from 'path';
 import { Injectable, Logger } from '@nestjs/common';
-import { RenderNode, DiffNode } from '@feoj/common/types/difference.interface';
+import { RenderNode, DiffNode } from '@surpass/common/types/difference.interface';
 // import { diffLogger as logger } from '@utils/logger'
 import { Puppeteer } from 'src/puppeteer/Pupepteer';
 import { PageManager } from 'src/puppeteer/PageManager';
 import { readJSFile } from '../utils/readJSFile';
 import { Page } from 'puppeteer';
-// import { diff } from '@feoj/diff-dom-core/dist/diff';
+// import { diff } from '@surpass/diff-dom-core/dist/diff';
 
 @Injectable()
 export class DifferenceService {

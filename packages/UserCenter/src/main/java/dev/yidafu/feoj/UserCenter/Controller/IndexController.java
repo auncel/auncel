@@ -1,4 +1,4 @@
-package dev.yidafu.feoj.UserCenter.Controller;
+package dev.yidafu.surpass.UserCenter.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

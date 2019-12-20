@@ -1,5 +1,5 @@
-import { IRenderNode, NodeType } from '@feoj/common/types/domCore';
-import { TTag } from '@feoj/common/types/element';
+import { IRenderNode, NodeType } from '@surpass/common/types/domCore';
+import { TTag } from '@surpass/common/types/element';
 import { USER_STYLE_ID } from './const';
 
 /**

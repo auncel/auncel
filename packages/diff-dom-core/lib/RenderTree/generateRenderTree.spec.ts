@@ -18,7 +18,7 @@ import { generateRenderTree } from './generateRenderTree';
 import { readFixtures, readFixture, IFixture, IFixtureData } from '../../fixtures/readFixture';
 import { parseCSS } from '../CSSTree/parseCSS';
 import { USER_STYLE_ID } from '../const';
-import { IRenderNode } from '@feoj/common/types/domCore';
+import { IRenderNode } from '@surpass/common/types/domCore';
 import { computeElementStyle } from './getCSSPropertyValues';
 
 function getRenderTree(fixture: IFixtureData): IRenderNode {

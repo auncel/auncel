@@ -10,7 +10,7 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 import { USER_STYLE_ID } from '../const';
-import { IRenderNode } from '@feoj/common/types/domCore';
+import { IRenderNode } from '@surpass/common/types/domCore';
 import { appendUuid } from './appendUuid';
 import { parseCSS } from 'lib/CSSTree/parseCSS';
 import { generateRenderTreeOptions } from 'lib/config';

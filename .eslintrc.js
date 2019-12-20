@@ -15,6 +15,7 @@ module.exports = {
     'airbnb',
   ],
   rules: {
+    "linebreak-style": ["error", "unix"],
     "jsx-a11y/href-no-hash": 0,
     "jsx-a11y/img-has-alt": 0,
     "import/no-unresolved": 0, // 和 ts 冲突

@@ -13,3 +13,4 @@
 *.test.tsx
 serviceWorker.ts
 tmp.html
+packages/diff-dom-core/lib/CSSTree/types.ts

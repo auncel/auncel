@@ -10,9 +10,9 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
-import { Puppeteer, PageManager } from '@feoj/common/pptr/index';
-import { readJSFile } from '@feoj/common/utils/readJSFile';
-import { IRenderNode } from '@feoj/common/types/domCore';
+import { Puppeteer, PageManager } from '@surpass/common/pptr/index';
+import { readJSFile } from '@surpass/common/utils/readJSFile';
+import { IRenderNode } from '@surpass/common/types/domCore';
 import { createHTMLTpl } from '../utils';
 import { readFixtures, IFixture, IFixtureData } from '../../fixtures/readFixture';
 

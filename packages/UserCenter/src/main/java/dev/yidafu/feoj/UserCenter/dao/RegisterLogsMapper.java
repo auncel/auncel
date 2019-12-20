@@ -1,6 +1,6 @@
-package dev.yidafu.feoj.UserCenter.dao;
+package dev.yidafu.surpass.UserCenter.dao;
 
-import dev.yidafu.feoj.UserCenter.entity.RegisterLogs;
+import dev.yidafu.surpass.UserCenter.entity.RegisterLogs;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package dev.yidafu.feoj.UserCenter.entity;
+package dev.yidafu.surpass.UserCenter.entity;
 
 import java.io.Serializable;
 

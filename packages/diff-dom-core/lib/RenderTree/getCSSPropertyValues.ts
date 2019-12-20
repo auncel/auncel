@@ -10,7 +10,7 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
-import { ElementNotExistError } from '@feoj/common/exceptions/index';
+import { ElementNotExistError } from '@surpass/common/exceptions/index';
 import { parseCSS } from '../CSSTree/parseCSS';
 import { USER_STYLE_ID } from '../const';
 

@@ -1,6 +1,6 @@
-package dev.yidafu.feoj.UserCenter.dao;
+package dev.yidafu.surpass.UserCenter.dao;
 
-import dev.yidafu.feoj.UserCenter.entity.Roles;
+import dev.yidafu.surpass.UserCenter.entity.Roles;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

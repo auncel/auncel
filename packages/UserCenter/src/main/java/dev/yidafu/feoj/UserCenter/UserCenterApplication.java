@@ -1,4 +1,4 @@
-package dev.yidafu.feoj.UserCenter;
+package dev.yidafu.surpass.UserCenter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -10,15 +10,15 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import { Puppeteer, PageManager } from '@feoj/common/pptr/index';
-import { readJSFile } from '@feoj/common/utils/readJSFile';
+import { Puppeteer, PageManager } from '@surpass/common/pptr/index';
+import { readJSFile } from '@surpass/common/utils/readJSFile';
 import { readAllFixtures, IFixtureData } from '../fixtures/readFixture';
 import { createHTMLTpl } from './utils';
-import { IRenderNode } from '@feoj/common/types/domCore';
+import { IRenderNode } from '@surpass/common/types/domCore';
 import { strictEqualDiff } from './diffCore/strictly-equal';
 import { generateDiffResult, IFixedScoringPointResult } from './evaluateSimilarity/fixedScoringPoint';
 import { writeFileSync } from 'fs';
-import '@feoj/common/polyfill/toJSON';
+import '@surpass/common/polyfill/toJSON';
 
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');

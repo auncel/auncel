@@ -11,7 +11,7 @@
  *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';
-import { IDistinctionDetail, DistinctionType } from '@feoj/common/types/domCore';
+import { IDistinctionDetail, DistinctionType } from '@surpass/common/types/domCore';
 
 export function createDistinction<T>(
   key: string, type: DistinctionType, expect?: T, actual?: T,

@@ -20,7 +20,7 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@feoj/common/*": ["../common/*"],
+      "@surpass/common/*": ["../common/*"],
     },
     "lib": [
       "es2019",
@@ -30,8 +30,8 @@
   "include": [
     "fixtures/**/*",
     "lib/**/*",
-    "@feoj/**/*",
-    "node_modules/@feoj/**/*",
+    "@surpass/**/*",
+    "node_modules/@surpass/**/*",
   ],
   "exclude": ["node_modules", "dist"]
 }

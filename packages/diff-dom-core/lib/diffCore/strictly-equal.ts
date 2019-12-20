@@ -14,11 +14,11 @@ import { isEqual } from 'lodash';
 import {
   IRenderNode, IDiffNode, IDistinctionDetail, DistinctionType, DiffType,
   NodeType, TAttrPropertyType, TCSSPropertyValueType, TNodeRect,
-} from '@feoj/common/types/domCore';
+} from '@surpass/common/types/domCore';
 import { IStrictlyEqualAttrOption, IStrictlyEqualOption, IStrictlyEqualStyleOption } from 'lib/config';
 import { distinctionCompare, createDistinction } from './utils';
 import { strictlyEqualOption } from '../config';
-import { TStyleProps } from '@feoj/common/types/css';
+import { TStyleProps } from '@surpass/common/types/css';
 
 /* eslint-disable no-param-reassign */
 

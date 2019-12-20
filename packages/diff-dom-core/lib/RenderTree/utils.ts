@@ -9,8 +9,8 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
-import { TNodeRect } from '@feoj/common/types/domCore';
-import { TAttributes, TTagAttribute } from '@feoj/common/types/element';
+import { TNodeRect } from '@surpass/common/types/domCore';
+import { TAttributes, TTagAttribute } from '@surpass/common/types/element';
 import { UUID_ATTR } from './getCSSPropertyValues';
 
 /* global elementPropertyMap */
