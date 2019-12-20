@@ -50,6 +50,7 @@ module.exports = {
     "no-cond-assign": 1,
     "no-await-in-loop": 1,
     "@typescript-eslint/no-var-requires": 1,
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }]
   },
   "settings": {
     "import/extensions": [

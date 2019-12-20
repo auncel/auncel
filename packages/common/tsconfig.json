@@ -1,0 +1,37 @@
+/* --------------------------------------------------------------------------*
+ * Filename: d:\Project\fe-oj\packages\common\tsconfig.json                  *
+ * Path: d:\Project\fe-oj\packages\common                                    *
+ * Created Date: Friday, December 20th 2019, 10:13:40 pm                     *
+ * Author: yidafu(dov-yih)                                                   *
+ *                                                                           *
+ * Copyright (c) 2019 None                                                   *
+ *-------------------------------------------------------------------------- */
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2015",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@feoj/common/*": ["../common/*"],
+    },
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "include": [
+    "fixtures/**/*",
+    "lib/**/*",
+    "@feoj/**/*",
+    "node_modules/@feoj/**/*",
+  ],
+  "exclude": ["node_modules", "dist"]
+}
