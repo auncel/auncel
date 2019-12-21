@@ -17,6 +17,7 @@
 import { computeElementStyle } from './getCSSPropertyValues';
 import { USER_STYLE_ID } from '../const';
 import { appendUuid } from './appendUuid';
+import { readFixture } from '../../fixtures/readFixture';
 
 const fragment = `
 <div class="listItem_listItem">
@@ -51,16 +52,19 @@ div p {
   color: #aaa;
 }`;
 
-// const html = htmlWrap(fragment, styesheet)
 
+let $style;
 beforeAll(() => {
   document.body.innerHTML = fragment;
-  const $style = document.createElement('style');
+  $style = document.createElement('style');
   $style.id = USER_STYLE_ID;
-  $style.innerHTML = styesheet;
   document.head.appendChild($style);
   appendUuid(document);
 });
+
+beforeEach(() => {
+  $style.innerHTML = '';
+})
 
 describe('simple jsdom env', () => {
   test('DOM is ready', () => {
@@ -68,8 +72,23 @@ describe('simple jsdom env', () => {
   });
 
   test('simple', () => {
+    $style.innerHTML = styesheet;
     const propetyMap = computeElementStyle(document);
     expect(propetyMap.size).toBe(4);
-    expect(propetyMap.get('uuid_0_0').size).toBe(5);
+    expect(propetyMap.get('uuid_0_0').size).toBe(11);
+  });
+
+  test('margin logogram', () => {
+    const qustionFixture = readFixture(__dirname + '/../../fixtures/css/logogram/margin/margin.question.html');
+    const answer1Fixture = readFixture(__dirname + '/../../fixtures/css/logogram/margin/mixed.answer.html');
+    document.body.innerHTML = qustionFixture.fragment;
+    appendUuid(document);
+
+    $style.innerHTML = qustionFixture.stylesheet;
+    const propetyMap1 = computeElementStyle(document);
+
+    $style.innerHTML = answer1Fixture.stylesheet;
+    const propetyMap2 = computeElementStyle(document);
+    expect(propetyMap1).toEqual(propetyMap2);
   });
 })

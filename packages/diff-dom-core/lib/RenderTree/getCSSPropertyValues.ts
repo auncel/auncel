@@ -16,13 +16,9 @@ import { USER_STYLE_ID } from '../const';
 
 export const UUID_ATTR = '__uuid__';
 
-let idx = 0;
-function uuid(): string {
-  return String(idx++);
-}
 
-const elementStyleCache: Map<string, Map<string, string>> = new Map();
 export function computeElementStyle(document: Document): Map<string, Map<string, string>> {
+  const elementStyleCache: Map<string, Map<string, string>> = new Map();
   const $userStyle = document.getElementById(USER_STYLE_ID);
   if ($userStyle === null) {
     throw new ElementNotExistError(`should have style#${USER_STYLE_ID}`);
@@ -38,8 +34,6 @@ export function computeElementStyle(document: Document): Map<string, Map<string,
       if (elementStyleCache.has(elementUuid)) {
         propertyMap = elementStyleCache.get(elementUuid);
       } else {
-        // elementUuid = uuid();
-        // $element.setAttribute(UUID_ATTR, elementUuid);
         propertyMap = new Map<string, string>();
         elementStyleCache.set(elementUuid, propertyMap);
       }

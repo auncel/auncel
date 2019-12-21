@@ -12,6 +12,7 @@
 // FIXME: Why canot import css-tree directly
 // eslint-disable-next-line import/no-duplicates
 import { CssNode, SelectorList } from './types';
+import CSSShorthandProperties from '../RenderTree/CSSShorthandProperties';
 // eslint-disable-next-line import/no-duplicates
 // import * as CSSTree from 'css-tree';
 const CSSTree = require('../../node_modules/css-tree/dist/csstree.js');
@@ -29,7 +30,13 @@ export function parseCSS(text): Map<string, Set<string>> {
       const properties = new Set<string>();
       block.children.forEach((declaration) => {
         if (declaration.type === 'Declaration') {
-          properties.add(declaration.property);
+          if (CSSShorthandProperties[declaration.property]) {
+            CSSShorthandProperties[declaration.property].forEach((property) => {
+              properties.add(property);
+            });
+          } else {
+            properties.add(declaration.property);
+          }
         }
       });
       if (prelude.type === 'SelectorList') {
