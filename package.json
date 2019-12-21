@@ -3,11 +3,18 @@
   "private": true,
   "license": "MPL-2.0",
   "scripts": {
-    "lint": "eslint --ext .ts,.tsx --fix packages/"
+    "lint": "eslint --ext .ts,.tsx --fix packages/",
+    "test": "jest"
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "git add"],
-    "*.{css,scss}": ["stylelint --fix", "git add"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,scss}": [
+      "stylelint --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
@@ -40,5 +47,10 @@
     "stylelint-processor-html": "1.0.0",
     "ts-node": "^8.5.4",
     "typescript": "3.7.2"
+  },
+  "dependencies": {
+    "@types/jest": "^24.0.24",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0"
   }
 }
