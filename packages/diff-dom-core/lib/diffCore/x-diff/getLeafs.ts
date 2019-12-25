@@ -11,6 +11,14 @@
  *-------------------------------------------------------------------------- */
 import { IRenderNode, NodeType } from '@surpass/common/types/domCore';
 
+/**
+ * 返回值不能是 Map<xHash, IRenderNode> 类型，因为子节点的 xHash 可能是相同的
+ * 返回的叶子节点顺序是从左往右
+ *
+ * @export
+ * @param {IRenderNode[]} nodes
+ * @returns {IRenderNode[]}
+ */
 export default function getLeafs(nodes: IRenderNode[]): IRenderNode[] {
   function getNodeLeafs(node: IRenderNode): IRenderNode[] {
     if (node.nodeType === NodeType.TEXT_NODE) {

@@ -39,7 +39,7 @@ describe('render tree hashing', () => {
     const node2 = cloneDeep(renderNode);
     hashing(node1);
     hashing(node2);
-    expect(node1.hash).toBe(node2.hash);
+    expect(node1.xHash).toBe(node2.xHash);
   });
 
   test('chidren not the same', () => {
@@ -48,8 +48,8 @@ describe('render tree hashing', () => {
     const node2 = cloneDeep(renderNode);
     hashing(node1);
     hashing(node2);
-    expect(node1.hash).not.toBe(node2.hash);
-    expect(node1.children[1].hash).toBe(node2.children[1].hash);
+    expect(node1.xHash).not.toBe(node2.xHash);
+    expect(node1.children[1].xHash).toBe(node2.children[1].xHash);
   });
 
   test('root node tag not the same', () => {
@@ -58,8 +58,8 @@ describe('render tree hashing', () => {
     const node2 = cloneDeep(renderNode);
     hashing(node1);
     hashing(node2);
-    expect(node1.hash).not.toBe(node2.hash);
-    expect(node1.children[0].hash).toBe(node2.children[0].hash);
-    expect(node1.children[1].hash).toBe(node2.children[1].hash);
+    expect(node1.xHash).not.toBe(node2.xHash);
+    expect(node1.children[0].xHash).toBe(node2.children[0].xHash);
+    expect(node1.children[1].xHash).toBe(node2.children[1].xHash);
   });
 });

@@ -10,16 +10,16 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 /* eslint-disable no-param-reassign */
-import * as md5 from 'md5';
+import md5 from 'md5';
 import { IRenderNode, NodeType } from '@surpass/common/types/domCore';
-import { TAttributes } from '@surpass/common/types/element';
+// import { TAttributes } from '@surpass/common/types/element';
 
-function attrs2String(attrs: TAttributes): string {
-  return attrs ? Object
-    .keys(attrs)
-    .map(key => `${key}="${attrs[key]}"`)
-    .join(' ') : '';
-}
+// function attrs2String(attrs: TAttributes): string {
+//   return attrs ? Object
+//     .keys(attrs)
+//     .map(key => `${key}="${attrs[key]}"`)
+//     .join(' ') : '';
+// }
 
 /**
  * 1. 添加 xHash 值
@@ -36,7 +36,8 @@ export function hashing(node: IRenderNode): void {
         return fragementCache.get(node.uuid);
       }
       const fragement = [
-        `<${node.tagName} ${attrs2String(node.attr)}>`,
+        // 暂不加入 attribute，x-diff 只是 diff dom 结构
+        `<${node.tagName}>`, // ${attrs2String(node.attr)}
         `${node.children.map(child => renderNode2HTML(child)).join('')}`,
         `</${node.tagName}>`,
       ].join('');

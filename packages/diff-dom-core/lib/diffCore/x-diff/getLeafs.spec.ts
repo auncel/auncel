@@ -31,7 +31,6 @@ describe('getLeafs', () => {
       ],
     };
     const leafs = getLeafs(Array(3).fill(node));
-    console.log(leafs);
     expect(leafs.length).toBe(6);
   });
 
@@ -91,6 +90,7 @@ describe('getLeafs', () => {
       ],
     };
     const leafs = getLeafs([node]);
+    console.log(leafs);
     expect(leafs.length).toBe(5);
   });
 });
