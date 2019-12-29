@@ -46,7 +46,13 @@ export type TNodeRect = {
   y?: number;
 }
 
-export interface IRenderNode {
+export interface ITreeNode {
+  children: ITreeNode[];
+  // hasChildren(): boolean;
+  // forEach(callback: (node: ITreeNode, index?: number, thisArg?: ITreeNode) => void): void;
+}
+
+export interface IRenderNode extends ITreeNode {
   /**
    * TODO: 完善 attribute
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#Attribute_list
@@ -66,8 +72,12 @@ export interface IRenderNode {
 
   style?: TStyleProps;
 
-  children?: IRenderNode[];
+  children: IRenderNode[];
   text?: string; // for TEXT_NODE
+
+  xHash?: string; // 专门给 x-diff 算法
+  parent?: IRenderNode; // x-diff 需要
+  nodeDiffType?: DiffType;
 }
 
 export type TRenderTree = IRenderNode;
@@ -85,7 +95,11 @@ export enum DiffType {
   DataSet = 1 << 5,
   Style = 1 << 6,
   Rect = 1 << 7,
-  Text = 1 << 8,
+  Text = 1 << 8, // 文本不相同
+  // 节点差异
+  NodeUPDATE = 1 << 9,
+  NodeINSERT = 1 << 10,
+  NodeDELETE = 1 << 11,
 }
 
 export enum DistinctionType {
@@ -107,7 +121,7 @@ export type TAttrPropertyType = boolean | string;
 
 /** CSS 属性值的类型 */
 export type TCSSPropertyValueType = string | number;
-export interface IDiffNode {
+export interface IDiffNode extends ITreeNode {
   type: number; // 差异类型，是 DiffType 的累加值
   location: string; // 为了方便日志输出
 
@@ -122,7 +136,7 @@ export interface IDiffNode {
   rect?: IDistinctionDetail<number>[];
   dataset?: IDistinctionDetail<DOMStringMap>;
 
-  children?: IDiffNode[];
+  children: IDiffNode[];
   parent?: IDiffNode; // 生成 diff 结果时，用于获取生成节点路径
 
   text?: IDistinctionDetail<string>;
