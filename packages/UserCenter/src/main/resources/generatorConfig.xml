@@ -63,7 +63,7 @@
     </sqlMapGenerator>
 
     <!-- 生成接口dao -->
-    <javaClientGenerator targetPackage="dev.yidafu.surpass.UserCenter.dao" targetProject="src/main/java" type="XMLMAPPER">
+    <javaClientGenerator targetPackage="dev.yidafu.surpass.UserCenter.dao" targetProject="src/main/java" type="ANNOTATEDMAPPER">
       <property name="enableSubPackages" value="false"/>
     </javaClientGenerator>
 
