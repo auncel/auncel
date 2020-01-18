@@ -11,8 +11,8 @@
  *-------------------------------------------------------------------------- */
 /* eslint-disable no-param-reassign */
 import md5 from 'md5';
-import { IRenderNode, NodeType } from '@surpass/common/types/domCore';
-// import { TAttributes } from '@surpass/common/types/element';
+import { IRenderNode, NodeType } from '../../renderNode/domCore';
+// import { TAttributes } from '../../lib/types/element';
 
 // function attrs2String(attrs: TAttributes): string {
 //   return attrs ? Object

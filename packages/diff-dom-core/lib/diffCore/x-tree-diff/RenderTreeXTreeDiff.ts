@@ -11,7 +11,7 @@
  *-------------------------------------------------------------------------- */
 /* eslint-disable class-methods-use-this */
 
-import { NodeType, IRenderNode } from '../../types/domCore';
+import { NodeType, IRenderNode } from '../../renderNode/domCore';
 // why???
 import {
   XTreeDiff, XTree, NodeType as XTreeNodeType, EditOption,
@@ -55,7 +55,7 @@ export default class RenderNodeXTreeDiff extends XTreeDiff<IDiffRenderNode> {
    * 暂不考虑冗余节点的情况
    * @param {XTree} rootA
    */
-  public dumpXTree(
+  public dumpXTree<IDiffRenderNode>(
     rootA: XTree<IDiffRenderNode>,
   ): IDiffRenderNode {
     // const rootB = rootA.nPtr;

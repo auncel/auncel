@@ -9,7 +9,7 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import { IRenderNode } from '../../types/domCore';
+import { IRenderNode } from '../../renderNode/domCore';
 import { IDiffRenderNode, createDiffRenderNode, RenderNodeDiffType } from './DiffRenderNode';
 
 export function renderNode2DiffRenderNode(root: IRenderNode): IDiffRenderNode {

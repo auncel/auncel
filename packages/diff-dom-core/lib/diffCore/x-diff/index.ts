@@ -11,8 +11,8 @@
  *-------------------------------------------------------------------------- */
 /* eslint-disable no-param-reassign */
 import md5 from 'md5';
-import { IRenderNode, IDiffNode, NodeType, DiffType } from '@surpass/common/types/domCore';
-import { TAttributes } from '@surpass/common/types/element';
+import { IRenderNode, IDiffNode, NodeType, DiffType } from '../../lib/renderNode/domCore';
+import { TAttributes } from '../../lib/renderNode/element';
 import { strictEqualDiff } from '../stricly-equal/index';
 import getLeafs from './getLeafs';
 import hashing from './hashing';

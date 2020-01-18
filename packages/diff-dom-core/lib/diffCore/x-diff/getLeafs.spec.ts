@@ -12,7 +12,7 @@
 import {
   IRenderNode,
   NodeType,
-} from "@surpass/common/types/domCore";
+} from "lib/renderNode/domCore";
 import getLeafs from "./getLeafs";
 
 describe('getLeafs', () => {

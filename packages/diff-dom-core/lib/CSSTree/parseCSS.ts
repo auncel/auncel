@@ -9,13 +9,8 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
-// FIXME: Why canot import css-tree directly
-// eslint-disable-next-line import/no-duplicates
-import { CssNode, SelectorList } from './types';
+import * as CSSTree from 'css-tree';
 import CSSShorthandProperties from '../RenderTree/CSSShorthandProperties';
-// eslint-disable-next-line import/no-duplicates
-// import * as CSSTree from 'css-tree';
-const CSSTree = require('../../node_modules/css-tree/dist/csstree.js');
 
 /**
  * @param text CSS 字符串
@@ -24,7 +19,7 @@ export function parseCSS(text): Map<string, Set<string>> {
   const ast = CSSTree.parse(text);
   const selectorMap = new Map<string, Set<string>>();
   // eslint-disable-next-line prefer-arrow-callback
-  CSSTree.walk(ast, function astVisitor(node: CssNode): void {
+  CSSTree.walk(ast, function astVisitor(node: CSSTree.CssNode): void {
     if (node.type === 'Rule') {
       const { prelude, block } = node;
       const properties = new Set<string>();
@@ -41,7 +36,7 @@ export function parseCSS(text): Map<string, Set<string>> {
       });
       if (prelude.type === 'SelectorList') {
         // eslint-disable-next-line no-inner-declarations
-        function getSelectorStr(prelude: SelectorList): string[] {
+        function getSelectorStr(prelude: CSSTree.SelectorList): string[] {
           const result: string[] = [];
           // NOTE: css tree 自己实现了一套数组方法，map 没用
           // TODO: 伪类

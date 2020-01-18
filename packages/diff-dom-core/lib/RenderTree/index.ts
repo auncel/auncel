@@ -9,13 +9,10 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
-import { USER_STYLE_ID } from '../const';
-import { IRenderNode } from '@surpass/common/types/domCore';
 import { appendUuid } from './appendUuid';
-import { parseCSS } from 'lib/CSSTree/parseCSS';
-import { generateRenderTreeOptions } from 'lib/config';
 import { generateRenderTree } from './generateRenderTree';
 import { computeElementStyle } from './getCSSPropertyValues';
+import { TRenderNode } from '../renderNode/RenderNode';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
@@ -24,7 +21,7 @@ declare global {
   }
 }
 
-export function generateTree(): IRenderNode {
+export function generateTree(): TRenderNode {
   const doc = document;
   // 1. 附加 uuid
   appendUuid(doc);

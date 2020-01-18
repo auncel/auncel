@@ -10,12 +10,11 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
-import { ElementNotExistError } from '@surpass/common/exceptions/index';
+import { ElementNotExistError } from '../exceptions/index';
 import { parseCSS } from '../CSSTree/parseCSS';
-import { USER_STYLE_ID } from '../const';
+import { USER_STYLE_ID } from '../utils/const';
 
 export const UUID_ATTR = '__uuid__';
-
 
 export function computeElementStyle(document: Document): Map<string, Map<string, string>> {
   const elementStyleCache: Map<string, Map<string, string>> = new Map();

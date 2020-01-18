@@ -15,13 +15,12 @@
  *-------------------------------------------------------------------------- */
 
 import { generateRenderTree } from './generateRenderTree';
-import { readFixtures, readFixture, IFixture, IFixtureData } from '../../fixtures/readFixture';
-import { parseCSS } from '../CSSTree/parseCSS';
-import { USER_STYLE_ID } from '../const';
-import { IRenderNode } from '@surpass/common/types/domCore';
+import { readFixtures, IFixtureData } from '../../fixtures/readFixture';
+import { USER_STYLE_ID } from '../utils/const';
 import { computeElementStyle } from './getCSSPropertyValues';
+import { TRenderNode } from '../renderNode/RenderNode';
 
-function getRenderTree(fixture: IFixtureData): IRenderNode {
+function getRenderTree(fixture: IFixtureData): TRenderNode {
   if (!fixture) return null;
   const { fragment, stylesheet, } = fixture;
   let $userStyle = document.getElementById(USER_STYLE_ID);

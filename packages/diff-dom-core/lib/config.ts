@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { TCSSProperty } from '@surpass/common/types/css';
-import { TTag, TTagAttribute } from '@surpass/common/types/element';
+import { TCSSProperty } from './renderNode/css';
+import { TTag, TTagAttribute } from './renderNode/element';
 
 export interface IGenerateRenderTreeOptions {
   ignoreElement?: TTag[];

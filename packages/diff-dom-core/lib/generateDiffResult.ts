@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { IDiffNode, IDiffLog, DiffType, DistinctionType } from '@surpass/common/types/domCore';
+import { IDiffNode, IDiffLog, DiffType, DistinctionType } from '../lib/renderNode/domCore';
 
 function getNodeLocation(node: IDiffNode): string {
   const buff = [];

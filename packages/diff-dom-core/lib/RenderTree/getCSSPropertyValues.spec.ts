@@ -15,7 +15,7 @@
  *-------------------------------------------------------------------------- */
 
 import { computeElementStyle } from './getCSSPropertyValues';
-import { USER_STYLE_ID } from '../const';
+import { USER_STYLE_ID } from '../utils/const';
 import { appendUuid } from './appendUuid';
 import { readFixture } from '../../fixtures/readFixture';
 
@@ -78,9 +78,9 @@ describe('simple jsdom env', () => {
     expect(propetyMap.get('uuid_0_0').size).toBe(11);
   });
 
-  test('margin logogram', () => {
-    const qustionFixture = readFixture(__dirname + '/../../fixtures/css/logogram/margin/margin.question.html');
-    const answer1Fixture = readFixture(__dirname + '/../../fixtures/css/logogram/margin/mixed.answer.html');
+  test('margin shorthand', () => {
+    const qustionFixture = readFixture(__dirname + '/../../fixtures/css/shorthand/margin/margin.question.html');
+    const answer1Fixture = readFixture(__dirname + '/../../fixtures/css/shorthand/margin/mixed.answer.html');
     document.body.innerHTML = qustionFixture.fragment;
     appendUuid(document);
 

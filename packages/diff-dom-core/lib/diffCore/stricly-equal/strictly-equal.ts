@@ -12,12 +12,12 @@
 
 import {
   IRenderNode, IDiffNode, DistinctionType, DiffType, NodeType,
-} from '@surpass/common/types/domCore';
-import { IStrictlyEqualOption } from 'lib/config';
+} from '../../renderNode/domCore';
+import { IStrictlyEqualOption, strictlyEqualOption } from '../../config';
 import {
   getDiffNode, isElementType, createDistinction, createDiffNode,
 } from '../utils';
-import { strictlyEqualOption } from '../../config';
+
 
 /**
  * Depth-first traversal

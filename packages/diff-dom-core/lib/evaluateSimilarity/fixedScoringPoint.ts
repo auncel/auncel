@@ -19,7 +19,7 @@ import {
   IDistinctionDetail,
   TCSSPropertyValueType,
   TAttrPropertyType,
-} from '@surpass/common/types/domCore';
+} from '../../lib/renderNode/domCore';
 
 function getNodeLocation(node: IDiffNode): string {
   const buff = [];

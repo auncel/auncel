@@ -9,7 +9,7 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import { IRenderNode, NodeType } from "@surpass/common/types/domCore";
+import { IRenderNode, NodeType } from "lib/renderNode/domCore";
 import { cloneDeep } from 'lodash';
 import { hashing } from "./hashing";
 

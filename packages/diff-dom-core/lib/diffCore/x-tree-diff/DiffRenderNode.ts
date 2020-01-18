@@ -10,31 +10,18 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-import { IRenderNode, ITreeNode } from '../../types/domCore';
+import { IRenderNode, ITreeNode } from '../../renderNode/domCore';
+import ElementRenderNode from 'lib/renderNode/ElementRenderNode';
+import { TRenderNode } from 'lib/renderNode/RenderNode';
 
-export enum RenderNodeDiffType {
+export enum DiffRenderNodeType {
   EQUALITY,
   INEQUAL,
   MISSING,
   EXTRA,
 }
 
-export interface IDiffRenderNode extends ITreeNode {
-  type: RenderNodeDiffType;
-  actual: IRenderNode;
-  expect: IRenderNode;
-  visited: boolean;
-  children: IDiffRenderNode[];
-}
-
-export function createDiffRenderNode(
-  actual: IRenderNode, expect: IRenderNode = null, type: RenderNodeDiffType = RenderNodeDiffType.EQUALITY,
-): IDiffRenderNode {
-  return {
-    actual,
-    expect,
-    type,
-    visited: false,
-    children: [],
-  };
+export class DiffRenderNode extends ElementRenderNode {
+  diffType: DiffRenderNodeType;
+  diffPtr: ElementRenderNode;
 }

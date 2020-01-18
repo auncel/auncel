@@ -10,7 +10,7 @@
  * Copyright 2019 - 2019 Mozilla Public License 2.0 License                  *
  *-------------------------------------------------------------------------- */
 
-import { DistinctionType } from '@surpass/common/types/domCore.ts';
+import { DistinctionType } from '../renderNode/domCore';
 import { distinctionCompare } from './utils';
 
 describe('utils: objectCompare', () => {

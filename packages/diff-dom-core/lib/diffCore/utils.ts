@@ -11,11 +11,11 @@
  *-------------------------------------------------------------------------- */
 
 import { isEqual } from 'lodash';
-import { TStyleProps } from '@surpass/common/types/css';
+import { TStyleProps } from '../renderNode/css';
 import { IDistinctionDetail, DistinctionType,
   NodeType, TAttrPropertyType, TCSSPropertyValueType, TNodeRect,
   IRenderNode, IDiffNode, DiffType,
-} from '@surpass/common/types/domCore';
+} from '../renderNode/domCore';
 import {
   IStrictlyEqualAttrOption, IStrictlyEqualOption, IStrictlyEqualStyleOption,
 } from '../config';

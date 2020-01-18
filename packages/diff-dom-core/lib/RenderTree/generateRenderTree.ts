@@ -1,27 +1,30 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-param-reassign */
-import { IRenderNode, NodeType } from '@surpass/common/types/domCore';
-import { createEmptyNode, createTextNode } from '../utils';
-import { TTagAttribute, TTag } from '@surpass/common/types/element';
-// import cloneDeep from 'lodash/fp/cloneDeep';
+import { NodeType } from '../renderNode/domCore';
+import { createTextNode } from '../utils/index';
+import { TTag } from '../../lib/renderNode/element';
 import { getAttrs, getStyle, getRect, getUuid } from './utils';
 import { IGenerateRenderTreeOptions, mergeWithDefaultConfig } from '../config';
+import { TRenderNode } from '../renderNode/RenderNode';
+import ElementRenderNode from '../renderNode/ElementRenderNode';
+import TextRenderNode from '../renderNode/TextRenderNode';
 
 /**
  * Depth-first traversal
  *
  * @param {Element} domNode
- * @param {IRenderNode} renderNode
+ * @param {TRenderNode} renderNode
  */
 function depthFirstTraversal(
-  domNode: Element,
-  renderNode: IRenderNode,
+  domNode: HTMLElement,
   coordinate: {x: number; y: number},
   config: IGenerateRenderTreeOptions,
-): void {
+): TRenderNode {
+  let renderNode: TRenderNode = null;
   if (domNode.nodeType === NodeType.ELEMENT_NODE) {
+    const tagName = domNode.tagName as TTag;
+    renderNode = new ElementRenderNode(tagName);
     renderNode.id = domNode.id;
-    const tagName = renderNode.tagName = domNode.tagName as TTag;
     renderNode.className = domNode.className;
     renderNode.nodeType = NodeType.ELEMENT_NODE;
 
@@ -32,7 +35,6 @@ function depthFirstTraversal(
 
     if (!config.noChildElement.includes(tagName)) {
       const children = domNode.childNodes;
-      renderNode.children = [];
 
       let x = coordinate.x;
       if (typeof renderNode.rect.top !== 'undefined') {
@@ -46,31 +48,29 @@ function depthFirstTraversal(
       const nextCoordinate = { x, y };
 
       for (let i = 0; i < children.length; i++) {
-        const childNode = children[i] as Element;
+        const childNode = children[i] as HTMLElement;
         if (childNode.nodeType === NodeType.TEXT_NODE) {
           const text = childNode.nodeValue.trim();
           if (text) { // 排除空串
             const textChild = createTextNode(text);
-            renderNode.children.push(textChild);
+            renderNode.append(textChild);
           }
         } else {
-          const renderChild = createEmptyNode(tagName);
-          renderNode.children.push(renderChild);
-          depthFirstTraversal(childNode, renderChild, nextCoordinate, config);
+          const elementChild = depthFirstTraversal(childNode, nextCoordinate, config);
+          renderNode.append(elementChild);
         }
       }
     }
   } else if (domNode.nodeType === NodeType.TEXT_NODE) {
-    renderNode.nodeType = NodeType.TEXT_NODE;
-    renderNode.text = domNode.nodeValue;
+    renderNode = new TextRenderNode(domNode.nodeValue);
   }
+
+  return renderNode;
 }
 
 export function generateRenderTree(
-  body: Element, config: IGenerateRenderTreeOptions = {},
-): IRenderNode {
-  const root = createEmptyNode();
+  body: HTMLElement, config: IGenerateRenderTreeOptions = {},
+): TRenderNode {
   mergeWithDefaultConfig(config);
-  depthFirstTraversal(body, root, { x: 0, y: 0 }, config);
-  return root;
+  return depthFirstTraversal(body, { x: 0, y: 0 }, config);
 }
