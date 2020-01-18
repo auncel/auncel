@@ -27,3 +27,8 @@
 ![](./rect-log.png)
 
 选择 log2 作为系数。
+
+GI-complate and GL-hard problem
+graph isomorimphism problem
+
+tree base idff algorithm

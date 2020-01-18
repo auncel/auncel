@@ -5,6 +5,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "target": "es2015",
     "sourceMap": true,
@@ -22,8 +23,10 @@
   "include": [
     "fixtures/**/*",
     "lib/**/*",
+    "test/**/*",
     "@surpass/**/*",
     "node_modules/@surpass/**/*",
+    "node_modules/@dovyih/**/*",
   ],
   "exclude": ["node_modules", "dist"]
 }
