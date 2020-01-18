@@ -13,7 +13,7 @@ const { exec, execSync } = childProcess;
 execSync('ps -A | grep chrome')
   .toString()
   .split('\n')
-  .map(line => line.slice(0, line.indexOf(' ')))
-  .forEach(pid => exec(`kill ${pid}`));
+  .map(line => line && line.trim().match(/^\d+/)[0])
+  .forEach((pid) => { exec(`kill ${pid}`); });
 
 console.log(execSync('ps -A | grep chrome').toString());
