@@ -48,8 +48,8 @@ export type TNodeRect = {
 
 export interface ITreeNode {
   children: ITreeNode[];
-  // hasChildren(): boolean;
-  // forEach(callback: (node: ITreeNode, index?: number, thisArg?: ITreeNode) => void): void;
+  hasChildren(): boolean;
+  forEach?(callback: (node: ITreeNode, index?: number, thisArg?: ITreeNode) => void): void;
 }
 
 export interface IRenderNode extends ITreeNode {
