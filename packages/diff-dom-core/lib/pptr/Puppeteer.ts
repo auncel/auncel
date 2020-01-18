@@ -1,5 +1,5 @@
 import { Browser, launch } from 'puppeteer';
-import log from '../logger/puppeteer';
+// import log from '../logger/puppeteer';
 import { PageManager } from './PageManager';
 import { MAX_PAGE_POOL_SIZE } from './constants';
 
@@ -9,7 +9,7 @@ export class Puppeteer {
 
   public static async getBrowser(): Promise<Browser> {
     if (!this.browser) {
-      log.info(`start launch puppeteer at ${Date.now()}`);
+      // log.info(`start launch puppeteer at ${Date.now()}`);
       console.time('puppeteer launch');
       this.browser = await launch({
         args: ['--no-sandbox'],
@@ -19,10 +19,11 @@ export class Puppeteer {
         },
       });
       console.timeEnd('puppeteer launch');
-      log.info(`launch puppeterr at ${Date.now()}`);
+      // log.info(`launch puppeterr at ${Date.now()}`);
       // 注册异常退出回调
       process.on('uncaughtException', async (err) => {
-        log.error('uncaughtException', err.message);
+        // log.error('uncaughtException', err.message);
+        console.log(err);
         await Puppeteer.close();
       });
     }

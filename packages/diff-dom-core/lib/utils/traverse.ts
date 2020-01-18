@@ -9,7 +9,7 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import { ITreeNode } from '../types/domCore';
+import { ITreeNode } from '../renderNode/domCore';
 
 export type visitorFn = <T>(node: T, index: number, parent: T | null) => boolean | void;
 

@@ -1,5 +1,5 @@
 import { Page, Browser } from 'puppeteer';
-import log from '../logger/puppeteer';
+// import log from '../logger/puppeteer';
 import { MAX_PAGE_POOL_SIZE } from './constants';
 import sleep from '../utils/sleep';
 /**
@@ -30,7 +30,7 @@ export class PageManager {
 
   public async initPagePool(browser: Browser): Promise<void> {
     this.isCreating = true;
-    log.info(`started creating ${this.poolSize} page instance at ${Date.now()}`);
+    // log.info(`started creating ${this.poolSize} page instance at ${Date.now()}`);
     console.time(`creating ${this.poolSize} page instance`);
     const pagePromises: Promise<Page>[] = [];
     for (let i = 0; i < this.poolSize; i++) {
@@ -39,7 +39,7 @@ export class PageManager {
 
     const pageArr = await Promise.all(pagePromises);
     console.timeEnd(`creating ${this.poolSize} page instance`);
-    log.info(`creating ${this.poolSize} page instance finished at ${Date.now()}`);
+    // log.info(`creating ${this.poolSize} page instance finished at ${Date.now()}`);
     this.isCreating = false;
     this.pagePool.push(...pageArr);
   }
@@ -48,7 +48,7 @@ export class PageManager {
     // TODO: retry times limit
     // wait
     while (this.isCreating || this.getAvailablePoolSize() === 0) {
-      log.warn('awaiting for get Page');
+      // log.warn('awaiting for get Page');
       await sleep(200);
     }
 
