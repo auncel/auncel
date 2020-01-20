@@ -1,56 +1,57 @@
 {
-	"name": "@surpass/diff-dom-core",
-	"version": "0.0.1",
-	"description": "core dom based algorithm",
-	"author": "yidafu <yidafu90@qq.com>",
-	"homepage": "https://github.com/yidafu/fe-oj#readme",
-	"license": "MIT",
-	"main": "lib/diff-dom-core.js",
-	"directories": {
-		"lib": "lib"
-	},
-	"files": [
-		"lib"
-	],
-	"scripts": {
-		"build": "webpack",
-		"test": "jest",
-		"tsc": "tsc --build tsconfig.json",
-		"ts": "node -r ts-node/register --project ./tsconfig.json"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/yidafu/fe-oj.git"
-	},
-	"bugs": {
-		"url": "https://github.com/yidafu/fe-oj/issues"
-	},
-	"devDependencies": {
-		"@types/jest": "^24.0.23",
-		"@types/js-yaml": "^3.12.1",
-		"@types/lodash": "^4.14.149",
-		"@types/md5": "^2.1.33",
-		"@types/node": "^12.12.7",
-		"@types/uuid": "^3.4.6",
-		"ts-jest": "^24.2.0",
-		"ts-loader": "^6.2.1",
-		"ts-node": "^8.5.2",
-		"tsconfig-paths-webpack-plugin": "^3.2.0",
-		"typescript": "^3.7.2",
-		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.10"
-	},
-	"dependencies": {
-		"@dovyih/x-tree-diff": "0.0.1-alpha.1",
-		"@types/css-tree": "^1.0.3",
-		"css-tree": "^1.0.0-alpha.39",
-		"csstree": "^0.0.3",
-		"jest": "^24.9.0",
-		"js-yaml": "^3.13.1",
-		"lodash": "^4.17.15",
-		"md5": "^2.2.1",
-		"puppeteer": "^2.0.0",
-		"uuid": "^3.3.3",
-		"winston": "^3.2.1"
-	}
+  "name": "@surpass/diff-dom-core",
+  "version": "0.0.1",
+  "description": "core dom based algorithm",
+  "author": "yidafu <yidafu90@qq.com>",
+  "homepage": "https://github.com/yidafu/fe-oj#readme",
+  "license": "MIT",
+  "main": "lib/diff-dom-core.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "webpack",
+    "test": "jest",
+    "tsc": "tsc --build tsconfig.json",
+    "ts": "node -r ts-node/register --project ./tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yidafu/fe-oj.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yidafu/fe-oj/issues"
+  },
+  "devDependencies": {
+    "@types/css-tree": "^1.0.3",
+    "@types/jest": "^24.0.23",
+    "@types/js-yaml": "^3.12.1",
+    "@types/lodash": "^4.14.149",
+    "@types/md5": "^2.1.33",
+    "@types/node": "^12.12.7",
+    "@types/puppeteer": "^2.0.0",
+    "@types/uuid": "^3.4.6",
+    "ts-jest": "^24.2.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.5.2",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@dovyih/x-tree-diff": "0.0.1-alpha.1",
+    "css-tree": "^1.0.0-alpha.39",
+    "csstree": "^0.0.3",
+    "jest": "^24.9.0",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "md5": "^2.2.1",
+    "puppeteer": "^2.0.0",
+    "uuid": "^3.3.3",
+    "winston": "^3.2.1"
+  }
 }
