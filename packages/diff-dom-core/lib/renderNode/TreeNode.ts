@@ -18,10 +18,10 @@ export type TTreeNodeCallback = (
 
 export default abstract class TreeNode {
   parent?: TreeNode;
-  children: Set<TreeNode> = new Set();
+  children: TreeNode[] = [];
 
   hasChildren(): boolean {
-    return this.children.size !== 0;
+    return this.children.length !== 0;
   }
 
   forEach(callback: TTreeNodeCallback): void {
@@ -33,6 +33,6 @@ export default abstract class TreeNode {
   }
 
   append(child: TreeNode): void {
-    this.children.add(child);
+    this.children.push(child);
   }
 }

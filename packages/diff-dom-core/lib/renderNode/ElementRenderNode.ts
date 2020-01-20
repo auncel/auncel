@@ -34,7 +34,7 @@ export default class ElementRenderNode extends TreeNode {
 
   style: TStyleProps = {};
 
-  children: Set<ElementRenderNode>;
+  // children: ElementRenderNode[];
   text?: string; // for TEXT_NODE
 
   // xHash?: string; // 专门给 x-diff 算法
