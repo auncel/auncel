@@ -1,32 +1,26 @@
 {
   "compilerOptions": {
-    "module": "es2015",
+    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    // https://github.com/facebook/jest/issues/8218#issuecomment-486464992
+    "moduleResolution": "node",
     "target": "es2015",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "paths": {
-      "@surpass/common/*": ["../common/*"],
-    },
     "lib": [
       "es2019",
       "dom"
     ]
   },
   "include": [
-    "fixtures/**/*",
     "lib/**/*",
-    "test/**/*",
-    "@surpass/**/*",
-    "node_modules/@surpass/**/*",
-    "node_modules/@dovyih/**/*",
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "**/*.spec.ts", "lib/diffCore/"]
 }
