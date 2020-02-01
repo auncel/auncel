@@ -16,16 +16,21 @@ require('../../common/dist/polyfill/toJSON');
 /**
  * generate Render Tree
  *
- * @exports
- * @param {String} html
+ * @param {(string| {fragment:string, stylesheet?:string})} option
+ * @returns {Promise<RenderNode>}
  */
-module.exports = async function generateRenderTree(filePath) {
-  const htmlData = readFixture(filePath);
+module.exports = async function generateRenderTree(option) {
+  let htmlStr = '';
+  if (typeof filePath === 'string') {
+    const htmlData = readFixture(option);
+    htmlStr = createHTMLTpl(htmlData.fragment, htmlData.stylesheet);
+  } else {
+    htmlStr = createHTMLTpl(option.fragment, option.stylesheet);
+  }
   const pageManager = await Puppeteer.getPageManager();
   const diffScript = await readJSFile(`${__dirname}/../dist/diff.js`);
   const page = await pageManager.getPage();
-  await page.setContent(
-    createHTMLTpl(htmlData.fragment, htmlData.stylesheet),
+  await page.setContent(htmlStr,
   );
   const renderTree = await page.evaluate(
     `${diffScript}; window.Diff.generateRenderTree();`,
