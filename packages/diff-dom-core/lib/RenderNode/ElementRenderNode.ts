@@ -9,13 +9,29 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import { NodeType, TNodeRect, DiffType } from './domCore';
+import { NodeType, TNodeRect } from './domCore';
 import { TAttributes, TTag } from './element';
 import { TStyleProps } from './css';
-import TreeNode from './TreeNode';
-import RenderNode from './RenderNode';
+import RenderNode, { IRenderNode } from './RenderNode';
 
-export default class ElementRenderNode extends RenderNode {
+export interface IElementRenderNode extends IRenderNode {
+  attr: TAttributes;
+
+  id?: string;
+  uuid?: string;
+  className?: string;
+
+  nodeName?: string;
+  nodeType: NodeType.ELEMENT_NODE;
+
+  rect: TNodeRect;
+
+  dataset?: DOMStringMap;
+
+  style: TStyleProps;
+}
+
+export default class ElementRenderNode extends RenderNode implements IElementRenderNode {
   /**
    * TODO: 完善 attribute
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes#Attribute_list
@@ -27,7 +43,7 @@ export default class ElementRenderNode extends RenderNode {
   className?: string;
 
   nodeName?: string;
-  nodeType: NodeType.ELEMENT_NODE;
+  nodeType: NodeType.ELEMENT_NODE = NodeType.ELEMENT_NODE;
 
   rect: TNodeRect = { top: 0, left: 0, width: 0, height: 0, y: 0, x: 0 };
 
@@ -42,9 +58,13 @@ export default class ElementRenderNode extends RenderNode {
   // parent?: IRenderNode; // x-diff 需要
   // nodeDiffType?: DiffType;
 
-  constructor(tagName: TTag = 'div') {
+  constructor(tagName: TTag | IElementRenderNode = 'div') {
     super();
-    this.tagName = tagName;
+    if (typeof tagName === 'string') {
+      this.tagName = tagName;
+    } else {
+      Object.assign(this, tagName);
+    }
   }
 }
 

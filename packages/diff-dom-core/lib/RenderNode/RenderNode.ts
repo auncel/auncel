@@ -17,7 +17,14 @@ import { TTag } from './element';
 
 export type TRenderNode = ElementRenderNode | TextRenderNode;
 
-export default class RenderNode extends TreeNode {
+export interface IRenderNode {
+  children: TreeNode[];
   nodeType: NodeType;
   tagName: TTag | '#text';
 }
+class RenderNode extends TreeNode implements IRenderNode {
+  nodeType: NodeType;
+  tagName: TTag | '#text';
+}
+
+export default RenderNode;

@@ -14,13 +14,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import { NodeType } from './domCore';
-import { TTreeNodeCallback } from './TreeNode';
-import RenderNode from './RenderNode';
+import RenderNode, { IRenderNode } from './RenderNode';
+import TreeNode, { TTreeNodeCallback } from './TreeNode';
 
-export default class TextRenderNode extends RenderNode {
+
+export interface ITextRenderNode extends IRenderNode {
+  text: string;
+  tagName: '#text';
+  nodeType: NodeType.TEXT_NODE;
+}
+
+export default class TextRenderNode extends RenderNode implements ITextRenderNode {
   text: string;
   tagName = '#text' as const;
-  nodeType: NodeType.TEXT_NODE;
+  nodeType: NodeType.TEXT_NODE = NodeType.TEXT_NODE;
 
   constructor(text = '') {
     super();
@@ -31,11 +38,11 @@ export default class TextRenderNode extends RenderNode {
     return false;
   }
 
-  forEach(callback: TTreeNodeCallback): void {
-    // noop
-  }
+  // forEach(callback: TTreeNodeCallback): void {
+  //   // noop
+  // }
 
-  append(child: TextRenderNode): void {
-    this.text += child.text;
+  append<TextRenderNode>(child: TextRenderNode): never {
+    throw new TypeError('can\'t append dhild to Text Node');
   }
 }

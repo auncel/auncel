@@ -9,22 +9,39 @@
  *                                                                           *
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-
+/* eslint-disable max-len */
+import RenderNode, { IRenderNode } from './RenderNode';
 import ElementRenderNode from './ElementRenderNode';
-import RenderNode from './RenderNode';
+import TextRenderNode from './TextRenderNode';
 
 export enum ShadowDiffType {
+  NONE = 0b0,
   SHADOW_NODE = 0b1,
   SHADOW_CHILDREN = 0b10,
+  EXTRA_NODE = 0b100,
+  MISSING_NODE = 0b1000,
+  MOVED_NODE = 0b10000,
 }
 
-export default class ShadowRenderNode extends RenderNode {
-  public diffType;
-  public shadowNode: RenderNode = null;
-  public shadowChildren: RenderNode[];
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
+interface ShadowRenderNode
+  extends RenderNode,
+    Omit<ElementRenderNode, 'tagName' | 'nodeType' | 'parent' | 'children' | 'hasChildren' | 'forEach' | 'append'>,
+    Omit<TextRenderNode, 'tagName' | 'nodeType' | 'parent' | 'children' | 'hasChildren' | 'forEach' | 'append'> {
+  diffType: ShadowDiffType;
+  shadowNode: ShadowRenderNode;
+  shadowChildren: ShadowRenderNode[];
+}
 
-  constructor(renderNode: RenderNode) {
+class ShadowRenderNode extends RenderNode {
+  public diffType: ShadowDiffType = ShadowDiffType.NONE;
+  public shadowNode: ShadowRenderNode = null;
+  public shadowChildren: ShadowRenderNode[] = [];
+
+  constructor(renderNode: RenderNode | IRenderNode) {
     super();
     Object.assign(this, renderNode);
   }
 }
+
+export default ShadowRenderNode;

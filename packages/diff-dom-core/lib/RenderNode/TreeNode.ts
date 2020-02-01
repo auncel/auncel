@@ -10,13 +10,18 @@
  * Copyright 2019 - 2020 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
 
-export type TTreeNodeCallback = (
-  node: TreeNode,
+export type TTreeNodeCallback<T extends TreeNode = TreeNode> = (
+  node: T,
   index?: number,
   thisArg?: TreeNode | TreeNode[]
-) => void;
+) => void | T;
 
-export default abstract class TreeNode {
+export interface ITreeNode {
+  parent?: TreeNode;
+  children: TreeNode[];
+}
+
+abstract class TreeNode {
   parent?: TreeNode;
   children: TreeNode[] = [];
 
@@ -24,15 +29,39 @@ export default abstract class TreeNode {
     return this.children.length !== 0;
   }
 
-  forEach(callback: TTreeNodeCallback): void {
-    let index = 1;
-    this.children.forEach((node) => {
+  get<T extends TreeNode = TreeNode>(index: number): T {
+    if (index >= this.children.length) {
+      throw RangeError('node index out of range');
+    }
+    return this.children[index] as T;
+  }
+
+  forEach<T extends TreeNode = TreeNode>(callback: TTreeNodeCallback<T>): void {
+    this.children.forEach((node: T, index) => {
       callback(node, index, this);
-      index += 1;
     });
   }
 
-  append(child: TreeNode): void {
-    this.children.push(child);
+  map<T extends TreeNode = TreeNode>(callback: TTreeNodeCallback<T>): T[] {
+    return this.children.map((node: T, index) =>
+      callback(node, index, this) as T,
+    );
+  }
+
+  set<T extends TreeNode = TreeNode>(index: number, child: T): void {
+    this.children[index] = child;
+  }
+  append<T extends TreeNode = TreeNode>(child: T | T[]): void {
+    if (Array.isArray(child)) {
+      child.forEach(node => this.children.push(node));
+    } else {
+      this.children.push(child);
+    }
+  }
+
+  clear(): void {
+    this.children.length = 0;
   }
 }
+
+export default TreeNode;
