@@ -1,11 +1,12 @@
 import * as fs from 'fs';
-import { join, relative } from 'path';
+import { join, relative, resolve } from 'path';
 import * as YAML from 'js-yaml';
 
 const SPLITTER = '<!-- splitter -->';
 
 export interface IFixtureData {
   name: string;
+  filename: string;
   description: string;
   similarity: number;
   type: string;
@@ -19,7 +20,15 @@ export interface IFixture {
   answers: IFixtureData[];
 }
 
-export function readFixture(filepath): IFixtureData {
+/**
+ * 解析 html 文件，返回 IFixtureData
+ * html 文件需要遵循特殊格式
+ *
+ * @export
+ * @param {string} filepath html 文件路径
+ * @returns {IFixtureData}
+ */
+export function readFixture(filepath: string): IFixtureData {
   if (!fs.existsSync(filepath)) {
     throw Error(`file ${filepath} dosen't exist!`);
   }
@@ -42,6 +51,7 @@ export function readFixture(filepath): IFixtureData {
 
   return {
     name,
+    filename,
     description,
     similarity,
     type,
@@ -50,18 +60,26 @@ export function readFixture(filepath): IFixtureData {
   };
 }
 
-
-export function readFixtures(dirpath): IFixture {
-  if (!fs.statSync(dirpath).isDirectory) {
-    throw Error(`${dirpath} must be Directory`);
+/**
+ * 读取指定目录下的所有 html fixture
+ * 返回 IFixture
+ *
+ * @export
+ * @param {string} dirpath html fixture 所在目录，相对与 fixtures/ 目录
+ * @returns {IFixture}
+ */
+export function readFixtures(dirpath: string): IFixture {
+  const absPath = resolve(__dirname, dirpath);
+  if (fs.existsSync(absPath) && !fs.statSync(absPath).isDirectory) {
+    throw Error(`${absPath} must be Directory`);
   }
   const fixtureObject: IFixture = { title: '', question: null, answers: [] };
   fixtureObject.title = relative(__dirname, dirpath).split('/').join(' -> ');
-  const filenames = fs.readdirSync(dirpath);
+  const filenames = fs.readdirSync(absPath);
   filenames.sort(); // 字母排序
   // eslint-disable-next-line no-restricted-syntax
   for (const filename of filenames) {
-    const fixtureData = readFixture(join(dirpath, filename));
+    const fixtureData = readFixture(join(absPath, filename));
     if (fixtureData.type === 'question') {
       fixtureObject.question = fixtureData;
     } else {
@@ -71,6 +89,12 @@ export function readFixtures(dirpath): IFixture {
   return fixtureObject;
 }
 
+/**
+ * 解析 fixtures/ 目录下的所有子目录
+ *
+ * @export
+ * @returns {Map<string, IFixture>} key 是表示文件路径
+ */
 export function readAllFixtures(): Map<string, IFixture> {
   const fixtrueMap = new Map<string, IFixture>();
 
