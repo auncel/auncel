@@ -55,7 +55,7 @@ function depthFirstTraversal(
             const textChild = createTextNode(text);
             renderNode.append(textChild);
           }
-        } else {
+        } else if (childNode.nodeType === NodeType.ELEMENT_NODE) {
           const elementChild = depthFirstTraversal(childNode, nextCoordinate, config);
           renderNode.append(elementChild);
         }
