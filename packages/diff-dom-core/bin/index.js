@@ -1,24 +1,41 @@
 #!/bin/ent node
-const { createHTMLTpl } = require('../dist/utils');
-const { readJSFile } = require('../dist/utils/readJSFile');
-const { Puppeteer } = require('../dist/pptr');
+const args = require('args');
+const fs = require('fs');
+const path = require('path');
+const generateRenderTree = require('./render-tree');
+
+function isDefine(val) {
+  return typeof val !== 'undefined';
+}
 
 require('../../common/dist/polyfill/toJSON');
 
-async function generateRenderTree(html, stylesheet) {
-  const pageManager = await Puppeteer.getPageManager();
-  const diffScript = await readJSFile(`${__dirname}/../dist/diff.js`);
-  const page = await pageManager.getPage();
-  await page.setContent(createHTMLTpl(html, stylesheet));
-  const renderTree = await page.evaluate(
-    `${diffScript}; window.Diff.generateRenderTree();`,
-  );
+args
+  .option('html', 'input html fixture file path')
+  .option('output', 'output file');
 
-  console.log(JSON.stringify(renderTree, null, 2));
+const config = args.parse(process.argv);
+
+
+if (isDefine(config.html)) {
+  const htmlFilePath = path.join(process.cwd(), config.html);
+  if (fs.existsSync(htmlFilePath)) {
+    generateRenderTree(htmlFilePath)
+      .then((renderTree) => {
+        if (config.output) {
+          fs.writeFileSync(config.output, JSON.stringify(renderTree, null, 2));
+        } else {
+          console.log(JSON.stringify(renderTree, null, 2));
+        }
+      })
+      .catch(console.error)
+      .finally(() => process.exit(0));
+  } else {
+    throw new Error(`file ${config.html} donsen't exist!`);
+  }
 }
 
-const args = process.argv.slice(2);
 
-generateRenderTree(`
-  <div></div>
-`, 'div { color: red; } ');
+// generateRenderTree(`
+//   <div></div>
+// `, 'div { color: red; } ');
