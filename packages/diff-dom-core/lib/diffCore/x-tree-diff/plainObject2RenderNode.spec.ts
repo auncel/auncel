@@ -9,12 +9,17 @@
  *                                                                           *
  * Copyright 2019 - 2019 Mozilla Public License 2.0                          *
  *-------------------------------------------------------------------------- */
-import { renderNode2DiffRenderNode } from './RenderNode2DiffRenderNode'
-const diffTree = require('../../../fixtures/render/diff-tree.json');
+import { plainObject2RenderNode } from './plainObject2RenderNode'
+import ElementRenderNode from '../../RenderNode/ElementRenderNode';
+import ShadowRenderNode from '../../RenderNode/ShadowRenderNode';
+// const diffTree = require('../../../fixtures/render/diff-tree.json');
 
-describe('renderNode2DiffRenderNode', () => {
-  test('fixtures/render/diff-tree.json', () => {
-    const diffRenderNode = renderNode2DiffRenderNode(diffTree)
-    expect(diffRenderNode.actual).toBe(diffTree);
+describe('RenderNode2ShadowRenderNode', () => {
+  test('{tagName: div}.children{tagName: div}', () => {
+    const renderTree = new ElementRenderNode('div');
+    renderTree.append(new ElementRenderNode('span'));
+    const shadowTree = plainObject2RenderNode(renderTree)
+    expect(shadowTree instanceof ShadowRenderNode).toBe(true);
+    expect(shadowTree.get(0) instanceof ShadowRenderNode).toBe(true);
   });
 });
