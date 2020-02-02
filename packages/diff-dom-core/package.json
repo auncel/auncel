@@ -13,7 +13,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "webpack",
+    "build": "rm -rf dist && tsc --build tsconfig.json && webpack",
     "test": "jest",
     "tsc": "tsc --build tsconfig.json",
     "ts": "node -r ts-node/register --project ./tsconfig.json"
@@ -26,6 +26,7 @@
     "url": "https://github.com/yidafu/fe-oj/issues"
   },
   "devDependencies": {
+    "@types/args": "^3.0.0",
     "@types/css-tree": "^1.0.3",
     "@types/jest": "^24.0.23",
     "@types/js-yaml": "^3.12.1",
@@ -43,7 +44,8 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
-    "@dovyih/x-tree-diff": "0.0.1-alpha.1",
+    "@dovyih/x-tree-diff": "^0.0.2-alpha.18",
+    "args": "^5.0.1",
     "css-tree": "^1.0.0-alpha.39",
     "csstree": "^0.0.3",
     "jest": "^24.9.0",
