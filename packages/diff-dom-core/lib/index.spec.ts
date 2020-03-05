@@ -18,7 +18,7 @@ import { strictEqualDiff } from './diffCore/stricly-equal/index';
 import { generateDiffResult, IFixedScoringPointResult } from './evaluateSimilarity/fixedScoringPoint';
 import { writeFileSync } from 'fs';
 import diffBeforeAll from '../test/beforeAll';
-import '@surpass/common/polyfill/toJSON';
+import '@auncel/common/polyfill/toJSON';
 
 const fixtureMap = readAllFixtures();
 const similarityMap = new Map<string, IFixedScoringPointResult>();

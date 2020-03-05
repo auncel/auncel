@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter.dto;
+package dev.yidafu.auncel.UserCenter.dto;
 
 public class RegistrationLoginParam {
   private String usernameOrEmail;

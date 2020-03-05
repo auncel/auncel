@@ -1,6 +1,6 @@
-package dev.yidafu.surpass.UserCenter.dao;
+package dev.yidafu.auncel.UserCenter.dao;
 
-import dev.yidafu.surpass.UserCenter.entity.RegisterLogs;
+import dev.yidafu.auncel.UserCenter.entity.RegisterLogs;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;

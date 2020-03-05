@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter.entity;
+package dev.yidafu.auncel.UserCenter.entity;
 
 import java.io.Serializable;
 import java.util.Date;

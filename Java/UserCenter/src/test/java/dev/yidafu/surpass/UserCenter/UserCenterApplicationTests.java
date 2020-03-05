@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter;
+package dev.yidafu.auncel.UserCenter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

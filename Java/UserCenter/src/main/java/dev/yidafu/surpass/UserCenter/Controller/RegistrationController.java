@@ -1,10 +1,10 @@
-package dev.yidafu.surpass.UserCenter.Controller;
+package dev.yidafu.auncel.UserCenter.Controller;
 
-import dev.yidafu.surpass.UserCenter.dao.UsersMapper;
-import dev.yidafu.surpass.UserCenter.dto.RegistrationLoginParam;
-import dev.yidafu.surpass.UserCenter.entity.Users;
-import dev.yidafu.surpass.UserCenter.utils.Email;
-import dev.yidafu.surpass.UserCenter.utils.Encryption;
+import dev.yidafu.auncel.UserCenter.dao.UsersMapper;
+import dev.yidafu.auncel.UserCenter.dto.RegistrationLoginParam;
+import dev.yidafu.auncel.UserCenter.entity.Users;
+import dev.yidafu.auncel.UserCenter.utils.Email;
+import dev.yidafu.auncel.UserCenter.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

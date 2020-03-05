@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter.config;
+package dev.yidafu.auncel.UserCenter.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

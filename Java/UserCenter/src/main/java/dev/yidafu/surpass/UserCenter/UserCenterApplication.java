@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter;
+package dev.yidafu.auncel.UserCenter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

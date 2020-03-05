@@ -14,7 +14,7 @@ import { Puppeteer } from '../pptr/index';
 import { IRenderNode } from '../../lib/renderNode/domCore';
 import { createHTMLTpl } from '../utils/index';
 import diffBeforeAll, { pageManager, M_diffScript } from '../../test/beforeAll';
-import '@surpass/common/polyfill/toJSON';
+import '@auncel/common/polyfill/toJSON';
 
 const divSimple = require('../../fixtures/render/simple.json');
 const loginFormSimple = require('../../fixtures/render/login-form.wrong.json');

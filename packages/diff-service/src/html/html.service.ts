@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { tokenize } from '@surpass/common/css/tokenize';
-import { IToken } from '@surpass/common/css/token';
+import { tokenize } from '@auncel/common/css/tokenize';
+import { IToken } from '@auncel/common/css/token';
 
 @Injectable()
 export class HtmlService {

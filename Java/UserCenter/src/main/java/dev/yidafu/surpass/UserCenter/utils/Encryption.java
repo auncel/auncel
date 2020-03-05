@@ -1,4 +1,4 @@
-package dev.yidafu.surpass.UserCenter.utils;
+package dev.yidafu.auncel.UserCenter.utils;
 
 import java.security.MessageDigest;
 

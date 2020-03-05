@@ -19,7 +19,7 @@ const pkgs = [
 function link(packageList, baseDir) {
   packageList.forEach((linkPkg) => {
     const linkDir = join(baseDir, linkPkg);
-    console.log(green(`create link @surpass/${linkPkg}`));
+    console.log(green(`create link @auncel/${linkPkg}`));
     execSync(`cd ${linkDir} && yarn link && cd ${baseDir}`);
   });
 
@@ -27,8 +27,8 @@ function link(packageList, baseDir) {
     packageList.forEach((targetPkg) => {
       if (pkg !== targetPkg) {
         const targetDir = join(baseDir, targetPkg);
-        console.log(green(`link @surpass/${pkg} to @surpass/${targetPkg}`));
-        execSync(`cd ${targetDir} && yarn link '@surpass/${pkg}' && cd ${baseDir}`);
+        console.log(green(`link @auncel/${pkg} to @auncel/${targetPkg}`));
+        execSync(`cd ${targetDir} && yarn link '@auncel/${pkg}' && cd ${baseDir}`);
       }
     });
   });
