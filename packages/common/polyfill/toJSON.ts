@@ -17,15 +17,28 @@ interface Map<K, V> {
   toJSON(): IPlainObject<V>;
 }
 
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
+interface Object {
+  toJSON: () => void;
+}
+
+// eslint-disable-next-line no-extend-native
+Object.prototype.toJSON = function () {
+  // avoid `Converting circular structure to JSON`
+  delete this.parent;
+  return this;
+};
+
 // eslint-disable-next-line no-extend-native
 Map.prototype.toJSON = function toJSON(...args): IPlainObject<any> {
-  // const entries = this.entries();
-  // const obj: IPlainObject = {};
-  // for (let index = 0; index < entries.length; index++) {
-  //   const [key, value] = entries[index];
-  //   obj[key] = value;
-  // }
-  return Object.fromEntries(this);
+  const entries = this.entries();
+  const obj: IPlainObject<string> = {};
+  for (let index = 0; index < entries.length; index++) {
+    const [key, value] = entries[index];
+    obj[key] = value;
+  }
+  return obj;
+  // return Object.fromEntries(this);
 };
 
 // eslint-disable-next-line @typescript-eslint/interface-name-prefix

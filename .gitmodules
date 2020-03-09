@@ -1,0 +1,3 @@
+[submodule "packages/diff-dom-core"]
+	path = packages/diff-dom-core
+	url = https://github.com/auncel/diff-dom-core
