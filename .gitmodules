@@ -1,3 +1,9 @@
 [submodule "packages/diff-dom-core"]
 	path = packages/diff-dom-core
 	url = https://github.com/auncel/diff-dom-core
+[submodule "packages/judge-center"]
+	path = packages/judge-center
+	url = git@github.com:auncel/judge-center.git
+[submodule "packages/auncel-gateway"]
+	path = packages/auncel-gateway
+	url = git@github.com:auncel/auncel-gateway.git
