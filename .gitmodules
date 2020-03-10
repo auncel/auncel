@@ -7,3 +7,6 @@
 [submodule "packages/auncel-gateway"]
 	path = packages/auncel-gateway
 	url = git@github.com:auncel/auncel-gateway.git
+[submodule "packages/user-center"]
+	path = packages/user-center
+	url = git@github.com:auncel/user-center.git
