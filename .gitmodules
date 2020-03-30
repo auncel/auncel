@@ -13,9 +13,6 @@
 [submodule "packages/common"]
 	path = packages/common
 	url = git@github.com:auncel/common.git
-[submodule "Java/contest-center"]
-	path = Java/contest-center
-	url = git@github.com:auncel/contest-center.git
 [submodule "packages/contest-center"]
 	path = packages/contest-center
 	url = git@github.com:auncel/contest-center.git
